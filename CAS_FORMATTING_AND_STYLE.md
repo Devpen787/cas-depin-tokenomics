@@ -37,7 +37,7 @@
 *   **Role**: Visuals support arguments; they do not replace explanation.
 
 ## 7. Citations and References (Explicit Choice)
-*   **Style**: APA (author–year).
+*   **Style**: Numeric (`[1]`, `[2]`) - Standard for technical/CS-related theses.
 *   **Consistency**: One style only, applied consistently.
 *   **Management**: References managed via BibTeX (`bibliography.bib`).
 *   **Requirement**: Every non-trivial factual claim must be cited.
