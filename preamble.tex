@@ -1,0 +1,53 @@
+% Character encoding and languages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+
+% Fonts: Time-tested academic choices (Times-like)
+\usepackage{mathptmx} % Use Times font for text and math
+\usepackage{courier}  % Courier for monospace
+\usepackage{helvet}   % Helvetica for sans-serif
+
+% Page Layout
+\usepackage[a4paper, top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
+
+% Line Spacing (1.5 spacing is standard for review/readability)
+\usepackage{setspace}
+\onehalfspacing
+
+% Math Support
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+% Graphics and Figures
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{subcaption}
+
+% Tables
+\usepackage{booktabs} % Professional table rules
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{longtable}
+
+% Bibliography management
+\usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
+\addbibresource{bibliography.bib}
+
+% Utility
+\usepackage[pdftex, pdfusetitle]{hyperref}
+\usepackage{url}
+\usepackage{enumerate} % Easy list customization
+
+% Hyperref setup (clean, no boxes)
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    filecolor=black,
+    urlcolor=black,
+    pdfborder={0 0 0}
+}
