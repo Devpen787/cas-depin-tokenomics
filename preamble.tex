@@ -4,7 +4,7 @@
 \usepackage[english]{babel}
 
 % Fonts: Time-tested academic choices (Times-like)
-\usepackage{mathptmx} % Use Times font for text and math
+% \usepackage{mathptmx} % Use Times font for text and math
 \usepackage{courier}  % Courier for monospace
 \usepackage{helvet}   % Helvetica for sans-serif
 
@@ -32,6 +32,7 @@
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{longtable}
+\usepackage{tabularx} % Auto-width tables
 
 % Bibliography management
 \usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
@@ -51,3 +52,10 @@
     urlcolor=black,
     pdfborder={0 0 0}
 }
+
+% Fix URL formatting in bibliography
+\urlstyle{same} % Use the same font as text for URLs (avoids wide Courier)
+
+% Allow URLs to break on lowercase and uppercase letters to prevent bad spacing
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}

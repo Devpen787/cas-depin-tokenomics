@@ -3,33 +3,98 @@
 % Import preamble
 \input{preamble}
 
-\title{CAS DePIN Tokenomics}
-\author{Collective Author}
+% Section Numbering Depth
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\title{
+    \textbf{DePIN Tokenomics Under Stress} \\
+    \large A Simulation-Based Sustainability Analysis Using the Onocoy Network as a Case Study
+}
+\author{Author A \\ Author B \\ Author C}
 \date{\today}
 
 \begin{document}
 
-\maketitle
+% Title Page
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    
+    {\Huge \textbf{DePIN Tokenomics Under Stress}}
+    
+    \vspace{0.5cm}
+    {\Large A Simulation-Based Sustainability Analysis Using the Onocoy Network as a Case Study}
+    
+    \vspace{1.5cm}
+    
+    \textbf{Author A} \\
+    \textbf{Author B} \\
+    \textbf{Author C}
+    
+    \vfill
+    
+    CAS Blockchain \\
+    Lucerne University of Applied Sciences and Arts (HSLU)
+    
+    \vspace{0.8cm}
+    
+    \today
+    
+\end{titlepage}
 
-\begin{abstract}
-% Abstract placeholder
-This is a placeholder for the abstract of the CAS DePIN Tokenomics thesis.
-\end{abstract}
+% Front Matter
+\pagenumbering{roman}
 
+% Abstract
+\section*{Abstract}
+Decentralized Physical Infrastructure Networks (DePIN) rely on token-based incentive systems to bootstrap and sustain real-world infrastructure operated by independent providers. While tokenomics is frequently discussed in terms of growth and market valuation, significantly less attention has been paid to how these mechanisms behave under adverse conditions such as demand shocks, liquidity events, or deteriorating provider economics \cite{Messari2024}. This gap is particularly consequential for DePIN systems, where infrastructure churn can lead to irreversible losses in service capacity due to physical deployment constraints.
+
+This thesis evaluates the robustness of DePIN tokenomic mechanisms under standardized stress conditions using a reproducible, simulation-based framework. Rather than forecasting token prices or predicting network success, the analysis focuses on comparative, directional behavior: how different incentive structures respond when subjected to adverse scenarios \cite{Morris2019}. An agent-based simulation model is employed to represent heterogeneous infrastructure providers interacting with a rule-based protocol under exogenous demand and macroeconomic regimes \cite{Braakman2022}.
+
+The framework is applied to the Onocoy network and its ONO token as a primary case study. Results are interpreted as conditional insights into mechanism resilience, not as claims of causal certainty or real-world prediction. The contribution of this work lies in demonstrating how stress-testing can be systematically applied to DePIN tokenomics, offering a tool for researchers and builders to evaluate incentive robustness before failure occurs.
+\vspace{1cm} 
+% End of Abstract
+
+\newpage
+
+% Table of Contents
 \tableofcontents
 \newpage
 
+% List of Figures
+\listoffigures
+\newpage
+
+% List of Tables
+\listoftables
+\newpage
+
+% Main Body
+\pagenumbering{arabic}
+
 % Include sections
 \input{sections/personA_foundations}
-\input{sections/personB_tokenomics}
-\input{sections/personC_modeling}
+\newpage
+
+\input{sections/personB_framework}
+\newpage
+
+\input{sections/personA_onocoy}
+\newpage
+
+\input{sections/personC_methodology}
+\newpage
+
+\input{sections/personC_results}
+\newpage
 
 % Appendix
-\newpage
+\appendix
 \input{sections/appendix}
+\newpage
 
 % Bibliography
-\newpage
 \printbibliography
 
 \end{document}

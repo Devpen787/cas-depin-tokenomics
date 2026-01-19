@@ -1,0 +1,204 @@
+% SCOPE CONTRACT: PERSON C (Methodology)
+% Content moved from Person A's file
+
+\section{Methodology: Simulation-Based Stress Testing}
+\label{sec:methodology}
+
+\subsection{Purpose and Non-Goals}
+This simulation framework examines how tokenomic mechanisms in Decentralized Physical Infrastructure Networks (DePIN) behave when conditions deteriorate \cite{Messari2024}. Our aim is not to predict future outcomes or identify winning designs, but to compare how different incentive structures respond when exposed to the same adverse scenarios. The emphasis is therefore on \emph{relative behavior} under stress, rather than on absolute performance or forecasting accuracy \cite{Sollaci2004}.
+
+We use simulation because DePIN systems combine several features that are difficult to study analytically. Infrastructure providers are heterogeneous, incentives operate through protocol rules rather than direct contracts, and external conditions such as demand or market sentiment can change abruptly \cite{Ho2022}. These elements interact in non-linear ways, especially once feedback effects emerge. A simulation-based approach makes it possible to examine these interactions directly, while keeping assumptions explicit and inspectable \cite{SantaFeInstitute}.
+
+To avoid over-interpretation, a number of non-goals are defined upfront. The model does not produce token price forecasts, valuation estimates, or projections of market capitalization \cite{CFA2018}. Price dynamics are included only as internal signals that reflect supply, demand, and liquidity assumptions. Likewise, the results are not treated as causal claims about real-world networks. All observed patterns are conditional on the modeled assumptions and should be understood as indicative rather than predictive.
+
+The framework does not identify optimal parameter settings or prescribe specific tokenomic designs. Instead, it surfaces trade-offs and failure modes visible under stress. Finally, the model abstracts from governance processes, legal constraints, and off-chain behavioral factors that may be important in practice but cannot be represented in a tractable and reproducible way within the scope of this study.
+
+This aligns with standard practice in complex systems research, where controlled comparison under adverse conditions is preferred over predictive modeling in settings characterized by uncertainty, feedback effects, and heterogeneous agents \cite{Morris2019, Braakman2022}.
+
+\subsection{Model Scope and Agent Representation}
+The simulation model represents DePIN dynamics through a limited set of interacting components that capture the core economic relationships relevant to infrastructure sustainability. The scope is defined by what can be meaningfully stress-tested, rather than by an attempt to mirror the full complexity of real-world networks \cite{BrouwerBurg2016}.
+
+At the center of the model are infrastructure providers, represented as heterogeneous agents. Providers differ along several dimensions that materially affect their economic outcomes, including operational costs, effective capacity contribution, and hardware tier. This heterogeneity is essential, as DePIN networks do not consist of interchangeable participants but of operators with varying cost structures. Provider behavior is limited to economically motivated decisions, primarily continued participation, exit (churn), or entry, based on profitability thresholds and accumulated losses \cite{Mardikes2025}.
+
+Users are not modeled as individual agents. Instead, service demand is treated as an exogenous input, specified through time-varying demand regimes. While real demand may respond endogenously to price or service quality, introducing such feedback would require assumptions that cannot be validated within the scope of this thesis. Demand is therefore used as a controlled external driver, allowing the analysis to focus on how tokenomic mechanisms respond to stress rather than on how demand itself forms.
+
+The protocol is represented as a rule-based system that governs emissions, reward allocation, burn mechanisms, and price-related dynamics. Protocol behavior is deterministic given a set of parameters and inputs, and does not adapt strategically over time. This abstraction is intentional: the objective is to evaluate the behavior of tokenomic mechanisms as designed, not to model governance interventions.
+
+Within this structure, we maintain a clear distinction between endogenous variables (token supply, provider profitability, churn, incentive solvency) and exogenous variables (demand regimes, macroeconomic conditions, liquidity shocks). This separation allows observed outcomes to be traced back to specific stress inputs and mechanism responses.
+
+\subsection{Inputs, Parameters, and Exogenous vs Endogenous Variables}
+The simulation framework operates on a clearly defined set of inputs and parameters that determine how the system evolves over time. These inputs are grouped by their role in the model rather than by their real-world source, in order to make assumptions explicit. A central design principle is that parameters are treated as \emph{ranges and regimes}, not as precise estimates of real-world values.
+
+Exogenous inputs define the external environment. These include demand regimes, macroeconomic conditions, and discrete shock events. Demand is specified as a time series that can follow different patterns, such as steady usage, growth followed by decay, or highly volatile behavior. Macroeconomic conditions are represented through scenario-level modifiers. Liquidity shocks, such as large token unlocks, are introduced as one-time exogenous disturbances. Treating these factors as exogenous allows the same stress conditions to be applied consistently across different tokenomic configurations.
+
+Protocol-level parameters define the incentive mechanisms under evaluation. These include emission limits, burn fractions, reward allocation rules, and treasury handling strategies. Parameters in this category are varied across simulation runs to represent alternative tokenomic designs or policy choices. Importantly, the model does not assume that protocol parameters adapt dynamically in response to outcomes. Any change in emissions or incentive structure is introduced explicitly as part of a scenario, rather than emerging endogenously.
+
+Provider-level parameters describe the economic characteristics of infrastructure operators. These include capital expenditure proxies, ongoing operational costs, and participation thresholds. Provider heterogeneity is introduced by sampling these parameters from predefined distributions. Where practitioner input is used (e.g., typical cost ranges or revenue expectations), it is incorporated as broad intervals influenced by public documentation, not as exact figures.
+
+\subsection{Stress Dimensions and Scenario Design}
+Stress scenarios in the simulation are designed to represent adverse conditions that are plausible for DePIN networks and that materially challenge incentive alignment, provider retention, and service continuity. The model focuses on a limited set of stress dimensions that recur across incentive-driven infrastructure systems.
+
+A first category of stress relates to demand conditions. Demand regimes are specified exogenously and include stable demand, growth followed by decay, and highly volatile usage patterns. These regimes reflect the well-documented risk that early network adoption does not translate into sustained utilization \cite{Ho2022}.
+
+A second category relates to external market shocks. Macroeconomic regimes (Bear, Bull, Sideways) modulate the baseline assumptions for token price drift and volatility. Liquidity shocks simulate sudden sell pressure events, testing the system's ability to maintain incentive alignment even in the absence of changes in underlying demand \cite{Gauntlet, ChaosLabs}.
+
+Provider-side stress is introduced through economic viability thresholds. In scenarios where operational costs increase, rewards decline, or token prices fall, providers may experience sustained losses. The model represents this through probabilistic churn mechanisms that activate after consecutive periods of unprofitability.
+
+These stress dimensions can be applied individually or in combination, allowing the analysis to explore compound failure conditions. Prior work on complex systems suggests that the interaction of multiple stressors often produces non-linear outcomes that are not apparent when shocks are considered in isolation. By standardizing the definition and timing of stress across scenarios, the model enables direct comparison of how different tokenomic mechanisms absorb or amplify adverse conditions.
+
+\subsection{Metrics and Computation}
+The evaluation of tokenomic robustness in this study relies on a fixed set of metrics defined prior to analysis. Metrics are selected based on their ability to capture incentive sustainability, provider behavior, and system-level stress responses, rather than short-term market performance.
+
+A primary category of metrics captures provider sustainability and retention. Provider retention rates and churn counts are used to assess whether incentive structures are able to maintain infrastructure participation under stress. These measures are particularly important in DePIN systems, where provider exit can lead to persistent losses in service capacity due to physical deployment constraints.
+
+A second category relates to economic viability and incentive solvency. Metrics such as provider profitability, net incentive balance, and revenue-to-emission ratios are used to examine whether rewards remain economically meaningful relative to costs over time. Rather than interpreting these values as precise financial indicators, they are used as \emph{proxies} for incentive health.
+
+System-level performance is captured through capacity and utilization metrics, including total active capacity, demand served, and utilization rates. These measures reflect whether the network continues to deliver service under adverse conditions, independent of token price dynamics.
+
+To assess broader tokenomic dynamics, the model tracks supply-side and flow-based indicators, including net emissions, burn-to-mint ratios, and token velocity proxies derived from transaction turnover. These metrics are not interpreted as direct measures of market efficiency, but as signals of whether token circulation and supply pressures remain aligned with usage-driven demand.
+
+Finally, distributional outcomes are examined using concentration metrics, such as top-participant reward shares or inequality proxies. These measures are included to detect whether stress conditions lead to excessive centralization of rewards or capacity, which may undermine network resilience even when aggregate metrics appear stable.
+
+\subsection{Reproducibility and Validation Strategy}
+Reproducibility is treated as a core requirement of the simulation framework. All experiments are defined by an explicit set of parameters, scenario inputs, and random seeds, allowing results to be regenerated and inspected without reliance on undocumented assumptions or interactive tuning.
+
+Stochastic elements are present in several parts of the simulation, including demand variation, provider heterogeneity, churn decisions, and price-related noise. To ensure that observed outcomes are not driven by single-run artifacts, each scenario is evaluated across multiple simulation runs using seeded pseudo-random number generation. Results are then aggregated to examine central tendencies and dispersion rather than relying on individual trajectories.
+
+Validation in this context does not aim to establish empirical accuracy with respect to real-world data. Instead, the model is validated through internal consistency and behavioral plausibility checks. These include baseline runs without stress, where the system is expected to exhibit stable participation and bounded dynamics, as well as controlled perturbations where directional responses can be anticipated based on incentive logic.
+
+Sensitivity analysis is used to further assess robustness. Key parameters---such as cost ranges, emission limits, and churn thresholds---are varied within predefined intervals to examine whether qualitative outcomes persist under moderate perturbations. Outcomes that remain stable across reasonable parameter variations are treated as more robust signals.
+
+\subsection{Limitations of the Model}
+While the simulation framework is designed to support structured stress testing, it necessarily abstracts from many aspects of real-world network behavior. These limitations are not incidental, but a consequence of deliberate design choices made to preserve interpretability and reproducibility.
+
+First, demand is modeled as an exogenous process. Although some scenarios allow demand to vary over time, the model does not fully endogenize user behavior or price elasticity. Second, providers are represented as economically rational agents operating under simplified decision rules. Strategic behavior such as long-term speculation or coordinated action is excluded.
+
+Third, the price formation mechanism is a reduced-form approximation. It combines buy and sell pressure, dilution effects, scarcity signals, and stochastic noise to generate directional price dynamics. This approach is sufficient for comparative stress testing but does not attempt to replicate actual market microstructure. Fourth, the temporal resolution of the model is limited to discrete time steps, obscuring intra-period dynamics such as short-term volatility spikes.
+
+Finally, empirical calibration is constrained by data availability. Inputs derived from interviews or public documentation are treated as indicative ranges rather than precise measurements. The framework is therefore better suited to identifying relative sensitivities and failure modes than to making absolute performance claims.
+
+Taken together, these limitations imply that the results of the simulation should be interpreted as comparative, conditional insights rather than predictions. The value of the model lies in its ability to expose how different tokenomic mechanisms respond under controlled stress scenarios, not in asserting how any particular network will behave in practice.
+
+\section{Stress Scenario Design}
+\label{sec:stress_scenarios}
+
+\subsection{Operational Definition of Stress}
+In the context of this thesis, stress is defined operationally as an externally imposed adverse condition that challenges the ability of a DePIN network to maintain functional capacity through its incentive system. Stress is not treated as an outcome, such as price decline or provider exit, but as an input condition applied to the system.
+
+This distinction is critical. By defining stress as an exogenous input, the analysis avoids circular reasoning in which system failure is both the cause and the consequence of stress. Instead, stress scenarios are constructed as controlled perturbations to the environment in which tokenomic mechanisms operate, allowing their responses to be observed and compared.
+
+Stress, as modeled here, targets three core dimensions of network sustainability:
+\begin{enumerate}
+    \item Provider retention, reflecting the willingness of infrastructure operators to remain active.
+    \item Service continuity, reflecting the network's ability to meet demand through available capacity.
+    \item Incentive solvency, reflecting the balance between token issuance, usage-driven sinks, and economic viability.
+\end{enumerate}
+
+These dimensions align with established interpretations of robustness in complex systems, where resilience is assessed by continued function rather than by avoidance of disturbance \cite{Braakman2022}.
+
+\subsection{Stress Dimensions Implemented}
+The simulation framework implements multiple stress dimensions, each corresponding to real-world risk factors commonly observed in crypto-economic systems and infrastructure networks. All stress dimensions are treated as exogenous inputs, consistent with the scope constraints defined in Section \ref{sec:methodology}.
+
+\subsubsection{Macroeconomic Regimes}
+Macroeconomic conditions are represented through regime-based modifiers that influence token price drift and volatility. Three regimes are defined:
+\begin{itemize}
+    \item Bearish, characterized by negative drift and elevated volatility.
+    \item Sideways, characterized by neutral drift and moderate volatility.
+    \item Bullish, characterized by positive drift and reduced volatility.
+\end{itemize}
+
+These regimes abstract broader market sentiment and liquidity conditions without attempting to model specific macroeconomic variables. Their purpose is to expose tokenomic mechanisms to varying background conditions rather than to replicate real-world cycles.
+
+\subsubsection{Demand Regimes}
+Demand for network services is modeled as a stochastic time series with configurable structure. Four demand regimes are implemented:
+\begin{itemize}
+    \item Stable demand, with low variance around a constant mean.
+    \item Growth demand, exhibiting sustained upward trends.
+    \item Volatile demand, characterized by high variance without long-term trend.
+    \item High-to-decay demand, representing an initial surge followed by gradual decline.
+\end{itemize}
+
+These regimes reflect common adoption patterns observed in infrastructure services, including early hype cycles and post-deployment normalization. Demand remains exogenous by design, enabling isolation of provider-side incentive responses.
+
+\subsubsection{Liquidity Shocks}
+Liquidity stress is introduced through discrete token unlock events combined with finite market depth. These events simulate situations in which large token holders sell a portion of their holdings into an automated market maker pool, producing abrupt price shocks.
+
+Liquidity shocks are parameterized by:
+\begin{itemize}
+    \item Unlock timing
+    \item Proportion of circulating supply unlocked
+    \item Available liquidity depth
+\end{itemize}
+
+The objective is not to model investor behavior but to evaluate how tokenomic mechanisms respond to sudden price dislocations.
+
+\subsubsection{Provider Economics Stress}
+Provider-side economic stress is modeled through increases in operational costs, competitive yield opportunities, and reduced profitability thresholds. These inputs reflect real-world pressures faced by infrastructure operators, such as rising energy prices or alternative revenue opportunities.
+
+In addition, the model distinguishes between provider types (e.g., higher-cost professional installations versus lower-cost basic setups), allowing differential sensitivity to stress.
+
+\subsubsection{Tokenomics Parameter Stress}
+Finally, stress is applied directly to tokenomic parameters, including emission caps, burn fractions, and initial supply conditions. This allows evaluation of how sensitive system behavior is to design choices, rather than to external shocks alone.
+
+\subsection{Scenario Combination Rules}
+Stress dimensions are combined according to clearly defined rules. Parameter-based stresses (e.g., macro regime, demand regime, provider costs) may be combined freely, allowing compound stress scenarios to be evaluated. In contrast, scenario-specific behaviors---such as saturation or utility-focused modes---are treated as mutually exclusive to preserve interpretability.
+
+This design choice reflects a trade-off between realism and experimental control. While real-world systems may experience overlapping structural transitions, isolating scenario-specific behaviors reduces confounding effects and supports clearer comparative analysis.
+
+\subsection{Relevance of Stress Scenarios}
+The stress scenarios implemented in this thesis are not exhaustive representations of all possible risks faced by DePIN networks. Rather, they are selected to capture representative failure pressures commonly cited in practitioner and academic literature, including subsidy dependency, liquidity fragility, and provider churn \cite{Messari2024, Ho2022}.
+
+By standardizing these scenarios, the framework enables consistent comparison across tokenomic mechanisms and protocol profiles.
+
+\section{Evaluation Metrics}
+\label{sec:evaluation_metrics}
+
+\subsection{Principles for Metric Selection}
+Evaluating the robustness of tokenomic mechanisms requires metrics that are both interpretable and aligned with the functional objectives of DePIN networks. Metric selection in this thesis follows three principles.
+
+First, metrics must be comparative, enabling evaluation of relative performance across mechanisms and scenarios rather than absolute success or failure. Second, metrics must be mechanism-relevant, reflecting provider incentives, service delivery, or economic sustainability rather than speculative market outcomes. Third, metrics must be transparent, with clearly defined computation and interpretation.
+
+These principles align with established guidance for simulation-based evaluation, where metrics should illuminate system behavior without overstating precision \cite{Morris2019}.
+
+\subsection{Core Sustainability Metrics}
+The following core metrics are used to evaluate system behavior under stress.
+
+\subsubsection{Provider Retention and Churn}
+Provider retention is measured as the proportion of active providers remaining over time, while churn captures the rate and magnitude of provider exit events. These metrics directly reflect the stability of the infrastructure layer and are central to DePIN sustainability.
+
+Retention is interpreted directionally: higher retention under comparable stress indicates greater robustness, but does not imply optimal or permanent stability.
+
+\subsubsection{Capacity Utilization and Service Continuity}
+Service continuity is assessed through capacity utilization and demand satisfaction rates. Capacity utilization measures the extent to which deployed infrastructure is effectively used, while demand satisfaction captures the proportion of demand that can be served given available capacity.
+
+Together, these metrics indicate whether incentive mechanisms support not only provider participation but also functional service delivery.
+
+\subsubsection{Incentive Solvency (Burn-to-Mint Ratio)}
+Incentive solvency is proxied by the ratio of value burned through usage-driven sinks to value emitted through token issuance. A ratio approaching or exceeding unity suggests reduced reliance on subsidies, while persistent divergence indicates ongoing subsidy dependency.
+
+This metric abstracts complex monetary dynamics into a single comparative signal and is interpreted cautiously as an indicator rather than a definitive threshold.
+
+\subsubsection{Net Emissions and Inflation Dynamics}
+Net emissions capture the balance between token issuance and destruction over time. While absolute inflation rates are not used as targets, changes in net emissions under stress reveal how mechanisms respond to shifts in demand and participation.
+
+\subsubsection{Token Velocity (Proxy)}
+Token velocity is estimated using transaction turnover as a proxy. While this does not capture all aspects of monetary velocity, it provides insight into whether tokens circulate primarily as a medium of exchange or accumulate as idle balances.
+
+Velocity is interpreted comparatively across scenarios and mechanisms, not as an absolute indicator of economic health.
+
+\subsubsection{Volatility Proxy}
+Price volatility is measured using relative dispersion metrics derived from simulated price series. Given the simplified market representation, volatility is treated as a stress signal affecting provider incentives rather than as a market performance indicator.
+
+\subsection{Derived Summary Indicators}
+Several derived indicators are computed to support synthesis and interpretation.
+
+\subsubsection{Death Spiral Probability}
+Death spiral probability is defined operationally as the frequency with which simulations exhibit concurrent declines in price, provider count, and service capacity beyond defined thresholds. This indicator captures compounded failure dynamics without asserting inevitability.
+
+\subsubsection{Network Revenue and Provider Profitability}
+Aggregate network revenue and average provider profitability are tracked to contextualize incentive outcomes. These metrics help distinguish between retention driven by genuine economic viability and retention sustained by temporary subsidies.
+
+\subsection{Interpretation and Limitations of Metrics}
+All metrics used in this thesis are subject to limitations arising from model assumptions and abstraction. In particular, simplified price formation and exogenous demand constrain the interpretation of monetary indicators. Accordingly, metrics are used to compare relative robustness, not to establish optimal designs or real-world predictions.
+
+This cautious interpretation aligns with best practices in simulation-based research and supports the thesis's evaluative rather than predictive orientation \cite{Braakman2022}.
