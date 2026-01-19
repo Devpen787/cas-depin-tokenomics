@@ -1,3 +1,17 @@
+---
+author:
+- |
+  Author A\
+  Author B\
+  Author C
+bibliography: bibliography.bib
+date: 2026-01-19
+title: |
+  **DePIN Tokenomics Under Stress**\
+  A Simulation-Based Sustainability Analysis Using the Onocoy Network as
+  a Case Study
+---
+
 ::: titlepage
 **DePIN Tokenomics Under Stress**
 
@@ -557,6 +571,23 @@ rather than predictions. The value of the model lies in its ability to
 expose how different tokenomic mechanisms respond under controlled
 stress scenarios, not in asserting how any particular network will
 behave in practice.
+
+## Adversarial Stress and Future Work
+
+A critical distinction in this framework is the assumption of
+"economically rational but honest" agents. Real-world DePIN networks,
+however, face existential risks from adversarial behavior, such as Sybil
+attacks, GPS spoofing, and strategic governance capture
+[@ResonanceSecurity2024]. While the current model captures economic
+stress, it does not explicitly promote "Scenario S5: Verification
+Failure," where malicious actors dilute rewards for honest participants,
+potentially triggering a "Lemons Market" dynamic [@EconAgentic2025].
+
+Future iterations of this framework should integrate adversarial agent
+types to evaluate the resilience of verification mechanisms (e.g., Proof
+of Physical Work) against coordinated spoofing. This would allow for a
+more comprehensive assessment of "Anti-Fragile" tokenomics that includes
+security vectors alongside economic ones [@GeodnetResearch].
 
 # Stress Scenario Design {#sec:stress_scenarios}
 
@@ -1878,6 +1909,30 @@ pattern are we currently exhibiting?* For Onocoy, this framing clarifies
 how specific design choices (such as emission decay and location
 penalties) interact with human decision-making to shape resilience
 trajectories.
+
+### Onocoy-Specific Diagnostic Signals
+
+To make these archetypes actionable for Onocoy governance, we map the
+abstract patterns to concrete internal signals [@OnocoyToken]:
+
+- **Subsidy Inertia Signal:** If the DAO votes to extend "Beta Rewards"
+  or "Early Mover Boosts" indefinitely despite low data credit burns,
+  this indicates a fear-driven refusal to accept demand reality.
+
+- **Incentive Overfitting Signal:** Launching broad "Bonus Programs"
+  [@OnocoyBonus] without tying them to specific high-demand geographic
+  zones suggests a "bribe" response to stop churn, likely attracting
+  mercenary capital.
+
+- **Narrative Pivot Signal:** If roadmap milestones shift from core
+  "Rover Integration" and "RTK Adoption" to vague "AI Data Layer"
+  promises without structural substance, it warns of a distraction
+  capability.
+
+- **Emergency Centralization Signal:** If the Foundation begins
+  operating a significant percentage of reference stations to maintain
+  coverage metrics, the network has entered a survival mode that
+  suspends decentralization.
 
 ## Counterexamples, Edge Cases, and Deliberate Exclusions
 
