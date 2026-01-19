@@ -1,17 +1,3 @@
----
-author:
-- |
-  Author A\
-  Author B\
-  Author C
-bibliography: bibliography.bib
-date: 2026-01-19
-title: |
-  **DePIN Tokenomics Under Stress**\
-  A Simulation-Based Sustainability Analysis Using the Onocoy Network as
-  a Case Study
----
-
 ::: titlepage
 **DePIN Tokenomics Under Stress**
 
@@ -25,7 +11,7 @@ Case Study
 CAS Blockchain\
 Lucerne University of Applied Sciences and Arts (HSLU)
 
-2026-01-19
+2026-01-20
 :::
 
 # Abstract {#abstract .unnumbered}
@@ -228,53 +214,79 @@ transparent metrics, and reproducible experimental design, the thesis
 aligns with established methodological standards for simulation-based
 research [@Sartori2022].
 
-# Analytical Framework: Tokenomic Design Patterns {#sec:analytical_framework}
+# Theoretical Tokenomic Framework {#sec:theoretical_framework}
 
-*\[INSTRUCTIONS FOR PERSON B: This is the comparative analysis chapter.
-You must frame Onocoy within the wider ecosystem of Solana-based
-DePINs.\]*
+## Introduction {#introduction}
 
-## Comparative Scope: Solana DePIN Ecosystem
+\[TODO: Define the scope of Tokenomics in DePIN. Key themes:
+Sustainability, Mechanism Design, and the 'Physical' constraint.\]
 
-- **The Comparative Set:** Please analyze these 8 projects: Helium,
-  Grass, GEODNET, io.net, Hivemapper, Nosana, Aleph.im, XNET.
+## Comparative Scope: The Solana DePIN Ecosystem {#subsec:solana_scope}
 
-- **Comparison Table:** Create a summary table comparing them by:
+This section analyzes the tokenomic design patterns of eight leading
+DePIN protocols on Solana to establish a baseline for industry
+standards.
 
-  - Market Cap & Sector (Compute, Sensor, Wireless).
+### Project Archetypes
 
-  - Token Model (e.g., BME vs. capped supply).
+\[TODO: Analyze the following projects based on Hardware Sunk Cost vs.
+Active Work:\]
 
-  - Revenue Source (B2B vs B2C).
+1.  **Helium (IoT/Mobile):** The Burn-and-Mint Standard.
 
-## Tokenomic Building Blocks
+2.  **Hivemapper (Mapping):** Active labor constraints.
 
-- **Emission Logic:** Identify common patterns. Do most projects favor
-  early adopters aggressively?
+3.  **Render (Compute):** High-end GPU economics.
 
-- **Verification (Proof of Physical Work):** How does Helium verify
-  coverage vs. Hivemapper verifying roads?
+4.  **io.net (Aggregated Compute):** Cluster economics.
 
-- **Value Capture (Sinks):** Analyze how these protocols burn tokens. Is
-  it working?
+5.  **Geodnet (GNSS):** Location NFT and hex-based capping.
 
-## Monetization and Demand Structures
+6.  **Grass (Bandwidth):** Zero-marginal cost participation.
 
-- **Demand Regimes:** Distinguish between Enterprise Demand (stable,
-  slow) and Consumer Demand (volatile).
+7.  **Nosana (CI/CD):** Compute grid incentives.
 
-- **The Fiat Bridge:** How does fiat money enter the system to buy
-  tokens?
+8.  **Aleph.im (Storage/Compute):** Infrastructure persistence.
 
-## ONO Token Design Analysis
+## Tokenomic Building Blocks {#subsec:building_blocks}
 
-- **Deep Dive:** Analyze Onocoy's specific mechanism logic here.
+### Emission Schedules & Inflation
 
-- **Mechanism Critique:** How does ONO's bonding curve or emission logic
-  differ from the standard BME model?
+\[TODO: Compare 'Halving' models (Bitcoin style) vs. 'Linear Decay' vs.
+'Dynamic Minting'.\]
 
-- *(Note: This analysis feeds into Person C's simulation parameters in
-  the next chapter.)*
+### The Burn-and-Mint Equilibrium (BME)
+
+\[TODO: Detailed definition of BME. How Dual-Token systems (Token + Data
+Credits) separate volatility from utility cost.\]
+
+### Work Verification Mechanisms
+
+\[TODO: Define how 'Proof of Physical Work' is validated on-chain (e.g.,
+Proof of Coverage, Proof of Mapping).\]
+
+## Monetization and Demand Regimes {#subsec:demand_regimes}
+
+### The Value Capture Funnel
+
+\[TODO: Map the flow of Fiat -\> Buy Pressure -\> Burn -\> Supply
+Reduction.\]
+
+### Demand Cyclicality: Enterprise vs. Consumer
+
+\[TODO: Contrast steady B2B demand (Geodnet) vs. cyclical consumer
+demand (Helium).\]
+
+## Detailed Analysis of the ONO Mechanism {#subsec:ono_mechanism}
+
+\[TODO: Deep dive into Onocoy's specific 'Capped Supply' architecture
+vs. the BME industry standard defined above.\]
+
+## Conclusion
+
+\[TODO: Summarize the theoretical vulnerabilities identified in these
+models, setting the stage for the specific Empirical Stress Analysis in
+Section 6.\]
 
 # Empirical Case: Onocoy {#sec:onocoy_case}
 
@@ -309,6 +321,447 @@ business and the hardware.\]*
 
 - **Staking Rules:** Are there staking requirements for miners to
   participate?
+
+# Empirical Stress Analysis {#sec:empirical_analysis}
+
+## Introduction {#introduction-1}
+
+Decentralized Physical Infrastructure Networks (DePIN) represent a
+fundamental shift in the deployment and maintenance of critical
+real-world infrastructure, leveraging cryptographic incentives to
+coordinate distributed hardware provision across sectors ranging from
+wireless connectivity to geospatial mapping [@FrontiersDePIN2025].
+Unlike purely digital assets within the Decentralized Finance (DeFi)
+ecosystem, DePIN protocols introduce a complex layer of physical
+constraints---including hardware sunk costs, geographic friction, and
+logistical latency---that fundamentally alters their economic risk
+profile [@RapidInnovation2024]. Consequently, the sustainability of
+these networks is not merely a function of code, but of the intricate
+interplay between tokenomic mechanism design and the behavioral
+economics of hardware operators under stress [@HackMD2025].
+
+Historically, the evaluation of such systems has relied heavily on
+Agent-Based Modeling (ABM) and stochastic simulations to forecast
+network behavior [@RapidInnovation2024]. While valuable for exploring
+theoretical bounds, simulations often operate on rational agent
+assumptions that fail to capture the nuances of human panic, the
+\"stickiness\" of physical deployments, or the unpredictability of
+exogenous market shocks. There is a growing recognition within the
+research community that empirical analysis---grounded in the historical
+performance of live networks under actual stress---offers a more
+rigorous and actionable methodology for assessing resilience
+[@Coincub2025].
+
+This section establishes a comprehensive methodology for comparative
+DePIN analysis without the use of simulation. By operationalizing the
+\"Event Study Methodology\" utilized in financial econometrics
+[@Hacken2024], we construct a static stress-testing framework that
+benchmarks the Onocoy network against the historical performance of
+mature Solana-based DePIN peers, including Helium, Hivemapper, Render,
+and Geodnet. This approach replaces probabilistic forecasting with
+deterministic observation, analyzing how different incentive
+structures---such as Burn-and-Mint Equilibrium (BME) versus Capped
+Supply---have historically responded to demand contractions, liquidity
+crises, and competitive yield pressures [@FrontiersDePIN2025].
+
+The objective is to provide a diagnostic tool that is equally valuable
+for the academic thesis and the broader DePIN community. By isolating
+specific \"Failure Modes\" such as Reward-Demand Decoupling and Latent
+Capacity Degradation [@RapidInnovation2024], and mapping them to
+observable on-chain metrics, this report offers a nuanced framework for
+evaluating whether a protocol's incentive mechanism can retain
+providers, sustain service capacity, and prevent economic collapse in
+the absence of speculative growth.
+
+## Theoretical Framework: Operationalizing Stress Without Simulation
+
+To effectively analyze DePIN robustness without the generative
+capabilities of simulation, one must adopt a framework based on
+Comparative Statics and Empirical Event Studies. This involves defining
+\"stress\" not as a variable in a model, but as a specific set of
+historical market conditions (regimes) and analyzing the elasticity of
+network supply and demand in response to those conditions [@PMC2022].
+
+### The \"Disease\": Defining Stress Factors in Physical Networks
+
+In the context of this static analysis, stress factors are exogenous
+shocks that challenge the economic viability of the network. We
+categorize these stressors into three primary buckets that determine
+long-term sustainability [@RapidInnovation2024]:
+
+- **The Subsidy Gap (Reward Addiction):** This represents the structural
+  deficit between the real operating costs (OpEx) plus capital
+  expenditures (CapEx) of infrastructure providers and the actual fiat
+  revenue entering the system. In early-stage networks, this gap is
+  bridged by speculative token incentives. A critical stress point
+  occurs when token prices decline, widening this gap and forcing
+  providers to operate at a loss. Static analysis measures this by
+  tracking the historical divergence between \"Real Yield\" (burn-based
+  revenue) and \"Dilutive Yield\" (inflationary rewards) over time
+  [@RapidInnovation2024].
+
+- **Speculative Fragility:** This metric defines the correlation between
+  network security (provider uptime/retention) and token price
+  volatility. High fragility implies that a drop in token price triggers
+  immediate and proportional infrastructure churn. In a non-simulated
+  framework, this is measured by calculating the \"Beta\" of active node
+  counts relative to the token's price drawdown during specific bear
+  market windows (e.g., the 2022-2023 crypto winter)
+  [@RapidInnovation2024].
+
+- **Competitive Yield Pressure:** This refers to the elasticity of
+  provider participation when alternative networks offer higher returns
+  for similar hardware. As DePIN hardware becomes more generalized
+  (e.g., GPUs for Render vs. io.net, or GNSS receivers for Geodnet vs.
+  Onocoy), the switching costs decrease, increasing the risk of
+  \"vampire attacks\" where supply migrates instantly to the highest
+  bidder [@RapidInnovation2024].
+
+### The \"Cure\": Mechanism Design as a Static Defense
+
+If stress is the disease, the tokenomic mechanism is the immune system.
+In a static analysis, we evaluate the architectural capacity of
+different mechanisms to absorb shock. The primary designs observed in
+the Solana DePIN ecosystem include:
+
+- **Burn-and-Mint Equilibrium (BME):** Utilized by Helium and Render,
+  this dual-token model requires users to burn the native token to
+  create non-transferable data credits (fixed in fiat value). This
+  theoretically caps supply based on demand [@RenderBME]. The static
+  stress test involves calculating the \"Equilibrium Price\"---the token
+  price at which the burn rate from usage exactly offsets the mint rate
+  for provider rewards---and comparing it to the actual market price.
+
+- **Capped Supply with Emissions Decay:** Employed by Onocoy (and
+  Bitcoin), this model enforces scarcity via a hard cap and diminishing
+  returns (halvings) [@OnocoyToken]. The stress test here focuses on the
+  \"Security Budget Analysis\"---determining whether the diminishing
+  block reward remains sufficient to cover aggregate provider OpEx in
+  the absence of significant fee revenue.
+
+- **Sunk Cost Moats:** A crucial differentiator for DePIN is that the
+  hardware itself often acts as a \"staked\" asset. The analysis must
+  quantify \"Economic Friction\"---the financial loss incurred by a
+  provider who exits the network due to the illiquidity of the hardware.
+  This sunk cost acts as a retention buffer, often more effective than
+  on-chain staking during liquidity crises [@RapidInnovation2024].
+
+### Methodology: Empirical Event Studies
+
+To replace simulation, we utilize the Event Study Methodology, a
+standard approach in financial econometrics used to measure the impact
+of specific events on asset value and participant behavior
+[@Hacken2024]. By treating historical market shocks---such as the FTX
+collapse, Helium's migration to Solana, or Hivemapper's reward
+restructuring---as distinct \"events,\" we can quantify the abnormal
+churn or abnormal returns associated with these stressors.
+
+This method allows us to infer the future behavior of a network like
+Onocoy by benchmarking it against the past empirical behavior of
+comparable networks under similar conditions. We look for \"Abnormal
+Churn Rates\"---deviations from the expected baseline of provider
+exits---following negative price shocks to determine the true
+\"Elasticity of Provider Exit\" [@RapidInnovation2024].
+
+## Comparative Scope: The Solana DePIN Ecosystem {#comparative-scope-the-solana-depin-ecosystem}
+
+Solana has emerged as the dominant execution layer for DePIN due to its
+high throughput, low transaction costs (\$0.00025), and state
+compression capabilities, which allow for the cost-effective management
+of millions of physical nodes [@Coincub2025]. To answer the thesis
+questions regarding robustness, we establish a comparative set of key
+projects representing different hardware profiles and stress responses.
+
+### The Comparative Set
+
+We categorize the projects into three distinct \"archetypes\" based on
+their hardware cost profile and service model, as these factors dictate
+their response to economic stress:
+
+#### Archetype A: Commodity Sensor Networks (Low OpEx, Moderate CapEx)
+
+- **Helium (IoT/Mobile):** The mature market leader with over 1 million
+  hotspots. It serves as the primary case study for long-term retention
+  behavior and the transition from L1 to Solana [@Coincub2025].
+
+- **Geodnet:** A direct competitor to Onocoy in the GNSS/RTK sector.
+  Focused heavily on stable B2B revenue and industrial utility,
+  utilizing \"Location NFTs\" to manage density [@GeodnetIP7].
+
+- **Onocoy:** The thesis subject. An emerging GNSS network with a
+  distinct governance approach and capped token supply model
+  [@RapidInnovation2024].
+
+#### Archetype B: High-Performance Compute (High OpEx, High CapEx)
+
+- **Render:** Decentralized GPU rendering focused on the creator
+  economy. High electricity costs make these providers highly sensitive
+  to token price drops, serving as a proxy for \"mercenary\" capital
+  behavior [@NewtonRender].
+
+- **io.net:** Aggregated GPU compute for AI/ML workloads. A newer
+  entrant experiencing massive growth but untested in a prolonged bear
+  market, dealing with potential supply shocks from \"cluster\"
+  migration [@IoNet2025].
+
+#### Archetype C: \"Proof of Physical Work\" (Active Labor)
+
+- **Hivemapper:** Dashcam mapping. Unlike passive sensor networks, this
+  requires active human labor (driving). Incentives must cover fuel and
+  time, creating a higher churn risk during price downturns
+  [@CoinMarketCapHM].
+
+### Metric Standardization for Static Comparison
+
+To compare these diverse networks without simulation, we standardize
+specific metrics that serve as proxies for health and stress resilience
+[@Coincub2025].
+
+::: {#tab:comparative_metrics}
+  ----------------------------------------------------------------
+  **Category**   **Standardized    **Definition & Proxy Utility**
+                 Metric**          
+  -------------- ----------------- -------------------------------
+  Incentive      Burn-to-Mint      The ratio of tokens burned
+  Solvency       Ratio             (revenue) to tokens minted
+                                   (incentives). A value $< 1$
+                                   indicates subsidy dependence;
+                                   $> 1$ indicates sustainable
+                                   deflation [@Coincub2025].
+
+  Provider       30-Day Node       Percentage of nodes active at
+  Retention      Retention         $T+30$ days compared to $T0$,
+                                   specifically analyzed following
+                                   a token price drop of $>20\%$
+                                   [@RapidInnovation2024].
+
+  Economic       Revenue per Node  Total Network Revenue divided
+  Efficiency                       by Total Active Nodes.
+                                   Indicates whether the average
+                                   provider is economically viable
+                                   without speculative token
+                                   rewards [@AlloraResearch].
+
+  Speculative    Token Turnover    Daily Trading Volume divided by
+  Velocity                         Circulating Market Cap. High
+                                   turnover during price drops
+                                   often signals \"mercenary
+                                   capital\" exit rather than
+                                   utility usage
+                                   [@GateSquare2025].
+
+  Valuation Risk FDV / Annualized  Fully Diluted Valuation divided
+                 Revenue           by Annualized Revenue. A
+                                   comparative valuation metric to
+                                   assess the speculative premium
+                                   embedded in the token price
+                                   [@HeliumMobileCMC].
+  ----------------------------------------------------------------
+
+  : Standardized Metrics for Comparison
+:::
+
+## Empirical Stress Test: Historical Performance Analysis
+
+This section executes the \"static stress test\" by analyzing how the
+comparative set performed during documented historical stress events.
+This empirical data replaces the need for generating synthetic stress
+scenarios in a simulation.
+
+### Stress Scenario 1: The Liquidity Shock & Crypto Winter (2022-2023)
+
+**Context:** During the 2022 crypto winter, the market contracted
+significantly. Helium (HNT) saw its price decline from highs of
+$\sim\$55$ to under $\$2$, losing approximately $95\%$ of its value
+[@BitDegreeHelium]. This serves as a perfect empirical case study for
+Liquidity-Driven Incentive Compression [@RapidInnovation2024].
+
+**Helium's Response:**
+
+- **Price Impact:** Despite the catastrophic price drop, the number of
+  active hotspots did not collapse proportionally. The physical nature
+  of the miners (mounted on roofs with sunk costs of $\sim\$500$)
+  created high exit friction [@RapidInnovation2024].
+
+- **Provider Behavior:** Providers largely remained online because the
+  marginal cost of operation (electricity) was negligible compared to
+  the effort of uninstallation. This validates the \"Sunk Cost Moat\"
+  theory: hardware creates resilience against immediate churn but stalls
+  future capacity growth under stress.
+
+- **Failure Mode Observed:** While retention remained high, *Latent
+  Capacity Degradation* occurred. New deployments flatlined, and
+  maintenance of existing nodes likely dropped (though harder to measure
+  without simulation, forum sentiment confirms this), degrading actual
+  coverage quality over time [@GateSquare2025].
+
+- **Governance Reaction:** Helium proposed the migration to Solana and
+  the implementation of sub-DAOs (IOT and MOBILE) to compartmentalize
+  risk---a clear example of the \"Emergency Centralization\" or
+  \"Narrative Pivot\" archetype [@RapidInnovation2024].
+
+**Implication for Onocoy:** Onocoy can expect its existing GNSS stations
+to be \"sticky\" during price crashes due to high installation effort
+(antennas require precise placement). However, new station growth will
+freeze. Resilience strategies should focus on maximizing the utility of
+existing capacity rather than incentivizing new hardware during these
+periods.
+
+### Stress Scenario 2: The \"Vampire Attack\" & Competitive Yield (2024-2025)
+
+**Context:** Emerging DePIN protocols often target the same provider
+base. In the GNSS sector, Geodnet and Onocoy compete for the same
+rooftop real estate and technically savvy installers
+[@TripleMining2025].
+
+**Geodnet vs. Onocoy Dynamics:**
+
+- **Yield Sensitivity:** Geodnet focuses on stable B2B revenue (RTK
+  services) and utilizes a \"Location NFT\" to limit supply in saturated
+  areas, enforcing a meritocracy that protects individual miner yield
+  [@GeodnetIP7].
+
+- **Elastic Provider Exit:** Multi-mining (running both Geodnet and
+  Onocoy on similar hardware) is possible but introduces complexity.
+  Providers demonstrate \"mercenary loyalty,\" prioritizing the network
+  offering better immediate liquidity or yield.
+
+- **Observed Behavior:** When Geodnet token (GEOD) prices rallied or
+  burns increased due to enterprise contracts, it attracted professional
+  surveyors who prioritize stable fiat-equivalent income over
+  speculative tokens [@GeodnetLocationNFT].
+
+- **Failure Mode:** *Elastic Provider Exit Under External Yield
+  Pressure* [@RapidInnovation2024]. If Onocoy's rewards lag
+  significantly behind Geodnet's for prolonged periods, \"dual-mining\"
+  setups may convert to \"single-mining\" for the competitor to optimize
+  bandwidth or hardware stability.
+
+### Stress Scenario 3: Operational Cost Shock (Hivemapper 2024)
+
+**Context:** Unlike stationary miners, Hivemapper requires active
+driving, introducing variable costs (fuel, time). This creates a higher
+OpEx floor, making the network more sensitive to token price drops.
+
+**Hivemapper's Stress:**
+
+- **Cost Sensitivity:** When the HONEY token price dipped, the \"real
+  wage\" for driving dropped below the cost of fuel/time for many casual
+  mappers.
+
+- **Churn Response:** Unlike Helium hotspots, Hivemapper contributors
+  stop mapping immediately when incentives fall below the effort
+  threshold. Active contributors declined or plateaued during price
+  stagnation periods, illustrating *Profitability-Induced Provider
+  Churn* [@Coincub2025].
+
+- **Mitigation Strategy:** Hivemapper responded by pivoting to B2B
+  enterprise deals (Map Credits) to burn tokens and support price, and
+  by introducing \"Honey Bursts\" (targeted bonuses) to surge supply
+  only where needed---a form of \"Incentive Re-Targeting\"
+  [@RapidInnovation2024].
+
+## Tokenomic Mechanism Analysis: Comparative Robustness
+
+We now analyze the specific tokenomic parameters of Onocoy against the
+industry standards established by the comparative set. This \"static\"
+analysis evaluates the theoretical soundness of the design mechanics.
+
+### The Burn-and-Mint Equilibrium (BME)
+
+Most major Solana DePINs (Helium, Render, Hivemapper) utilize BME to
+stabilize token value against usage.
+
+- **Mechanism:** Users pay in Fiat/Stablecoins $\to$ System buys & burns
+  Tokens $\to$ Providers mint new Tokens.
+
+- **Stress Behavior:** In a bull market, BME is reflexive (usage burns
+  supply $\to$ price goes up $\to$ usage costs less tokens). In a bear
+  market, if usage is low, the \"Mint\" (inflation) outweighs the
+  \"Burn,\" creating a death spiral of dilution [@MediumTokenomics2026].
+
+**Onocoy's Variance:** Onocoy utilizes a \"capped supply\" model with
+deflationary elements (buyback and burn from revenue) rather than a pure
+BME where minting is unlimited to meet demand [@OnocoyToken].
+
+**Assessment:** Onocoy's capped supply is theoretically more resilient
+to hyperinflationary death spirals than pure BME. However, it is less
+flexible in subsidizing early growth if the token price is too high
+(scarcity can stifle adoption) or too low (insufficient reward budget to
+attract miners).
+
+### Incentive Solvency: The Burn-to-Mint Ratio
+
+This is the \"Golden Metric\" for static analysis, serving as the
+primary indicator of long-term solvency:
+$\text{Ratio} = \frac{\text{Burn}}{\text{Mint}}$.
+
+- **Helium Mobile:** Has historically approached a 1:1 or deflationary
+  ratio in specific months due to high subscriber revenue, indicating
+  high solvency [@HeliumMobileCMC].
+
+- **Hivemapper:** Historically low ratio (high emissions, low burn),
+  though improving with enterprise deals [@CoinMarketCapHM].
+
+- **Onocoy:** As an early-stage network, this ratio is likely $< 0.1$
+  (highly subsidized).
+
+**Risk Assessment:** A ratio consistently below 1.0 implies the network
+is consuming its own market capitalization to survive. Long-term
+solvency requires this metric to cross 1.0. The comparative data
+suggests that networks which fail to improve this ratio within 24 months
+of launch face significant risk of \"Reward Addiction\" failure.
+
+## DePIN Failure Modes: A Diagnostic Matrix
+
+Based on the historical data and theoretical framework, we define five
+operational failure modes for Onocoy and other DePINs. These definitions
+allow for \"diagnosis\" without the need for complex simulation
+[@RapidInnovation2024].
+
+1.  **Reward-Demand Decoupling:** Emissions persist at a high rate while
+    network usage (demand) flatlines or drops. If GNSS stations deploy
+    faster than RTK data buyers can be onboarded, ONO rewards will
+    dilute rapidly [@Coincub2025].
+
+2.  **Liquidity-Driven Incentive Compression:** External market
+    sell-offs reduce the fiat value of the fixed token rewards, pushing
+    provider ROI below the break-even point. GNSS stations are low-power
+    (low OpEx), so they are less sensitive to this than GPU networks but
+    more sensitive than passive staking protocols [@RenderThesisLB].
+
+3.  **Latent Capacity Degradation:** Providers stop maintaining hardware
+    due to low rewards. High \"Active Node\" count but falling
+    \"Quality/Uptime\" scores. RTK requires precise calibration; if
+    rewards drop, providers may neglect maintenance, degrading network
+    accuracy [@GateSquare2025].
+
+4.  **Elastic Provider Exit:** Capital (hardware) moves instantly to a
+    competitor offering higher yield. Significant risk if Geodnet offers
+    higher yield for compatible hardware.
+
+5.  **The Death Spiral:** Feedback loop where Price Drop $\to$ Lower
+    Yield $\to$ Miner Churn $\to$ Lower Security $\to$ Lower Demand
+    $\to$ Further Price Drop [@MediumHeliumMiner].
+
+## Conclusion: Benchmarking Summary
+
+Analyzing DePIN tokenomics without simulation is not only possible but
+often more revealing than theoretical modeling. By employing a
+comparative event study framework, we can observe how real-world
+networks like Helium, Hivemapper, and Render have responded to the
+stress of bear markets, liquidity crunches, and competitive pressure.
+
+The empirical data indicates that physical sunk costs act as a powerful
+retention buffer, preventing immediate collapse during price drops
+(unlike DeFi). However, this resilience is temporary; without a
+transition to Real Yield (Burn-to-Mint ratios $> 1$), networks
+eventually succumb to Reward Addiction and Latent Capacity Degradation.
+
+For Onocoy, this comparison highlights the need to tighten the coupling
+between Rewards and Realized Demand, and to differentiate incentives to
+reward high-commitment, professional providers---increasing the economic
+moat against \"mercenary\" switching.
 
 # Methodology: Simulation-Based Stress Testing {#sec:methodology}
 
@@ -629,7 +1082,7 @@ corresponding to real-world risk factors commonly observed in
 crypto-economic systems and infrastructure networks. All stress
 dimensions are treated as exogenous inputs, consistent with the scope
 constraints defined in Section
-[6](#sec:methodology){reference-type="ref" reference="sec:methodology"}.
+[7](#sec:methodology){reference-type="ref" reference="sec:methodology"}.
 
 ### Macroeconomic Regimes
 
@@ -1263,7 +1716,7 @@ in the following section.
 
 ## Failure Modes Observed (Operational Definitions)
 
-Table [2](#tab:failure_modes){reference-type="ref"
+Table [3](#tab:failure_modes){reference-type="ref"
 reference="tab:failure_modes"} provides a diagnostic matrix for
 identifying the five recurring failure modes formalized in this section.
 
@@ -1764,7 +2217,7 @@ to explain outcomes after the fact.
 
 # Human Decision-Making Under Stress: DePIN Response Archetypes {#sec:human_decision_making}
 
-Table [3](#tab:archetypes){reference-type="ref"
+Table [4](#tab:archetypes){reference-type="ref"
 reference="tab:archetypes"} summarizes the five observed stress-response
 patterns, which are detailed in the following subsections.
 
