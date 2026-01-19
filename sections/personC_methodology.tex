@@ -66,14 +66,14 @@ Stochastic elements are present in several parts of the simulation, including de
 
 Validation in this context does not aim to establish empirical accuracy with respect to real-world data. Instead, the model is validated through internal consistency and behavioral plausibility checks. These include baseline runs without stress, where the system is expected to exhibit stable participation and bounded dynamics, as well as controlled perturbations where directional responses can be anticipated based on incentive logic.
 
-Sensitivity analysis is used to further assess robustness. Key parameters---such as cost ranges, emission limits, and churn thresholds---are varied within predefined intervals to examine whether qualitative outcomes persist under moderate perturbations. Outcomes that remain stable across reasonable parameter variations are treated as more robust signals.
+Sensitivity analysis is used to further assess robustness. Key parameters (cost ranges, emission limits, and churn thresholds) are varied within predefined intervals to examine whether qualitative outcomes persist under moderate perturbations. Outcomes that remain stable across reasonable parameter variations are treated as more robust signals.
 
 \subsection{Limitations of the Model}
 While the simulation framework is designed to support structured stress testing, it necessarily abstracts from many aspects of real-world network behavior. These limitations are not incidental, but a consequence of deliberate design choices made to preserve interpretability and reproducibility.
 
-First, demand is modeled as an exogenous process. Although some scenarios allow demand to vary over time, the model does not fully endogenize user behavior or price elasticity. Second, providers are represented as economically rational agents operating under simplified decision rules. Strategic behavior such as long-term speculation or coordinated action is excluded.
+Several limitations shape the model's scope. Demand is modeled as an exogenous process; although some scenarios allow demand to vary over time, the model does not fully endogenize user behavior or price elasticity. Providers are represented as economically rational agents operating under simplified decision rules, excluding strategic behavior such as long-term speculation or coordinated action.
 
-Third, the price formation mechanism is a reduced-form approximation. It combines buy and sell pressure, dilution effects, scarcity signals, and stochastic noise to generate directional price dynamics. This approach is sufficient for comparative stress testing but does not attempt to replicate actual market microstructure. Fourth, the temporal resolution of the model is limited to discrete time steps, obscuring intra-period dynamics such as short-term volatility spikes.
+The price formation mechanism is a reduced-form approximation, combining buy and sell pressure, dilution effects, scarcity signals, and stochastic noise to generate directional price dynamics. This approach is sufficient for comparative stress testing but does not attempt to replicate actual market microstructure. The temporal resolution of the model is limited to discrete time steps, obscuring intra-period dynamics such as short-term volatility spikes.
 
 Finally, empirical calibration is constrained by data availability. Inputs derived from interviews or public documentation are treated as indicative ranges rather than precise measurements. The framework is therefore better suited to identifying relative sensitivities and failure modes than to making absolute performance claims.
 
@@ -141,7 +141,7 @@ In addition, the model distinguishes between provider types (e.g., higher-cost p
 Finally, stress is applied directly to tokenomic parameters, including emission caps, burn fractions, and initial supply conditions. This allows evaluation of how sensitive system behavior is to design choices, rather than to external shocks alone.
 
 \subsection{Scenario Combination Rules}
-Stress dimensions are combined according to clearly defined rules. Parameter-based stresses (e.g., macro regime, demand regime, provider costs) may be combined freely, allowing compound stress scenarios to be evaluated. In contrast, scenario-specific behaviors---such as saturation or utility-focused modes---are treated as mutually exclusive to preserve interpretability.
+Stress dimensions are combined according to clearly defined rules. Parameter-based stresses (e.g., macro regime, demand regime, provider costs) may be combined freely, allowing compound stress scenarios to be evaluated. In contrast, scenario-specific behaviors (such as saturation or utility-focused modes) are treated as mutually exclusive to preserve interpretability.
 
 This design choice reflects a trade-off between realism and experimental control. While real-world systems may experience overlapping structural transitions, isolating scenario-specific behaviors reduces confounding effects and supports clearer comparative analysis.
 
@@ -154,9 +154,7 @@ By standardizing these scenarios, the framework enables consistent comparison ac
 \label{sec:evaluation_metrics}
 
 \subsection{Principles for Metric Selection}
-Evaluating the robustness of tokenomic mechanisms requires metrics that are both interpretable and aligned with the functional objectives of DePIN networks. Metric selection in this thesis follows three principles.
-
-First, metrics must be comparative, enabling evaluation of relative performance across mechanisms and scenarios rather than absolute success or failure. Second, metrics must be mechanism-relevant, reflecting provider incentives, service delivery, or economic sustainability rather than speculative market outcomes. Third, metrics must be transparent, with clearly defined computation and interpretation.
+Evaluating the robustness of tokenomic mechanisms requires metrics that are both interpretable and aligned with the functional objectives of DePIN networks. Three principles guide metric selection in this thesis: metrics must be comparative, enabling evaluation of relative performance across mechanisms and scenarios rather than absolute success or failure; they must be mechanism-relevant, reflecting provider incentives, service delivery, or economic sustainability rather than speculative market outcomes; and they must be transparent, with clearly defined computation and interpretation.
 
 These principles align with established guidance for simulation-based evaluation, where metrics should illuminate system behavior without overstating precision \cite{Morris2019}.
 
