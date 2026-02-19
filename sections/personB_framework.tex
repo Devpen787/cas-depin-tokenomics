@@ -7,6 +7,15 @@
 \subsection{Introduction}
 [TODO: Define the scope of Tokenomics in DePIN. Key themes: Sustainability, Mechanism Design, and the 'Physical' constraint.]
 
+\subsection{DePIN as a Cyber-Physical System}
+\label{subsec:depin_cps}
+This research defines Decentralized Physical Infrastructure Networks (DePIN)—and specifically the Onocoy network—not merely as cryptocurrency projects, but as Cyber-Physical Systems (CPS). In this framework, physical hardware (GNSS reference stations) and digital state (token incentives) operate in dynamic, continuous feedback loops. Within this loop, the token functions as what Voshmgir describes as a "Purpose-Driven Token"—a steering signal designed to coordinate collective action (infrastructure deployment) that traditional market mechanisms fail to bootstrap efficiently \cite{Voshmgir2020}. This definition draws directly from the foundational work of Michael Zargham (BlockScience), who established "Token Engineering" as a discipline rooted in Cyber-Physical Systems Engineering rather than speculative finance.
+
+BlockScience, founded by Zargham, has established the industry standard for modeling complex cryptoeconomic systems, having successfully applied these principles to the Ethereum gas market, The Graph, and most notably, Filecoin. % TODO-CITE: [Zargham/BlockScience] Find specific case study for Ethereum/Graph modeling
+Their work on Filecoin is particularly relevant as a comparative baseline for Onocoy, given the shared challenge of incentivizing massive-scale physical infrastructure deployment.
+
+Aligning with this industry standard, this thesis adopts a "Digital Twin" simulation methodology. Just as BlockScience utilizes cadCAD to create high-fidelity simulations of network behavior, this study employs a specialized "low-fidelity Digital Twin"—the DePIN Tokenomic Stress Evaluator (DTSE). This approach moves beyond simple price forecasting to model the structural feedback loops between hardware CAPEX, provider retention, and token variance. As demonstrated by Bernardineli's work on Filecoin's minting policies, such control-theoretic modeling is essential for identifying failure modes in systems where physical hardware constraints create latency in network response \cite{Bernardineli2022}.
+
 \subsection{Comparative Scope: The Solana DePIN Ecosystem}
 \label{subsec:solana_scope}
 This section analyzes the tokenomic design patterns of eight leading DePIN protocols on Solana to establish a baseline for industry standards.
@@ -29,11 +38,15 @@ This section analyzes the tokenomic design patterns of eight leading DePIN proto
 \subsubsection{Emission Schedules \& Inflation}
 [TODO: Compare 'Halving' models (Bitcoin style) vs. 'Linear Decay' vs. 'Dynamic Minting'.]
 
+Traditional cryptocurrencies often rely on rigid, time-based emission schedules, such as Bitcoin's "Halving" model, which reduces supply regardless of demand or network health. However, recent infrastructure protocols have moved toward "Linear Decay" or "State-Dependent" issuance. Most notably, Filecoin's concept of "Effective Network Time" advances issuance only as physical capacity is added to the network \cite{Bernardineli2022}. This creates a feedback mechanism where the protocol slows its inflation during periods of stagnation, preserving value for future growth—a critical design pattern for capital-intensive DePIN projects.
+
 \subsubsection{The Burn-and-Mint Equilibrium (BME)}
 [TODO: Detailed definition of BME. How Dual-Token systems (Token + Data Credits) separate volatility from utility cost.]
+This structure aligns with the "Web3 Sustainability Loop" proposed by Trent McConaghy (Ocean Protocol), which posits that sustainable data economies requires a closed-loop value flow where network revenue continuously offsets token emissions \cite{McConaghy2020}.
 
 \subsubsection{Work Verification Mechanisms}
 [TODO: Define how 'Proof of Physical Work' is validated on-chain (e.g., Proof of Coverage, Proof of Mapping).]
+Following the taxonomy of token incentives defined by Lisa JY Tan (Economics Design), Onocoy's mechanism relies on "outcome-based" rewards (verified data) rather than "action-based" rewards, distinguishing it from simpler staking protocols \cite{Tan2020}.
 
 \subsection{Monetization and Demand Regimes}
 \label{subsec:demand_regimes}
