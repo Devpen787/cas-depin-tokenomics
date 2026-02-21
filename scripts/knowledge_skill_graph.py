@@ -127,8 +127,119 @@ def has_node_level_source_pin(raw_graph: Dict[str, object]) -> bool:
     return False
 
 
+def get_task_preferred_order(raw_graph: Dict[str, object], task_id: str) -> List[str]:
+    raw_nodes = raw_graph.get('nodes')
+    if not isinstance(raw_nodes, list):
+        return []
+
+    for raw_node in raw_nodes:
+        if not isinstance(raw_node, dict):
+            continue
+        if raw_node.get('id') != task_id:
+            continue
+        preferred_order = raw_node.get('preferred_order')
+        if not isinstance(preferred_order, list):
+            return []
+        return [item for item in preferred_order if isinstance(item, str)]
+
+    return []
+
+
+def order_skills_with_preference(
+    graph: Graph,
+    skill_ids: Iterable[str],
+    preferred_order: List[str],
+) -> List[str]:
+    selected = set(skill_ids)
+    if not selected:
+        return []
+
+    if not preferred_order:
+        return topological_skill_order(graph, selected)
+
+    rank_by_id: Dict[str, int] = {}
+    for idx, skill_id in enumerate(preferred_order):
+        if skill_id in selected and skill_id not in rank_by_id:
+            rank_by_id[skill_id] = idx
+
+    adjacency: Dict[str, List[str]] = defaultdict(list)
+    in_degree: Dict[str, int] = {skill_id: 0 for skill_id in selected}
+
+    for edge in graph.edges:
+        if edge.type != 'PREREQUISITE':
+            continue
+        dependent, prerequisite = edge.source, edge.target
+        if dependent in selected and prerequisite in selected:
+            adjacency[prerequisite].append(dependent)
+            in_degree[dependent] += 1
+
+    available: Set[str] = {skill_id for skill_id, degree in in_degree.items() if degree == 0}
+    ordered: List[str] = []
+
+    while available:
+        current = min(
+            available,
+            key=lambda skill_id: (rank_by_id.get(skill_id, float('inf')), skill_id),
+        )
+        available.remove(current)
+        ordered.append(current)
+        for neighbour in adjacency[current]:
+            in_degree[neighbour] -= 1
+            if in_degree[neighbour] == 0:
+                available.add(neighbour)
+
+    if len(ordered) != len(selected):
+        unresolved = sorted(selected.difference(ordered))
+        raise ValueError(f'Cannot resolve skill order because of a cycle: {", ".join(unresolved)}')
+
+    return ordered
+
+
+def validate_preferred_order_metadata(raw_graph: Dict[str, object], graph: Graph) -> List[str]:
+    warnings: List[str] = []
+    raw_nodes = raw_graph.get('nodes')
+    if not isinstance(raw_nodes, list):
+        return warnings
+
+    skill_ids = set(graph.node_ids_by_type('skill'))
+    for raw_node in raw_nodes:
+        if not isinstance(raw_node, dict):
+            continue
+        if raw_node.get('type') != 'task':
+            continue
+        task_id = raw_node.get('id')
+        if not isinstance(task_id, str):
+            continue
+
+        preferred_order = raw_node.get('preferred_order')
+        if not isinstance(preferred_order, list):
+            continue
+
+        preferred_skills = [item for item in preferred_order if isinstance(item, str)]
+        if len(preferred_skills) != len(set(preferred_skills)):
+            warnings.append(f'WARNING: task {task_id} preferred_order contains duplicate skill ids.')
+
+        try:
+            routed_closure = set(collect_task_skills(graph, task_id))
+        except ValueError:
+            continue
+
+        for skill_id in preferred_skills:
+            if skill_id not in skill_ids:
+                warnings.append(
+                    f'WARNING: task {task_id} preferred_order references non-skill id: {skill_id}.',
+                )
+            elif skill_id not in routed_closure:
+                warnings.append(
+                    f'WARNING: task {task_id} preferred_order references skill outside routed closure: {skill_id}.',
+                )
+
+    return warnings
+
+
 def validate_policy(
     raw_graph: Dict[str, object],
+    graph: Graph,
     enforce_dirty: bool,
     allow_dirty_override: bool = False,
 ) -> Tuple[List[str], List[str]]:
@@ -166,6 +277,7 @@ def validate_policy(
     elif dirty_state:
         warnings.append('WARNING: git working tree is dirty; continuing because this command is read-only.')
 
+    warnings.extend(validate_preferred_order_metadata(raw_graph, graph))
     return errors, warnings
 
 
@@ -401,7 +513,7 @@ def main(argv: List[str]) -> int:
     is_execution_command = bool(args.task or args.skill)
 
     if args.validate_policy:
-        policy_errors, policy_warnings = validate_policy(raw_graph, enforce_dirty=True)
+        policy_errors, policy_warnings = validate_policy(raw_graph, graph, enforce_dirty=True)
         for warning in policy_warnings:
             print(warning)
         if policy_errors:
@@ -414,6 +526,7 @@ def main(argv: List[str]) -> int:
     if is_execution_command:
         policy_errors, policy_warnings = validate_policy(
             raw_graph,
+            graph,
             enforce_dirty=not args.allow_dirty,
             allow_dirty_override=args.allow_dirty,
         )
@@ -426,7 +539,7 @@ def main(argv: List[str]) -> int:
             return 1
     elif is_listing_command and not args.validate_policy:
         # Listing commands are read-only: warn but do not refuse.
-        policy_errors, policy_warnings = validate_policy(raw_graph, enforce_dirty=False)
+        policy_errors, policy_warnings = validate_policy(raw_graph, graph, enforce_dirty=False)
         for warning in policy_warnings:
             print(warning)
         for error in policy_errors:
@@ -440,6 +553,8 @@ def main(argv: List[str]) -> int:
 
     if args.task:
         routed_skills = collect_task_skills(graph, args.task)
+        preferred_order = get_task_preferred_order(raw_graph, args.task)
+        routed_skills = order_skills_with_preference(graph, routed_skills, preferred_order)
         print(f'Task: {args.task}')
         for idx, skill_id in enumerate(routed_skills, start=1):
             print(f'  {idx}. {skill_id} - {graph.nodes[skill_id].name}')
