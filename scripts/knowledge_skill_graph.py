@@ -127,7 +127,11 @@ def has_node_level_source_pin(raw_graph: Dict[str, object]) -> bool:
     return False
 
 
-def validate_policy(raw_graph: Dict[str, object], enforce_dirty: bool) -> Tuple[List[str], List[str]]:
+def validate_policy(
+    raw_graph: Dict[str, object],
+    enforce_dirty: bool,
+    allow_dirty_override: bool = False,
+) -> Tuple[List[str], List[str]]:
     errors: List[str] = []
     warnings: List[str] = []
 
@@ -157,6 +161,8 @@ def validate_policy(raw_graph: Dict[str, object], enforce_dirty: bool) -> Tuple[
         warnings.append('WARNING: unable to determine git working tree status.')
     elif dirty_state and enforce_dirty:
         errors.append('Refusing run: git working tree is dirty.')
+    elif dirty_state and allow_dirty_override:
+        warnings.append('WARNING: git working tree is dirty; proceeding due to --allow-dirty.')
     elif dirty_state:
         warnings.append('WARNING: git working tree is dirty; continuing because this command is read-only.')
 
@@ -365,6 +371,11 @@ def main(argv: List[str]) -> int:
         type=str,
         help='Show requirements, risks mitigated, and artefacts updated for a skill id.',
     )
+    parser.add_argument(
+        '--allow-dirty',
+        action='store_true',
+        help='Allow execution-capable commands to proceed on dirty git tree.',
+    )
     args = parser.parse_args(argv)
 
     raw_graph = json.loads(args.graph.read_text(encoding='utf-8'))
@@ -401,7 +412,11 @@ def main(argv: List[str]) -> int:
         print('Policy validation passed.')
 
     if is_execution_command:
-        policy_errors, policy_warnings = validate_policy(raw_graph, enforce_dirty=True)
+        policy_errors, policy_warnings = validate_policy(
+            raw_graph,
+            enforce_dirty=not args.allow_dirty,
+            allow_dirty_override=args.allow_dirty,
+        )
         for warning in policy_warnings:
             print(warning)
         if policy_errors:
