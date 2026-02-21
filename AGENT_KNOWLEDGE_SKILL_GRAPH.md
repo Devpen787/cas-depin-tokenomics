@@ -31,6 +31,10 @@ For this thesis, the same idea is useful because we already have stable source f
 4. **Theory-to-model traceability**: methodology assumptions must map back to framework concepts.
 5. **Comparative interpretation guard**: results are framed as conditional, not predictive certainties.
 
+## Source pinning
+
+The `graph_source_version` value records the baseline snapshot commit that the graph was pinned to when it was validated. A run is treated as compatible as long as that pinned commit is an ancestor of the current `HEAD`, so normal forward progress does not break compatibility. The CLI only warns when the pin diverges from `HEAD` history, not when `HEAD` simply moves ahead. This matters for reproducibility because each run can still be traced back to a known source baseline.
+
 ## Quick usage
 
 ```bash
