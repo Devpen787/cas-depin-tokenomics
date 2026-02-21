@@ -1,0 +1,843 @@
+{
+  "meta": {
+    "name": "thesis-agent-knowledge-skill-graph",
+    "version": "0.1.0",
+    "updated_on": "2026-02-21",
+    "purpose": "Route thesis tasks to repeatable agent skills while preserving the Golden Thread and DTSE lexicon.",
+    "primary_question": "How do DePIN tokenomic mechanisms (BME vs. Capped Supply) behave under stress, and how can robustness be evaluated before catastrophic failure?",
+    "lexicon_lock": "Use DTSE (never ORSTE)."
+  },
+  "graph_source_version": "git:e77514c761239eb72eb684515512bcbd94a050f7",
+  "nodes": [
+    {
+      "id": "knowledge.thesis-os",
+      "type": "knowledge",
+      "name": "Thesis Operating System",
+      "description": "Golden Thread, lexicon lock, and SOP source of truth.",
+      "file": "THESIS_OS.md",
+      "tags": [
+        "golden-thread",
+        "lexicon",
+        "sop"
+      ]
+    },
+    {
+      "id": "knowledge.thesis-structure",
+      "type": "knowledge",
+      "name": "Thesis Structure Matrix",
+      "description": "Ownership and chapter mapping backbone.",
+      "file": "THESIS_STRUCTURE.md",
+      "tags": [
+        "structure",
+        "kanban",
+        "mapping"
+      ]
+    },
+    {
+      "id": "knowledge.reference-mapping",
+      "type": "knowledge",
+      "name": "Reference Mapping",
+      "description": "Citation evidence tracker and page-level mapping source.",
+      "file": "REFERENCE_MAPPING.md",
+      "tags": [
+        "citations",
+        "evidence"
+      ]
+    },
+    {
+      "id": "knowledge.bibliography",
+      "type": "knowledge",
+      "name": "Bibliography Database",
+      "description": "Master BibLaTeX source for formal references.",
+      "file": "bibliography.bib",
+      "tags": [
+        "citations",
+        "biblatex"
+      ]
+    },
+    {
+      "id": "knowledge.personA-foundations",
+      "type": "knowledge",
+      "name": "Foundations Section",
+      "description": "Stress definitions and DePIN fragility framing.",
+      "file": "sections/personA_foundations.tex",
+      "tags": [
+        "chapter1",
+        "definitions"
+      ]
+    },
+    {
+      "id": "knowledge.personB-framework",
+      "type": "knowledge",
+      "name": "Theoretical Framework Section",
+      "description": "Tokenomic mechanism definitions and cure logic.",
+      "file": "sections/personB_framework.tex",
+      "tags": [
+        "chapter2",
+        "mechanisms"
+      ]
+    },
+    {
+      "id": "knowledge.personA-onocoy",
+      "type": "knowledge",
+      "name": "Onocoy Case Section",
+      "description": "Empirical anchor for capped-supply GNSS mechanics.",
+      "file": "sections/personA_onocoy.tex",
+      "tags": [
+        "chapter3",
+        "onocoy"
+      ]
+    },
+    {
+      "id": "knowledge.empirical-analysis",
+      "type": "knowledge",
+      "name": "Empirical Analysis Section",
+      "description": "Historical event-study stress evidence and baseline contrasts.",
+      "file": "sections/empirical_analysis.tex",
+      "tags": [
+        "chapter4",
+        "event-study"
+      ]
+    },
+    {
+      "id": "knowledge.personC-methodology",
+      "type": "knowledge",
+      "name": "Methodology Section",
+      "description": "DTSE model assumptions, parameterisation, and scenario design.",
+      "file": "sections/personC_methodology.tex",
+      "tags": [
+        "chapter5",
+        "dtse",
+        "simulation"
+      ]
+    },
+    {
+      "id": "knowledge.personC-results",
+      "type": "knowledge",
+      "name": "Results Section",
+      "description": "Stress-test outputs and comparative findings.",
+      "file": "sections/personC_results.tex",
+      "tags": [
+        "chapter6",
+        "results"
+      ]
+    },
+    {
+      "id": "knowledge.cas-style",
+      "type": "knowledge",
+      "name": "CAS Style Guide",
+      "description": "Formatting, thesis style, and compliance rules.",
+      "file": "CAS_FORMATTING_AND_STYLE.md",
+      "tags": [
+        "style",
+        "compliance"
+      ]
+    },
+    {
+      "id": "knowledge.human-style-audit",
+      "type": "knowledge",
+      "name": "Human Style Audit",
+      "description": "Known writing anti-patterns to avoid while editing.",
+      "file": "HUMAN_STYLE_AUDIT.md",
+      "tags": [
+        "style",
+        "quality"
+      ]
+    },
+    {
+      "id": "knowledge.workflow.reconcile-sections",
+      "type": "knowledge",
+      "name": "Reconcile Workflow",
+      "description": "Checklist-driven consistency review between core sections.",
+      "file": ".agent/workflows/reconcile_sections.md",
+      "tags": [
+        "workflow",
+        "consistency"
+      ]
+    },
+    {
+      "id": "knowledge.workflow.review-section",
+      "type": "knowledge",
+      "name": "Hostile Review Workflow",
+      "description": "Critical reviewer lens for over-claiming and ambiguity.",
+      "file": ".agent/workflows/review_section.md",
+      "tags": [
+        "workflow",
+        "review"
+      ]
+    },
+    {
+      "id": "skill.golden-thread-alignment",
+      "type": "skill",
+      "name": "Golden Thread Alignment",
+      "description": "Checks whether proposed text directly advances the main thesis question.",
+      "tags": [
+        "alignment",
+        "argument"
+      ]
+    },
+    {
+      "id": "skill.lexicon-guard-dtse",
+      "type": "skill",
+      "name": "Lexicon Guard (DTSE)",
+      "description": "Prevents terminology drift and enforces DTSE vocabulary.",
+      "tags": [
+        "lexicon",
+        "terminology"
+      ]
+    },
+    {
+      "id": "skill.citation-gap-tagging",
+      "type": "skill",
+      "name": "Citation Gap Tagging",
+      "description": "Inserts and tracks % TODO-CITE tags where evidence is missing.",
+      "tags": [
+        "citations",
+        "latex"
+      ]
+    },
+    {
+      "id": "skill.reference-resolution",
+      "type": "skill",
+      "name": "Reference Resolution",
+      "description": "Resolves TODO-CITE markers into page-level mapped references.",
+      "tags": [
+        "citations",
+        "evidence",
+        "references"
+      ]
+    },
+    {
+      "id": "skill.scope-contract-check",
+      "type": "skill",
+      "name": "Scope Contract Check",
+      "description": "Verifies section ownership and scope boundaries are respected.",
+      "tags": [
+        "scope",
+        "ownership"
+      ]
+    },
+    {
+      "id": "skill.reconciliation-check",
+      "type": "skill",
+      "name": "Cross-Section Reconciliation",
+      "description": "Cross-references A/B/C sections for terminology and assumption consistency.",
+      "tags": [
+        "consistency",
+        "cross-check"
+      ]
+    },
+    {
+      "id": "skill.hostile-review",
+      "type": "skill",
+      "name": "Hostile Reviewer Pass",
+      "description": "Stress-tests claims for over-reach, ambiguity, and weak substantiation.",
+      "tags": [
+        "review",
+        "risk"
+      ]
+    },
+    {
+      "id": "skill.theory-to-model-translation",
+      "type": "skill",
+      "name": "Theory-to-Model Translation",
+      "description": "Maps conceptual stress mechanisms into DTSE simulation parameters.",
+      "tags": [
+        "dtse",
+        "parameters",
+        "methodology"
+      ]
+    },
+    {
+      "id": "skill.metric-definition-audit",
+      "type": "skill",
+      "name": "Metric Definition Audit",
+      "description": "Ensures each metric is defined, measurable, and consistently interpreted.",
+      "tags": [
+        "metrics",
+        "results"
+      ]
+    },
+    {
+      "id": "skill.results-interpretation-guard",
+      "type": "skill",
+      "name": "Results Interpretation Guard",
+      "description": "Constrains claims to comparative insights instead of deterministic predictions.",
+      "tags": [
+        "results",
+        "causality"
+      ]
+    },
+    {
+      "id": "skill.preflight-quality-gate",
+      "type": "skill",
+      "name": "Preflight Quality Gate",
+      "description": "Runs final style, citation, and consistency checks before submission.",
+      "tags": [
+        "qa",
+        "final-check"
+      ]
+    },
+    {
+      "id": "task.draft-section-content",
+      "type": "task",
+      "name": "Draft or edit section content",
+      "description": "Write or revise chapter text while preserving thesis coherence.",
+      "tags": [
+        "writing"
+      ]
+    },
+    {
+      "id": "task.update-methodology",
+      "type": "task",
+      "name": "Update methodology assumptions",
+      "description": "Change or refine DTSE setup, scenarios, or parameter justifications.",
+      "tags": [
+        "chapter5",
+        "dtse"
+      ]
+    },
+    {
+      "id": "task.refresh-empirical-analysis",
+      "type": "task",
+      "name": "Refresh empirical analysis chapter",
+      "description": "Improve event-study framing and comparative stress evidence.",
+      "tags": [
+        "chapter4",
+        "empirical"
+      ]
+    },
+    {
+      "id": "task.prepare-results-discussion",
+      "type": "task",
+      "name": "Prepare results discussion",
+      "description": "Interpret stress-test outcomes with robust metric discipline.",
+      "tags": [
+        "chapter6",
+        "results"
+      ],
+      "preferred_order": [
+        "skill.citation-gap-tagging",
+        "skill.golden-thread-alignment",
+        "skill.metric-definition-audit",
+        "skill.results-interpretation-guard",
+        "skill.hostile-review"
+      ]
+    },
+    {
+      "id": "task.reconcile-a-b-c",
+      "type": "task",
+      "name": "Reconcile sections A, B, and C",
+      "description": "Validate that assumptions in methodology and results are grounded upstream.",
+      "tags": [
+        "consistency"
+      ]
+    },
+    {
+      "id": "task.final-citation-pass",
+      "type": "task",
+      "name": "Complete final citation pass",
+      "description": "Resolve citation placeholders into formal references.",
+      "tags": [
+        "citations",
+        "finalisation"
+      ]
+    },
+    {
+      "id": "task.pre-submission-review",
+      "type": "task",
+      "name": "Run pre-submission review",
+      "description": "Final integrated quality check before exporting final thesis draft.",
+      "tags": [
+        "qa",
+        "submission"
+      ],
+      "preferred_order": [
+        "skill.citation-gap-tagging",
+        "skill.golden-thread-alignment",
+        "skill.lexicon-guard-dtse",
+        "skill.metric-definition-audit",
+        "skill.results-interpretation-guard",
+        "skill.reconciliation-check",
+        "skill.reference-resolution",
+        "skill.hostile-review",
+        "skill.preflight-quality-gate"
+      ]
+    },
+    {
+      "id": "risk.golden-thread-drift",
+      "type": "risk",
+      "name": "Golden Thread Drift",
+      "description": "Text does not contribute to the main thesis question."
+    },
+    {
+      "id": "risk.lexicon-drift",
+      "type": "risk",
+      "name": "Lexicon Drift",
+      "description": "Inconsistent terminology (for example ORSTE instead of DTSE)."
+    },
+    {
+      "id": "risk.citation-debt",
+      "type": "risk",
+      "name": "Citation Debt",
+      "description": "Claims lack page-level evidence or unresolved citation placeholders."
+    },
+    {
+      "id": "risk.model-assumption-ungrounded",
+      "type": "risk",
+      "name": "Ungrounded Model Assumption",
+      "description": "Methodology assumptions are not traceable to theoretical or empirical foundations."
+    },
+    {
+      "id": "risk.overclaiming",
+      "type": "risk",
+      "name": "Over-Claiming",
+      "description": "Language overstates certainty beyond the evidence and method limits."
+    },
+    {
+      "id": "risk.metric-inconsistency",
+      "type": "risk",
+      "name": "Metric Inconsistency",
+      "description": "Metrics are undefined, non-comparable, or interpreted inconsistently."
+    },
+    {
+      "id": "risk.style-drift",
+      "type": "risk",
+      "name": "Style Drift",
+      "description": "Writing diverges from CAS and internal style guidance."
+    },
+    {
+      "id": "artefact.section-tex",
+      "type": "artefact",
+      "name": "Section TeX Files",
+      "description": "All chapter source files under sections/."
+    },
+    {
+      "id": "artefact.reference-mapping",
+      "type": "artefact",
+      "name": "Reference Mapping File",
+      "description": "Citation tracking and mapping table.",
+      "file": "REFERENCE_MAPPING.md"
+    },
+    {
+      "id": "artefact.bibliography",
+      "type": "artefact",
+      "name": "Bibliography File",
+      "description": "BibLaTeX database.",
+      "file": "bibliography.bib"
+    },
+    {
+      "id": "artefact.review-checklist",
+      "type": "artefact",
+      "name": "Review Checklist Output",
+      "description": "Structured issues/checklist outputs from review workflows."
+    }
+  ],
+  "edges": [
+    {
+      "source": "skill.reference-resolution",
+      "target": "skill.citation-gap-tagging",
+      "type": "PREREQUISITE",
+      "rationale": "Resolve only after all citation gaps are marked."
+    },
+    {
+      "source": "skill.preflight-quality-gate",
+      "target": "skill.golden-thread-alignment",
+      "type": "PREREQUISITE",
+      "rationale": "Final QA depends on argument alignment."
+    },
+    {
+      "source": "skill.preflight-quality-gate",
+      "target": "skill.reference-resolution",
+      "type": "PREREQUISITE",
+      "rationale": "Final QA requires completed citations."
+    },
+    {
+      "source": "skill.preflight-quality-gate",
+      "target": "skill.hostile-review",
+      "type": "PREREQUISITE",
+      "rationale": "Final QA includes a critical claim review."
+    },
+    {
+      "source": "skill.preflight-quality-gate",
+      "target": "skill.metric-definition-audit",
+      "type": "PREREQUISITE",
+      "rationale": "Final QA requires metric consistency."
+    },
+    {
+      "source": "skill.golden-thread-alignment",
+      "target": "knowledge.thesis-os",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.golden-thread-alignment",
+      "target": "knowledge.thesis-structure",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.lexicon-guard-dtse",
+      "target": "knowledge.thesis-os",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.citation-gap-tagging",
+      "target": "knowledge.thesis-os",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.citation-gap-tagging",
+      "target": "knowledge.reference-mapping",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.reference-resolution",
+      "target": "knowledge.reference-mapping",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.reference-resolution",
+      "target": "knowledge.bibliography",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.scope-contract-check",
+      "target": "knowledge.thesis-structure",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.reconciliation-check",
+      "target": "knowledge.workflow.reconcile-sections",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.reconciliation-check",
+      "target": "knowledge.personA-foundations",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.reconciliation-check",
+      "target": "knowledge.personB-framework",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.reconciliation-check",
+      "target": "knowledge.personC-methodology",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.hostile-review",
+      "target": "knowledge.workflow.review-section",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.hostile-review",
+      "target": "knowledge.cas-style",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.theory-to-model-translation",
+      "target": "knowledge.thesis-os",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.theory-to-model-translation",
+      "target": "knowledge.personB-framework",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.theory-to-model-translation",
+      "target": "knowledge.personC-methodology",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.metric-definition-audit",
+      "target": "knowledge.empirical-analysis",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.metric-definition-audit",
+      "target": "knowledge.personC-methodology",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.metric-definition-audit",
+      "target": "knowledge.personC-results",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.results-interpretation-guard",
+      "target": "knowledge.personC-results",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.results-interpretation-guard",
+      "target": "knowledge.personC-methodology",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.preflight-quality-gate",
+      "target": "knowledge.thesis-os",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.preflight-quality-gate",
+      "target": "knowledge.cas-style",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.preflight-quality-gate",
+      "target": "knowledge.human-style-audit",
+      "type": "REQUIRES"
+    },
+    {
+      "source": "skill.golden-thread-alignment",
+      "target": "risk.golden-thread-drift",
+      "type": "MITIGATES"
+    },
+    {
+      "source": "skill.lexicon-guard-dtse",
+      "target": "risk.lexicon-drift",
+      "type": "MITIGATES"
+    },
+    {
+      "source": "skill.citation-gap-tagging",
+      "target": "risk.citation-debt",
+      "type": "MITIGATES"
+    },
+    {
+      "source": "skill.reference-resolution",
+      "target": "risk.citation-debt",
+      "type": "MITIGATES"
+    },
+    {
+      "source": "skill.theory-to-model-translation",
+      "target": "risk.model-assumption-ungrounded",
+      "type": "MITIGATES"
+    },
+    {
+      "source": "skill.hostile-review",
+      "target": "risk.overclaiming",
+      "type": "MITIGATES"
+    },
+    {
+      "source": "skill.results-interpretation-guard",
+      "target": "risk.overclaiming",
+      "type": "MITIGATES"
+    },
+    {
+      "source": "skill.metric-definition-audit",
+      "target": "risk.metric-inconsistency",
+      "type": "MITIGATES"
+    },
+    {
+      "source": "skill.scope-contract-check",
+      "target": "risk.style-drift",
+      "type": "MITIGATES"
+    },
+    {
+      "source": "skill.preflight-quality-gate",
+      "target": "risk.style-drift",
+      "type": "MITIGATES"
+    },
+    {
+      "source": "skill.citation-gap-tagging",
+      "target": "artefact.section-tex",
+      "type": "UPDATES"
+    },
+    {
+      "source": "skill.reference-resolution",
+      "target": "artefact.reference-mapping",
+      "type": "UPDATES"
+    },
+    {
+      "source": "skill.reference-resolution",
+      "target": "artefact.bibliography",
+      "type": "UPDATES"
+    },
+    {
+      "source": "skill.reconciliation-check",
+      "target": "artefact.review-checklist",
+      "type": "UPDATES"
+    },
+    {
+      "source": "skill.hostile-review",
+      "target": "artefact.review-checklist",
+      "type": "UPDATES"
+    },
+    {
+      "source": "skill.theory-to-model-translation",
+      "target": "artefact.section-tex",
+      "type": "UPDATES"
+    },
+    {
+      "source": "skill.metric-definition-audit",
+      "target": "artefact.section-tex",
+      "type": "UPDATES"
+    },
+    {
+      "source": "skill.results-interpretation-guard",
+      "target": "artefact.section-tex",
+      "type": "UPDATES"
+    },
+    {
+      "source": "skill.preflight-quality-gate",
+      "target": "artefact.review-checklist",
+      "type": "UPDATES"
+    },
+    {
+      "source": "task.draft-section-content",
+      "target": "skill.golden-thread-alignment",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.draft-section-content",
+      "target": "skill.lexicon-guard-dtse",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.draft-section-content",
+      "target": "skill.scope-contract-check",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.draft-section-content",
+      "target": "skill.citation-gap-tagging",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.update-methodology",
+      "target": "skill.golden-thread-alignment",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.update-methodology",
+      "target": "skill.lexicon-guard-dtse",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.update-methodology",
+      "target": "skill.theory-to-model-translation",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.update-methodology",
+      "target": "skill.metric-definition-audit",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.update-methodology",
+      "target": "skill.citation-gap-tagging",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.refresh-empirical-analysis",
+      "target": "skill.golden-thread-alignment",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.refresh-empirical-analysis",
+      "target": "skill.metric-definition-audit",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.refresh-empirical-analysis",
+      "target": "skill.hostile-review",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.refresh-empirical-analysis",
+      "target": "skill.citation-gap-tagging",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.prepare-results-discussion",
+      "target": "skill.golden-thread-alignment",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.prepare-results-discussion",
+      "target": "skill.metric-definition-audit",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.prepare-results-discussion",
+      "target": "skill.results-interpretation-guard",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.prepare-results-discussion",
+      "target": "skill.citation-gap-tagging",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.prepare-results-discussion",
+      "target": "skill.hostile-review",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.reconcile-a-b-c",
+      "target": "skill.scope-contract-check",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.reconcile-a-b-c",
+      "target": "skill.reconciliation-check",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.reconcile-a-b-c",
+      "target": "skill.theory-to-model-translation",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.reconcile-a-b-c",
+      "target": "skill.metric-definition-audit",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.final-citation-pass",
+      "target": "skill.citation-gap-tagging",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.final-citation-pass",
+      "target": "skill.reference-resolution",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.final-citation-pass",
+      "target": "skill.preflight-quality-gate",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.pre-submission-review",
+      "target": "skill.preflight-quality-gate",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.pre-submission-review",
+      "target": "skill.hostile-review",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.pre-submission-review",
+      "target": "skill.reconciliation-check",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.pre-submission-review",
+      "target": "skill.results-interpretation-guard",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.pre-submission-review",
+      "target": "skill.reference-resolution",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.pre-submission-review",
+      "target": "skill.lexicon-guard-dtse",
+      "type": "ROUTES_TO"
+    }
+  ]
+}

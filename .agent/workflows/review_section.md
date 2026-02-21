@@ -7,7 +7,13 @@ description: Hostile CAS Reviewer
 This workflow triggers a "hostile" academic review of a specific LaTeX section file.
 
 ## Input
-- The user should specify which file to review (e.g., "Review Person A" or "Review personB_tokenomics.tex").
+- The user should specify which file to review (e.g., "Review Person A" or "Review sections/personB_framework.tex").
+
+Before running this workflow, inspect the hostile review skill manifest:
+
+```bash
+python3 scripts/knowledge_skill_graph.py --skill skill.hostile-review
+```
 
 ## Steps
 
