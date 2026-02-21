@@ -33,5 +33,8 @@ The output will be `main.pdf`.
 ## Workflows
 - **Hostile Review**: `agent run "Review Person A"`
 - **Reconciliation**: `agent run "Check consistency"`
+- **Knowledge-Skill Routing**:
+  - `python3 scripts/knowledge_skill_graph.py --list-tasks`
+  - `python3 scripts/knowledge_skill_graph.py --task task.update-methodology`
 
 (See `.agent/workflows/` for details)
