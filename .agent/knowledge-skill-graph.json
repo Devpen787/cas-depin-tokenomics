@@ -7,6 +7,7 @@
     "primary_question": "How do DePIN tokenomic mechanisms (BME vs. Capped Supply) behave under stress, and how can robustness be evaluated before catastrophic failure?",
     "lexicon_lock": "Use DTSE (never ORSTE)."
   },
+  "graph_source_version": "git:c9c24727c7d7b06f7e75d984da61c57d2b2c5c8e",
   "nodes": [
     {
       "id": "knowledge.thesis-os",
