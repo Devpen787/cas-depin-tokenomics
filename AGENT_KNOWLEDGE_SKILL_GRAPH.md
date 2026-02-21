@@ -37,6 +37,10 @@ The `graph_source_version` value records the baseline snapshot commit that the g
 
 `graph_source_version` is the baseline snapshot commit for the graph and tells the CLI which source state the policy was pinned against. If that pinned commit is an ancestor of the current `HEAD`, the run is treated as compatible and no mismatch warning is shown. The mismatch warning is emitted only when the pin diverges from `HEAD` history. `--validate-policy` stays strict and refuses dirty trees, while `--allow-dirty` applies only to task/skill commands and does not bypass `--validate-policy`.
 
+## Source pinning and policy gating
+
+`graph_source_version` is the baseline snapshot commit for the graph, and the pin is treated as valid when that commit is an ancestor of the current `HEAD`, which means no mismatch warning is shown. The warning appears only when the pin diverges from `HEAD` history. `--validate-policy` is strict and refuses dirty trees to preserve reproducibility checks. `--allow-dirty` is an execution override that applies only to `--task` and `--skill` runs, not to `--validate-policy`, and the end-to-end checks live in `scripts/sanity_graph_policy.sh`.
+
 ## Quick usage
 
 ```bash
