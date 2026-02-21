@@ -103,6 +103,15 @@ def get_dirty_state() -> bool | None:
     return bool(result.stdout.strip())
 
 
+def is_ancestor(ancestor_sha: str, head_sha: str) -> bool | None:
+    result = run_git(['merge-base', '--is-ancestor', ancestor_sha, head_sha])
+    if result.returncode == 0:
+        return True
+    if result.returncode == 1:
+        return False
+    return None
+
+
 def has_node_level_source_pin(raw_graph: Dict[str, object]) -> bool:
     raw_nodes = raw_graph.get('nodes')
     if not isinstance(raw_nodes, list):
@@ -135,10 +144,13 @@ def validate_policy(raw_graph: Dict[str, object], enforce_dirty: bool) -> Tuple[
     head_sha = get_head_sha()
     if graph_pin_value and head_sha and graph_pin_value.startswith('git:'):
         pinned_sha = graph_pin_value.split(':', 1)[1]
-        if not head_sha.startswith(pinned_sha):
+        anc = is_ancestor(pinned_sha, head_sha)
+        if anc is False:
             warnings.append(
                 f'WARNING: graph_source_version does not match current HEAD (pinned={pinned_sha}, head={head_sha}).',
             )
+        elif anc is None:
+            warnings.append('WARNING: unable to determine git ancestry for graph_source_version vs HEAD.')
 
     dirty_state = get_dirty_state()
     if dirty_state is None:
