@@ -1,0 +1,6 @@
+Graph source pin: git:e77514c761239eb72eb684515512bcbd94a050f7
+Task: task.reconcile-a-b-c
+  1. skill.metric-definition-audit - Metric Definition Audit
+  2. skill.reconciliation-check - Cross-Section Reconciliation
+  3. skill.scope-contract-check - Scope Contract Check
+  4. skill.theory-to-model-translation - Theory-to-Model Translation
