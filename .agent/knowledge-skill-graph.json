@@ -315,6 +315,13 @@
       "tags": [
         "chapter6",
         "results"
+      ],
+      "preferred_order": [
+        "skill.citation-gap-tagging",
+        "skill.golden-thread-alignment",
+        "skill.metric-definition-audit",
+        "skill.results-interpretation-guard",
+        "skill.hostile-review"
       ]
     },
     {
@@ -344,6 +351,17 @@
       "tags": [
         "qa",
         "submission"
+      ],
+      "preferred_order": [
+        "skill.citation-gap-tagging",
+        "skill.golden-thread-alignment",
+        "skill.lexicon-guard-dtse",
+        "skill.metric-definition-audit",
+        "skill.results-interpretation-guard",
+        "skill.reconciliation-check",
+        "skill.reference-resolution",
+        "skill.hostile-review",
+        "skill.preflight-quality-gate"
       ]
     },
     {
@@ -814,6 +832,11 @@
     {
       "source": "task.pre-submission-review",
       "target": "skill.reference-resolution",
+      "type": "ROUTES_TO"
+    },
+    {
+      "source": "task.pre-submission-review",
+      "target": "skill.lexicon-guard-dtse",
       "type": "ROUTES_TO"
     }
   ]
