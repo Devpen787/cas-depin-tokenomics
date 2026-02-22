@@ -1,0 +1,35 @@
+name: graph-policy-sanity
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  graph-policy-sanity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Validate graph structure
+        run: python3 scripts/knowledge_skill_graph.py --validate
+
+      - name: Validate graph policy
+        run: python3 scripts/knowledge_skill_graph.py --validate-policy
+
+      - name: Run graph policy sanity script
+        run: bash ./scripts/sanity_graph_policy.sh
+
+      - name: Run no-writes sanity script
+        run: bash ./scripts/sanity_no_writes.sh
+
+      - name: Run topology sanity script
+        run: bash ./scripts/sanity_topology.sh
+
+      - name: Run task route regression script
+        run: bash ./scripts/regression_task_routes.sh
