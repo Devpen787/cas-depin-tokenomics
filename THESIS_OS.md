@@ -43,10 +43,9 @@ Do not duplicate tracking. Always refer to and update these master files:
   - `% TODO-LINK: [Section/Figure]` (e.g., `% TODO-LINK: see Methodology section for parameters`)
 - Periodically, run a global search for `% TODO-CITE`, look up the source in `REFERENCE_MAPPING.md`, fill in the page-level table, and replace the tag with a formal `\cite{...}`.
 
-### B. Environment Independence
-- This thesis is developed across **Cursor, Antigravity, and Codex**.
-- Rely on standard Markdown files, Python scripts, and `.tex` files. Avoid IDE-locked formats where possible.
-- If running scripts (like orphan checkers or reference linkers), standard Python 3 is assumed.
+### C. Citation Quality Control & Synthesis
+- **Rigor Check:** Before marking a chapter as "Final", you must check all citations against the `personC_citation_risk_register.md`. Replace any `HIGH` risk sources (e.g., blog posts, vendor websites) with peer-reviewed literature or official protocol documentation.
+- **Thematic Synthesis:** Do not just summarize papers. Actively position sources within the tensions defined in `reference_contradiction_gap_map.md` (e.g., *Sustainable narratives vs. Subsidy-dependence mechanics*, or *Decentralization ideals vs. observed governance concentration*).
 
 ---
 

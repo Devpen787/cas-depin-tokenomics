@@ -6,11 +6,11 @@ This document is the central hub for the thesis. It maps out the "Golden Thread"
 *This section ensures every chapter directly answers the main thesis question.*
 
 - **Main Thesis Question:** How do DePIN tokenomic mechanisms (specifically BME vs. Capped Supply) behave under physical and economic stress, and how can we evaluate their robustness before catastrophic failure?
-- **Foundations:** Establishes why DePINs are fragile (physical hardware sunk costs) and defines "stress" theoretically.
-- **Framework:** Defines the tokenomic mechanisms ("the cures") currently used to manage this stress.
-- **Onocoy Case:** Provides the empirical baseline—what does a real capped-supply GNSS network look like?
+- **Foundations:** Establishes why DePINs are fragile (physical hardware sunk costs) and defines "stress" theoretically. *Addresses Gap: Validates the physical constraint not captured by standard crypto literature.*
+- **Framework:** Defines the tokenomic mechanisms ("the cures") currently used to manage this stress. *Addresses Contradiction: Highlights the tension between "sustainable economics" narratives and actual subsidy-dependence mechanics.*
+- **Onocoy Case:** Provides the empirical baseline—what does a real capped-supply GNSS network look like? *Addresses Contradiction: Explores the friction between coverage expansion incentives and density-quality economics.*
 - **Empirical Analysis:** Proves that we can observe these stress failures historically in other networks without simulations.
-- **Methodology:** Sets up the simulation environment to test Onocoy's specific mechanics against hypothetical future stress.
+- **Methodology:** Sets up the simulation environment to test Onocoy's specific mechanics against hypothetical future stress. *Addresses Contradiction: Reconciles the gap between permissionless openness and the security/verification burden.*
 - **Results:** Answers the main question by showing how the mechanisms performed under the simulated stress.
 
 ## 2. Status & Ownership Matrix
@@ -35,6 +35,8 @@ This document is the central hub for the thesis. It maps out the "Golden Thread"
 | **Subsidy Gap** | Real Yield vs. Dilutive Yield | `provider_opex`, `fiat_revenue_baseline` |
 | **Speculative Fragility** | 30-Day Retention vs. Price Drop | `churn_threshold`, `price_drift` |
 | **Elastic Provider Exit** | Competitive Yield Switching Rate | `competitor_yield_opportunity` |
+| **Adversarial Verification Failure** *(Out of Scope for v1 Simulation)* | Sybil/Spoofing Incidence Rate | `malicious_actor_pct`, `verification_failure_penalty` |
+| **Governance Concentration** *(Out of Scope for v1 Simulation)* | Proposal Gini Coefficient | `governance_latency_modifier` |
 
 ## 4. LaTeX Tagging Conventions
 *Use these inline comments in your `.tex` files to integrate with our tracking tools.*
