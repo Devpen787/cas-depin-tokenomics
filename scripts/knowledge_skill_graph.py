@@ -78,18 +78,23 @@ def load_graph(path: Path) -> Graph:
     return Graph(nodes=nodes, edges=edges)
 
 
-def run_git(args: List[str]) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        ['git', *args],
-        cwd=REPO_ROOT,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
+def run_git(args: List[str]) -> subprocess.CompletedProcess[str] | None:
+    try:
+        return subprocess.run(
+            ['git', *args],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except FileNotFoundError:
+        return None
 
 
 def get_head_sha() -> str | None:
     result = run_git(['rev-parse', '--verify', 'HEAD'])
+    if result is None:
+        return None
     if result.returncode != 0:
         return None
     value = result.stdout.strip()
@@ -98,6 +103,8 @@ def get_head_sha() -> str | None:
 
 def get_dirty_state() -> bool | None:
     result = run_git(['status', '--porcelain'])
+    if result is None:
+        return None
     if result.returncode != 0:
         return None
     return bool(result.stdout.strip())
@@ -105,6 +112,8 @@ def get_dirty_state() -> bool | None:
 
 def is_ancestor(ancestor_sha: str, head_sha: str) -> bool | None:
     result = run_git(['merge-base', '--is-ancestor', ancestor_sha, head_sha])
+    if result is None:
+        return None
     if result.returncode == 0:
         return True
     if result.returncode == 1:
@@ -257,6 +266,8 @@ def validate_policy(
         errors.append('Missing source version pin: provide graph_source_version or knowledge node source_version.')
 
     head_sha = get_head_sha()
+    if head_sha is None:
+        warnings.append('WARNING: unable to determine git HEAD (git unavailable?).')
     if graph_pin_value and head_sha and graph_pin_value.startswith('git:'):
         pinned_sha = graph_pin_value.split(':', 1)[1]
         anc = is_ancestor(pinned_sha, head_sha)
@@ -270,6 +281,8 @@ def validate_policy(
     dirty_state = get_dirty_state()
     if dirty_state is None:
         warnings.append('WARNING: unable to determine git working tree status.')
+        if enforce_dirty:
+            errors.append('Refusing run: cannot determine git working tree status (git unavailable).')
     elif dirty_state and enforce_dirty:
         errors.append('Refusing run: git working tree is dirty.')
     elif dirty_state and allow_dirty_override:

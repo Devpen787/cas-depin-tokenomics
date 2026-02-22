@@ -52,8 +52,20 @@ if [[ ${gitless_rc} -eq 0 ]]; then
   fail "Git-unavailable policy check unexpectedly succeeded."
 fi
 
-if ! grep -Eq "FileNotFoundError|No such file or directory: 'git'|unable to determine git" <<<"${gitless_out}"; then
-  fail "Git-unavailable output missing expected fail-closed or clear-warning signal."
+if grep -q "Traceback" <<<"${gitless_out}"; then
+  fail "Git-unavailable output must not include a Python traceback."
+fi
+
+if ! grep -q "WARNING: unable to determine git HEAD (git unavailable?)." <<<"${gitless_out}"; then
+  fail "Git-unavailable output missing git HEAD warning."
+fi
+
+if ! grep -q "WARNING: unable to determine git working tree status." <<<"${gitless_out}"; then
+  fail "Git-unavailable output missing git working tree status warning."
+fi
+
+if ! grep -q "Refusing run: cannot determine git working tree status (git unavailable)." <<<"${gitless_out}"; then
+  fail "Git-unavailable output missing fail-closed refusal error."
 fi
 
 status_end="$(git status --porcelain)"
