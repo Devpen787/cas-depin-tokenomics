@@ -32,6 +32,7 @@ Do not duplicate tracking. Always refer to and update these master files:
 1. **`THESIS_STRUCTURE.md`**: The Kanban board for chapter status, ownership (Person A/B/C), and structural mapping.
 2. **`REFERENCE_MAPPING.md`**: The master checklist and page-level tracking tables for all 80+ citations.
 3. **`bibliography.bib`**: The master LaTeX citation database.
+4. **`.agent/knowledge-skill-graph.json`**: The task-to-skill routing graph used by agents to select checks and workflows consistently.
 
 ---
 
@@ -56,3 +57,10 @@ When working on specific domains of this project, agents must leverage the insta
 - **For Planning & Workflow:** Use `depin-planning-with-files` and `depin-verification-before-completion`.
 - **For Document Analysis:** Use `doc` and `pdf` skills to extract page-level data for `REFERENCE_MAPPING.md`.
 - **For UI/Dashboards (if applicable):** Use Figma MCPs and `frontend-design`.
+
+### Knowledge-Skill Graph Operations
+- Use the thesis graph at **`.agent/knowledge-skill-graph.json`** for deterministic routing from tasks to required skills.
+- Validate graph integrity before and after edits:
+  - `python3 scripts/knowledge_skill_graph.py --validate`
+- Resolve required skill sequence for a task:
+  - `python3 scripts/knowledge_skill_graph.py --task <task-id>`

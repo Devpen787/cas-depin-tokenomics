@@ -1,0 +1,7 @@
+Graph source pin: git:e77514c761239eb72eb684515512bcbd94a050f7
+Task: task.prepare-results-discussion
+  1. skill.citation-gap-tagging - Citation Gap Tagging
+  2. skill.golden-thread-alignment - Golden Thread Alignment
+  3. skill.metric-definition-audit - Metric Definition Audit
+  4. skill.results-interpretation-guard - Results Interpretation Guard
+  5. skill.hostile-review - Hostile Reviewer Pass
