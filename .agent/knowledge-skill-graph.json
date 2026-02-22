@@ -341,6 +341,14 @@
       "tags": [
         "citations",
         "finalisation"
+      ],
+      "preferred_order": [
+        "skill.citation-gap-tagging",
+        "skill.golden-thread-alignment",
+        "skill.metric-definition-audit",
+        "skill.reference-resolution",
+        "skill.hostile-review",
+        "skill.preflight-quality-gate"
       ]
     },
     {
