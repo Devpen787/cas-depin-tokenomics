@@ -1,0 +1,19 @@
+{
+  "edges_by_type": {
+    "MITIGATES": 10,
+    "PREREQUISITE": 5,
+    "REQUIRES": 25,
+    "ROUTES_TO": 31,
+    "UPDATES": 9
+  },
+  "edges_fingerprint": "2ee69ed398694f81da52dfc045cf8bdc82afb628f32dfe7d17edb2ad2b9ebabc",
+  "edges_total": 80,
+  "nodes_by_type": {
+    "artefact": 4,
+    "knowledge": 14,
+    "risk": 7,
+    "skill": 11,
+    "task": 7
+  },
+  "nodes_total": 43
+}
