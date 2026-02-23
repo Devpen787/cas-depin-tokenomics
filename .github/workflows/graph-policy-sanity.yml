@@ -33,3 +33,6 @@ jobs:
 
       - name: Run task route regression script
         run: bash ./scripts/regression_task_routes.sh
+
+      - name: Run output contract sanity script
+        run: bash ./scripts/sanity_output_contract.sh

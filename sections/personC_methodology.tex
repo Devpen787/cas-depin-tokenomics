@@ -19,9 +19,9 @@ This evaluative approach draws directly from the stress-testing frameworks devel
 
 \subsection{Justification of Methodology}
 \label{subsec:justification}
-Why employ a simulation-based stress-testing framework rather than traditional financial valuation models? Traditional models (DCF, Comparables) assume market efficiency and linear growth, which fail to capture the catastrophic non-linear feedback loops inherent in tokenized physical networks. 
+This thesis employs DTSE, a simulation-based stress-testing framework, because the research question concerns comparative mechanism behavior under adverse conditions rather than point estimates of value. Conventional valuation approaches (e.g., discounted cash flow and comparables) are designed to extrapolate expected financial performance under stylized assumptions; they are not structured to represent feedback between protocol incentive rules, provider participation decisions, and service capacity in hardware-dependent networks.
 
-Because we have defined Onocoy as a \textbf{Cyber-Physical System} (see Section \ref{subsec:depin_cps}), relying on static financial models is insufficient. As established by BlockScience and Gauntlet, these systems require engineering-grade verification to identify "edge case" failures that simple average-case forecasting obscures. Simulation allows us to test the physical resilience of the network (hardware retention) against the financial volatility of the token, properly treating the system as a closed loop requiring control-theoretic analysis.
+Treating Onocoy as a cyber-physical system (Section~\ref{subsec:depin_cps}), DTSE formalizes these feedback channels and allows controlled perturbations to exogenous demand, price-process assumptions, and provider economics while holding other factors constant. The resulting outputs are interpreted as model-conditional indicators of robustness and failure sensitivity, enabling mechanism-level comparison without forecasting token prices or asserting real-world causal certainty \cite{Morris2019,Braakman2022}.
 
 \subsection{Model Scope and Agent Representation}
 The simulation model represents DePIN dynamics through a limited set of interacting components that capture the core economic relationships relevant to infrastructure sustainability. The scope is defined by what can be meaningfully stress-tested, rather than by an attempt to mirror the full complexity of real-world networks \cite{BrouwerBurg2016}.
@@ -43,33 +43,13 @@ Protocol-level parameters define the incentive mechanisms under evaluation. Thes
 
 Provider-level parameters describe the economic characteristics of infrastructure operators. These include capital expenditure proxies, ongoing operational costs, and participation thresholds. Provider heterogeneity is introduced by sampling these parameters from predefined distributions. Where practitioner input is used (e.g., typical cost ranges or revenue expectations), it is incorporated as broad intervals influenced by public documentation, not as exact figures.
 
-\subsection{Person A Interview Framing Import (Provisional, Source-Preserving)}
-\label{subsec:personA_methodology_import}
-\input{sections/import_personA_methodology_interviews_2026-02-22.tex}
-
 \subsection{Stress Dimensions and Scenario Design}
-Stress scenarios in the simulation are designed to represent adverse conditions that are plausible for DePIN networks and that materially challenge incentive alignment, provider retention, and service continuity. The model focuses on a limited set of stress dimensions that recur across incentive-driven infrastructure systems.
+Stress scenarios are designed as controlled exogenous inputs that challenge provider retention, service continuity, and incentive solvency under identical experimental conditions. To avoid duplication with the formal scenario taxonomy, the detailed operational definitions and combination rules are specified in Section \ref{sec:stress_scenarios}. Here, the key methodological principle is comparability: each mechanism profile is exposed to the same stress inputs so outcome differences can be attributed to mechanism structure rather than to inconsistent scenario construction.
 
-A first category of stress relates to demand conditions. Demand regimes are specified exogenously and include stable demand, growth followed by decay, and highly volatile usage patterns. These regimes reflect the well-documented risk that early network adoption does not translate into sustained utilization \cite{Ho2022}.
-
-A second category relates to external market shocks. Macroeconomic regimes (Bear, Bull, Sideways) modulate the baseline assumptions for token price drift and volatility. Liquidity shocks simulate sudden sell pressure events, testing the system's ability to maintain incentive alignment even in the absence of changes in underlying demand \cite{Gauntlet, ChaosLabs}.
-
-Provider-side stress is introduced through economic viability thresholds. In scenarios where operational costs increase, rewards decline, or token prices fall, providers may experience sustained losses. The model represents this through probabilistic churn mechanisms that activate after consecutive periods of unprofitability.
-
-These stress dimensions can be applied individually or in combination, allowing the analysis to explore compound failure conditions. Prior work on complex systems suggests that the interaction of multiple stressors often produces non-linear outcomes that are not apparent when shocks are considered in isolation. By standardizing the definition and timing of stress across scenarios, the model enables direct comparison of how different tokenomic mechanisms absorb or amplify adverse conditions.
+Interview-derived context is used only as bounded calibration input (for example, plausible cost or threshold ranges) and is not treated as empirical evidence for mechanism claims. Preserved contributor interview material remains part of the draft archive and is not load-bearing in the methods argument.
 
 \subsection{Metrics and Computation}
-The evaluation of tokenomic robustness in this study relies on a fixed set of metrics defined prior to analysis. Metrics are selected based on their ability to capture incentive sustainability, provider behavior, and system-level stress responses, rather than short-term market performance.
-
-A primary category of metrics captures provider sustainability and retention. Provider retention rates and churn counts are used to assess whether incentive structures are able to maintain infrastructure participation under stress. These measures are particularly important in DePIN systems, where provider exit can lead to persistent losses in service capacity due to physical deployment constraints.
-
-A second category relates to economic viability and incentive solvency. Metrics such as provider profitability, net incentive balance, and revenue-to-emission ratios are used to examine whether rewards remain economically meaningful relative to costs over time. Rather than interpreting these values as precise financial indicators, they are used as \emph{proxies} for incentive health.
-
-System-level performance is captured through capacity and utilization metrics, including total active capacity, demand served, and utilization rates. These measures reflect whether the network continues to deliver service under adverse conditions, independent of token price dynamics.
-
-To assess broader tokenomic dynamics, the model tracks supply-side and flow-based indicators, including net emissions, burn-to-mint ratios, and token velocity proxies derived from transaction turnover. These metrics are not interpreted as direct measures of market efficiency, but as signals of whether token circulation and supply pressures remain aligned with usage-driven demand.
-
-Finally, distributional outcomes are examined using concentration metrics, such as top-participant reward shares or inequality proxies. These measures are included to detect whether stress conditions lead to excessive centralization of rewards or capacity, which may undermine network resilience even when aggregate metrics appear stable.
+The DTSE evaluation uses a pre-specified metric set defined before results analysis. Metric definitions, equations, and interpretation boundaries are formalized in Section \ref{sec:evaluation_metrics}. This section therefore only states the rule of use: outcomes are interpreted comparatively across mechanisms and scenarios, not as forecasts or absolute performance claims.
 
 \subsection{Reproducibility and Validation Strategy}
 Reproducibility is treated as a core requirement of the simulation framework. All experiments are defined by an explicit set of parameters, scenario inputs, and random seeds, allowing results to be regenerated and inspected without reliance on undocumented assumptions or interactive tuning.
@@ -91,10 +71,6 @@ Finally, empirical calibration is constrained by data availability. Inputs deriv
 
 Taken together, these limitations imply that the results of the simulation should be interpreted as comparative, conditional insights rather than predictions. The value of the model lies in its ability to expose how different tokenomic mechanisms respond under controlled stress scenarios, not in asserting how any particular network will behave in practice.
 
-\subsection{Adversarial Stress and Future Work}
-A critical distinction in this framework is the assumption of ``economically rational but honest'' agents. Real-world DePIN networks, however, face existential risks from adversarial behavior, such as Sybil attacks, GPS spoofing, and strategic governance capture \cite{ResonanceSecurity2024}. While the current model captures economic stress, it does not explicitly promote ``Scenario S5: Verification Failure,'' where malicious actors dilute rewards for honest participants, potentially triggering a ``Lemons Market'' dynamic \cite{EconAgentic2025}.
-
-Future iterations of this framework should integrate adversarial agent types to evaluate the resilience of verification mechanisms (e.g., Proof of Physical Work) against coordinated spoofing. This would allow for a more comprehensive assessment of ``Anti-Fragile'' tokenomics that includes security vectors alongside economic ones \cite{GeodnetResearch}.
 
 \section{Stress Scenario Design}
 \label{sec:stress_scenarios}

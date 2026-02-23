@@ -4,12 +4,15 @@
 from __future__ import annotations
 
 import argparse
+import csv
+import hashlib
 import json
 import re
 import subprocess
 import sys
 from collections import defaultdict, deque
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Iterable, List, Set, Tuple
 
@@ -19,6 +22,13 @@ ALLOWED_NODE_TYPES = {'knowledge', 'skill', 'task', 'risk', 'artefact'}
 ALLOWED_EDGE_TYPES = {'REQUIRES', 'ROUTES_TO', 'MITIGATES', 'UPDATES', 'PREREQUISITE'}
 PIN_PATTERN = re.compile(r'^git:[0-9a-fA-F]{7,40}$')
 REPO_ROOT = Path(__file__).resolve().parents[1]
+SECTION_ORDER = ['SUMMARY', 'TRACEABILITY', 'RESULT', 'GAPS']
+SECTION_HEADING_PATTERN = re.compile(r'^##\s*(SUMMARY|TRACEABILITY|RESULT|GAPS)\s*$')
+BULLET_START_PATTERN = re.compile(r'^\s*(?:[-*]|\d+\.)\s+')
+CLAIM_ID_PATTERN = re.compile(r'\[CLAIM_ID:([A-Za-z0-9._:-]+)\]')
+NONASSERTIVE_PATTERN = re.compile(r'\[NONASSERTIVE\]')
+NEW_CLAIM_PATTERN = re.compile(r'NEW_CLAIM\{([^}]*)\}')
+PROVENANCE_PATTERN = re.compile(r'^\s*PROVENANCE\|')
 
 
 @dataclass(frozen=True)
@@ -456,6 +466,277 @@ def render_node_list(graph: Graph, node_ids: Iterable[str]) -> str:
     return '\n'.join(lines)
 
 
+def discover_ledgers() -> List[Path]:
+    references_dir = REPO_ROOT / 'references'
+    canonical = references_dir / 'claim_ledger_master.csv'
+    globbed = sorted(references_dir.glob('**/claim_ledger*.csv'))
+    ordered: List[Path] = []
+    if canonical.exists():
+        ordered.append(canonical)
+    for path in globbed:
+        if path not in ordered:
+            ordered.append(path)
+    if not ordered:
+        raise ValueError('No claim ledgers found (expected references/**/claim_ledger*.csv).')
+    return ordered
+
+
+def load_claim_ids(ledger_paths: List[Path]) -> Set[str]:
+    claim_ids: Set[str] = set()
+    for ledger_path in ledger_paths:
+        with ledger_path.open('r', encoding='utf-8', newline='') as csv_file:
+            reader = csv.DictReader(csv_file)
+            if not reader.fieldnames or 'claim_id' not in reader.fieldnames:
+                raise ValueError(f'Ledger missing claim_id column: {ledger_path}')
+            for row in reader:
+                claim_id = (row.get('claim_id') or '').strip()
+                if claim_id:
+                    claim_ids.add(claim_id)
+    if not claim_ids:
+        raise ValueError('No claim IDs found in discovered ledgers.')
+    return claim_ids
+
+
+def parse_sections(text: str) -> Tuple[List[str], Dict[str, Tuple[int, int, int]]]:
+    lines = text.splitlines(keepends=True)
+    headings: List[Tuple[str, int]] = []
+    seen: Dict[str, int] = {}
+    for index, line in enumerate(lines):
+        match = SECTION_HEADING_PATTERN.fullmatch(line.rstrip('\r\n'))
+        if match:
+            name = match.group(1)
+            if name in seen:
+                raise ValueError(
+                    f'Duplicate required heading "{name}" at line {index + 1} '
+                    f'(first seen at line {seen[name] + 1}).',
+                )
+            seen[name] = index
+            headings.append((name, index))
+
+    names = [name for name, _ in headings]
+    missing = [name for name in SECTION_ORDER if name not in seen]
+    if missing:
+        raise ValueError('Missing required heading(s): ' + ', '.join(missing) + '.')
+    if names != SECTION_ORDER:
+        raise ValueError(
+            'Required headings are out of order. Expected: '
+            + ' / '.join(SECTION_ORDER)
+            + '; found: '
+            + ' / '.join(names)
+            + '.'
+        )
+
+    sections: Dict[str, Tuple[int, int, int]] = {}
+    for idx, (name, heading_index) in enumerate(headings):
+        body_start = heading_index + 1
+        body_end = headings[idx + 1][1] if idx + 1 < len(headings) else len(lines)
+        sections[name] = (heading_index, body_start, body_end)
+    return lines, sections
+
+
+def split_result_units(result_text: str) -> List[Tuple[str, str]]:
+    units: List[Tuple[str, str]] = []
+    current_lines: List[str] = []
+    current_type: str | None = None
+
+    def flush() -> None:
+        nonlocal current_lines, current_type
+        if not current_lines or current_type is None:
+            current_lines = []
+            current_type = None
+            return
+        units.append((current_type, '\n'.join(current_lines).strip()))
+        current_lines = []
+        current_type = None
+
+    for line in result_text.splitlines():
+        if not line.strip():
+            flush()
+            continue
+
+        if BULLET_START_PATTERN.match(line):
+            flush()
+            current_type = 'bullet'
+            current_lines = [line]
+            continue
+
+        if current_type == 'bullet':
+            if line.startswith('\t'):
+                current_lines.append(line)
+                continue
+            stripped = line.lstrip(' ')
+            indent = len(line) - len(stripped)
+            if 0 < indent <= 2 and not BULLET_START_PATTERN.match(stripped):
+                current_lines.append(line)
+                continue
+
+        if current_type != 'paragraph':
+            flush()
+            current_type = 'paragraph'
+            current_lines = [line]
+        else:
+            current_lines.append(line)
+
+    flush()
+    return units
+
+
+def validate_new_claims(unit_text: str) -> List[str]:
+    errors: List[str] = []
+    for match in NEW_CLAIM_PATTERN.finditer(unit_text):
+        body = match.group(1)
+        parsed: Dict[str, str] = {}
+        for part in body.split(';'):
+            token = part.strip()
+            if not token or '=' not in token:
+                continue
+            key, value = token.split('=', 1)
+            normalized_key = key.strip()
+            if normalized_key in {'id', 'statement', 'evidence_needed'} and value.strip():
+                parsed[normalized_key] = value.strip()
+        missing_keys = [key for key in ['id', 'statement', 'evidence_needed'] if key not in parsed]
+        if missing_keys:
+            errors.append(
+                'NEW_CLAIM block missing required keys: '
+                + ', '.join(missing_keys)
+                + f' ({match.group(0)})'
+            )
+    return errors
+
+
+def validate_result_units(units: List[Tuple[str, str]], known_claim_ids: Set[str]) -> List[str]:
+    errors: List[str] = []
+    for index, (unit_type, unit_text) in enumerate(units, start=1):
+        unit_label = f'{unit_type} #{index}'
+        for error in validate_new_claims(unit_text):
+            errors.append(f'{unit_label}: {error}')
+
+        claim_ids = CLAIM_ID_PATTERN.findall(unit_text)
+        has_nonassertive = bool(NONASSERTIVE_PATTERN.search(unit_text))
+        has_new_claim = bool(NEW_CLAIM_PATTERN.search(unit_text))
+
+        if not claim_ids and not has_nonassertive and not has_new_claim:
+            errors.append(f'{unit_label}: missing [CLAIM_ID:<id>] or [NONASSERTIVE].')
+
+        for claim_id in claim_ids:
+            if claim_id not in known_claim_ids:
+                errors.append(f'{unit_label}: unknown CLAIM_ID "{claim_id}".')
+    return errors
+
+
+def build_provenance(
+    model_id: str,
+    task_id: str,
+    graph_pin: str,
+    graph_hash: str,
+    timestamp_utc: str,
+    affected_files: str,
+) -> str:
+    return (
+        f'PROVENANCE|model={model_id}|task={task_id}|graph_pin={graph_pin}|graph_hash={graph_hash}'
+        f'|timestamp_utc={timestamp_utc}|affected_files={affected_files}'
+    )
+
+
+def stamp_traceability(
+    lines: List[str],
+    sections: Dict[str, Tuple[int, int, int]],
+    provenance_line: str,
+) -> Tuple[str, bool]:
+    _, trace_start, trace_end = sections['TRACEABILITY']
+    newline = '\n'
+    for line in lines:
+        if line.endswith('\r\n'):
+            newline = '\r\n'
+            break
+        if line.endswith('\n'):
+            newline = '\n'
+            break
+    provenance_with_newline = provenance_line + newline
+
+    provenance_indices = [
+        idx
+        for idx in range(trace_start, trace_end)
+        if PROVENANCE_PATTERN.match(lines[idx].rstrip('\r\n'))
+    ]
+
+    if provenance_indices:
+        first_index = provenance_indices[0]
+        if len(provenance_indices) == 1 and lines[first_index] == provenance_with_newline:
+            return ''.join(lines), False
+        lines[first_index] = provenance_with_newline
+        for extra_index in reversed(provenance_indices[1:]):
+            del lines[extra_index]
+        return ''.join(lines), True
+
+    lines.insert(trace_end, provenance_with_newline)
+    return ''.join(lines), True
+
+
+def validate_output_file(
+    output_path: Path,
+    task_id: str,
+    model_id: str | None,
+    affected_files: str | None,
+    raw_graph: Dict[str, object],
+    stamp: bool,
+) -> List[str]:
+    errors: List[str] = []
+    if not output_path.exists():
+        return [f'Output file not found: {output_path}']
+
+    with output_path.open('r', encoding='utf-8', newline='') as handle:
+        text = handle.read()
+    try:
+        lines, sections = parse_sections(text)
+    except ValueError as error:
+        return [str(error)]
+
+    try:
+        ledgers = discover_ledgers()
+        known_claim_ids = load_claim_ids(ledgers)
+    except ValueError as error:
+        return [str(error)]
+
+    _, result_start, result_end = sections['RESULT']
+    result_text = ''.join(lines[result_start:result_end])
+    result_units = split_result_units(result_text)
+    if not result_units:
+        errors.append('RESULT section is empty.')
+    else:
+        errors.extend(validate_result_units(result_units, known_claim_ids))
+
+    if not stamp:
+        return errors
+
+    if not model_id:
+        errors.append('Missing required --model-id for provenance stamp.')
+    if not task_id:
+        errors.append('Missing task/skill identifier for provenance stamp.')
+    if not affected_files:
+        errors.append('Missing required --affected-files for provenance stamp.')
+    if errors:
+        return errors
+
+    graph_pin_raw = raw_graph.get('graph_source_version')
+    graph_pin = graph_pin_raw if isinstance(graph_pin_raw, str) and graph_pin_raw.strip() else '(none)'
+    graph_hash = hashlib.sha256(GRAPH_PATH.read_bytes()).hexdigest()
+    timestamp_utc = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
+    provenance_line = build_provenance(
+        model_id=model_id,
+        task_id=task_id,
+        graph_pin=graph_pin,
+        graph_hash=graph_hash,
+        timestamp_utc=timestamp_utc,
+        affected_files=affected_files,
+    )
+    stamped_text, changed = stamp_traceability(lines, sections, provenance_line)
+    if changed:
+        output_path.write_text(stamped_text, encoding='utf-8')
+
+    return errors
+
+
 def main(argv: List[str]) -> int:
     parser = argparse.ArgumentParser(
         description='Validate and query the thesis knowledge-skill graph.',
@@ -500,6 +781,26 @@ def main(argv: List[str]) -> int:
         '--allow-dirty',
         action='store_true',
         help='Allow execution-capable commands to proceed on dirty git tree.',
+    )
+    parser.add_argument(
+        '--validate-output',
+        type=Path,
+        help='Validate a structured output markdown file using claim gate + output contract.',
+    )
+    parser.add_argument(
+        '--model-id',
+        type=str,
+        help='Model identifier used in provenance stamp.',
+    )
+    parser.add_argument(
+        '--affected-files',
+        type=str,
+        help='Comma-separated affected file paths for provenance stamp.',
+    )
+    parser.add_argument(
+        '--no-stamp',
+        action='store_true',
+        help='Validate output contract without inserting/updating provenance stamp.',
     )
     args = parser.parse_args(argv)
 
@@ -584,6 +885,27 @@ def main(argv: List[str]) -> int:
             for value in values:
                 label = graph.nodes[value].name if value in graph.nodes else value
                 print(f'    - {value} ({label})')
+
+    if args.validate_output:
+        if not is_execution_command:
+            print('Output validation failed:')
+            print('  - --validate-output requires --task or --skill.')
+            return 1
+        execution_id = args.task if args.task else (args.skill or '')
+        validation_errors = validate_output_file(
+            output_path=args.validate_output,
+            task_id=execution_id,
+            model_id=args.model_id,
+            affected_files=args.affected_files,
+            raw_graph=raw_graph,
+            stamp=not args.no_stamp,
+        )
+        if validation_errors:
+            print('Output validation failed:')
+            for error in validation_errors:
+                print(f'  - {error}')
+            return 1
+        print(f'Output validation passed: {args.validate_output}')
 
     return 0
 
