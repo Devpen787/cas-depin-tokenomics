@@ -1,4 +1,4 @@
-Graph source pin: git:e77514c761239eb72eb684515512bcbd94a050f7
+Graph source pin: git:054b8e193ebc284a9dbf40b275b8b1eaff91261c
 Task: task.prepare-results-discussion
   1. skill.citation-gap-tagging - Citation Gap Tagging
   2. skill.golden-thread-alignment - Golden Thread Alignment

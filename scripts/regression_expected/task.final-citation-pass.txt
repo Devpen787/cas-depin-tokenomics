@@ -1,8 +1,8 @@
-Graph source pin: git:e77514c761239eb72eb684515512bcbd94a050f7
+Graph source pin: git:054b8e193ebc284a9dbf40b275b8b1eaff91261c
 Task: task.final-citation-pass
   1. skill.citation-gap-tagging - Citation Gap Tagging
   2. skill.golden-thread-alignment - Golden Thread Alignment
-  3. skill.hostile-review - Hostile Reviewer Pass
-  4. skill.metric-definition-audit - Metric Definition Audit
-  5. skill.reference-resolution - Reference Resolution
+  3. skill.metric-definition-audit - Metric Definition Audit
+  4. skill.reference-resolution - Reference Resolution
+  5. skill.hostile-review - Hostile Reviewer Pass
   6. skill.preflight-quality-gate - Preflight Quality Gate
