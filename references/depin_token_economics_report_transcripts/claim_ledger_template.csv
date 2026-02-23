@@ -1,0 +1,2 @@
+claim_id,episode_no,timestamp,claim_text,claim_type,chapter_target,golden_thread_link,dtse_parameter,evidence_tier,verification_status,primary_source_needed,todo_cite_tag,bib_key,status,notes
+F-DTER-001,1,00:00:00,"Example claim text",market_or_mechanism,"Foundations / Framework","Stress framing / mechanism behavior","",third_party_secondary,unverified,"Primary report, protocol docs, or on-chain evidence","% TODO-CITE: [Fluence Episode 1 claim] verify with primary source","",open,"Replace with real extracted claim."

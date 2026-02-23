@@ -29,23 +29,26 @@ This thesis makes three contributions: a structured simulation approach for stre
 
 \section{DePIN Fundamentals}
 \label{sec:depin_fundamentals}
-\textit{[INSTRUCTIONS FOR PERSON A: Define the core concepts here. Distinguish DePIN from normal crypto.]}
 
 \subsection{Defining DePIN}
-\begin{itemize}
-    \item \textbf{Definition:} Define Decentralized Physical Infrastructure Networks.
-    \item \textbf{Key Difference:} Contrast it with DeFi (purely digital/capital) vs DePIN (physical/labor/hardware).
-\end{itemize}
+Decentralized Physical Infrastructure Networks (DePIN) are blockchain-coordinated systems in which distributed participants deploy and operate real-world infrastructure in exchange for token-based incentives. Rather than coordinating only capital positions or digital state transitions, DePIN protocols coordinate tangible service delivery through physical assets such as wireless hotspots, GNSS reference stations, compute nodes, storage nodes, and sensor devices.
+% TODO-CITE: [Catalini and Gans 2016; Messari DePIN Sector Map 2023] formal definition and scope
+
+The key distinction from DeFi is the presence of physical deployment frictions and service-level obligations. In DeFi, participants can usually rebalance or exit positions quickly because participation is primarily financial and software-mediated. In DePIN, contributors face hardware acquisition, installation, maintenance, and location-specific constraints that make participation less liquid and materially path-dependent.
+% TODO-CITE: [Buterin 2014; Arthur 1989] DeFi contrast and path dependence
+
+A minimal DePIN economic structure includes four interacting actors: infrastructure providers, end users, the protocol rule layer, and the token layer. Providers deploy and maintain hardware, users consume services, the protocol verifies work and allocates rewards, and the token system links service contribution to compensation and governance.
+% TODO-CITE: [Rochet and Tirole 2003; Catalini and Gans 2016; Cong et al. 2021] actor structure
 
 \subsection{The Physical Constraint (Hardware)}
-\begin{itemize}
-    \item \textbf{Sunk Costs:} Explain that buying a \$1,000 miner is a sunk cost that creates "stickiness" (unlike staking tokens which can be unsold instantly).
-    \item \textbf{Geographic Friction:} moving a miner is hard.
-\end{itemize}
+The hardware layer introduces non-trivial CapEx and OpEx exposure. CapEx includes device purchase, setup, and installation effort. OpEx includes electricity, connectivity, maintenance, and uptime management. Once capital is committed to site-specific equipment, exit and re-entry decisions become asymmetric: supply can contract quickly when profitability deteriorates, but recovery is slower because redeployment requires renewed investment and operational effort.
+% TODO-CITE: [Arthur 1989; Teunissen and Montenbruck 2017] sunk costs and recovery hysteresis
+
+This creates economic ``stickiness'' distinct from token-only participation. A staker can often exit by transferring tokens, but a DePIN operator cannot instantly liquidate a rooftop GNSS setup or a physically installed hotspot without additional costs and delays. Geographic friction therefore acts both as a partial retention buffer during short shocks and as a constraint on rapid recovery after prolonged downturns.
+% TODO-CITE: [DePIN hardware economics evidence] stickiness vs liquidity contrast
 
 \section{Theoretical Definitions of Stress}
 \label{sec:theoretical_definitions}
-\textit{[INSTRUCTIONS FOR PERSON A: This is critical. You must define the "Disease" so Person C can test the "Cure". Use these exact definitions.]}
 
 \subsection{Summary of Stress Factors}
 Table \ref{tab:stress_factors} summarizes the core theoretical definitions of stress used throughout this thesis.
@@ -80,3 +83,6 @@ Foundational definitions of DePIN, hardware constraints, and empirical observati
 \subsubsection{Unique Analytical Responsibility}
 The unique contribution of this thesis lies in the operationalization of stress-testing. Conceptual definitions of stress are converted into explicit model inputs, and tokenomic mechanisms are evaluated through their simulated effects on provider retention, incentive solvency, and service continuity. By grounding all claims in explicit assumptions, transparent metrics, and reproducible experimental design, the thesis aligns with established methodological standards for simulation-based research \cite{Sartori2022}.
 
+\subsection{Person A Draft Import (Provisional, Source-Preserving)}
+\label{subsec:personA_foundations_import}
+\input{sections/import_personA_foundations_2026-02-22.tex}

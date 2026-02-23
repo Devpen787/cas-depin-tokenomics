@@ -1,0 +1,7 @@
+Graph source pin: git:e77514c761239eb72eb684515512bcbd94a050f7
+Task: task.update-methodology
+  1. skill.citation-gap-tagging - Citation Gap Tagging
+  2. skill.golden-thread-alignment - Golden Thread Alignment
+  3. skill.lexicon-guard-dtse - Lexicon Guard (DTSE)
+  4. skill.metric-definition-audit - Metric Definition Audit
+  5. skill.theory-to-model-translation - Theory-to-Model Translation

@@ -1,0 +1,11 @@
+claim_id,backfill_status,promotion_decision,updated_on,notes
+F-DTER-002,PARTIAL,hypothesis_only,2026-02-22,Official marketing statement found for 80% buyback burn; independent audit/on-chain reconciliation still required.
+F-DTER-005,PARTIAL,hypothesis_only,2026-02-22,Mechanism exists in docs but resilience effect remains inferential.
+F-DTER-009,BLOCKED,do_not_promote,2026-02-22,Insufficient direct DePIN causal evidence for two-sided token-shock retention failure.
+F-DTER-011,VERIFIED,promote_with_citation,2026-02-22,Fiat front-end/fiat-denominated utility rails supported by protocol docs.
+F-DTER-012,VERIFIED,promote_with_citation,2026-02-22,Emission/reward decay patterns supported by official tokenomics docs.
+F-DTER-015,PARTIAL,hypothesis_only,2026-02-22,Token-denominated staking documented; superiority of USD-denominated stake remains inference.
+F-DTER-016,PARTIAL,hypothesis_only,2026-02-22,Burn mechanics supported; equity buyback analogy is conceptual.
+F-DTER-017,BLOCKED,do_not_promote,2026-02-22,Credibility/alignment effect not sufficiently established by comparative evidence.
+F-DTER-018,VERIFIED,promote_with_citation,2026-02-22,Empirical DAO evidence supports low participation and concentration risk.
+F-DTER-021,PARTIAL,hypothesis_only,2026-02-22,Synthesis direction supported by examples but not universalized across DePIN.

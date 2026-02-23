@@ -4,7 +4,7 @@
 \usepackage[english]{babel}
 
 % Fonts: Time-tested academic choices (Times-like)
-% \usepackage{mathptmx} % Use Times font for text and math
+\usepackage{times}     % Use Times font for text (simpler, avoids math font errors)
 \usepackage{courier}  % Courier for monospace
 \usepackage{helvet}   % Helvetica for sans-serif
 
@@ -14,6 +14,11 @@
 % Line Spacing (1.5 spacing is standard for review/readability)
 \usepackage{setspace}
 \onehalfspacing
+
+% Prevent widows and orphans (single lines at page boundaries)
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
 
 % Math Support
 \usepackage{amsmath}
@@ -42,6 +47,22 @@
 \usepackage{enumerate} % Easy list customization
 \usepackage[pdftex, pdfusetitle]{hyperref}
 \usepackage{url}
+\usepackage{fancyvrb}
+\usepackage{xcolor}
+\usepackage{listings}
+\lstdefinestyle{rawdraft}{
+    basicstyle=\rmfamily\normalsize,
+    breaklines=true,
+    breakatwhitespace=false,
+    columns=fullflexible,
+    keepspaces=true,
+    frame=none,
+    xleftmargin=0em,
+    xrightmargin=0em,
+    aboveskip=0.8em,
+    belowskip=0.8em,
+    showstringspaces=false
+}
 
 
 % Hyperref setup (clean, no boxes)

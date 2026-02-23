@@ -5,60 +5,100 @@
 \label{sec:theoretical_framework}
 
 \subsection{Introduction}
-[TODO: Define the scope of Tokenomics in DePIN. Key themes: Sustainability, Mechanism Design, and the 'Physical' constraint.]
+This chapter defines the mechanism-level logic used to compare DePIN tokenomic designs under stress. The focus is not short-term token performance, but structural relationships between infrastructure demand, incentive issuance, value-capture pathways, and provider retention constraints in hardware-dependent networks.
+% TODO-CITE: [Person B draft sources] mechanism-level framing for DePIN tokenomics
+
+The analytical lens is comparative: protocols are interpreted as design bundles that combine (i) emission logic, (ii) work verification, and (iii) monetization/value-accrual pathways. This provides a common basis for stress-oriented comparison before empirical analysis and DTSE parameterization.
+% TODO-CITE: [Person B comparative methodology notes] comparative design-bundle framing
 
 \subsection{DePIN as a Cyber-Physical System}
 \label{subsec:depin_cps}
 This research defines Decentralized Physical Infrastructure Networks (DePIN)—and specifically the Onocoy network—not merely as cryptocurrency projects, but as Cyber-Physical Systems (CPS). In this framework, physical hardware (GNSS reference stations) and digital state (token incentives) operate in dynamic, continuous feedback loops. Within this loop, the token functions as what Voshmgir describes as a "Purpose-Driven Token"—a steering signal designed to coordinate collective action (infrastructure deployment) that traditional market mechanisms fail to bootstrap efficiently \cite{Voshmgir2020}. This definition draws directly from the foundational work of Michael Zargham (BlockScience), who established "Token Engineering" as a discipline rooted in Cyber-Physical Systems Engineering rather than speculative finance.
 
-BlockScience, founded by Zargham, has established the industry standard for modeling complex cryptoeconomic systems, having successfully applied these principles to the Ethereum gas market, The Graph, and most notably, Filecoin. % TODO-CITE: [Zargham/BlockScience] Find specific case study for Ethereum/Graph modeling
+BlockScience, founded by Zargham, has established the industry standard for modeling complex cryptoeconomic systems, having successfully applied these principles to the Ethereum gas market, The Graph, and most notably, Filecoin.
+% TODO-CITE: [Zargham/BlockScience] specific case study citations for Ethereum/The Graph/Filecoin
 Their work on Filecoin is particularly relevant as a comparative baseline for Onocoy, given the shared challenge of incentivizing massive-scale physical infrastructure deployment.
 
 Aligning with this industry standard, this thesis adopts a "Digital Twin" simulation methodology. Just as BlockScience utilizes cadCAD to create high-fidelity simulations of network behavior, this study employs a specialized "low-fidelity Digital Twin"—the DePIN Tokenomic Stress Evaluator (DTSE). This approach moves beyond simple price forecasting to model the structural feedback loops between hardware CAPEX, provider retention, and token variance. As demonstrated by Bernardineli's work on Filecoin's minting policies, such control-theoretic modeling is essential for identifying failure modes in systems where physical hardware constraints create latency in network response \cite{Bernardineli2022}.
 
 \subsection{Comparative Scope: The Solana DePIN Ecosystem}
 \label{subsec:solana_scope}
-This section analyzes the tokenomic design patterns of eight leading DePIN protocols on Solana to establish a baseline for industry standards.
+The comparative scope follows the Person B draft: a sample centered on large Solana-native or Solana-bridged DePIN protocols with verifiable infrastructure services (wireless, GNSS correction, mapping, compute, or data infrastructure). The practical objective is not exhaustive market coverage, but a representative mechanism set for stress comparison.
+% TODO-CITE: [Person B sample definition; cut-off date and ranking sources] exact sample and inclusion rules
 
 \subsubsection{Project Archetypes}
-[TODO: Analyze the following projects based on Hardware Sunk Cost vs. Active Work:]
+The comparator set is organized by infrastructure profile and dominant incentive logic:
 \begin{enumerate}
-    \item \textbf{Helium (IoT/Mobile):} The Burn-and-Mint Standard.
-    \item \textbf{Hivemapper (Mapping):} Active labor constraints.
-    \item \textbf{Render (Compute):} High-end GPU economics.
-    \item \textbf{io.net (Aggregated Compute):} Cluster economics.
-    \item \textbf{Geodnet (GNSS):} Location NFT and hex-based capping.
-    \item \textbf{Grass (Bandwidth):} Zero-marginal cost participation.
-    \item \textbf{Nosana (CI/CD):} Compute grid incentives.
-    \item \textbf{Aleph.im (Storage/Compute):} Infrastructure persistence.
+    \item \textbf{Helium (IoT/Mobile):} canonical burn-credit architecture and mixed IoT/mobile demand.
+    \item \textbf{Hivemapper (Mapping):} active labor plus consumption-linked burn model.
+    \item \textbf{Render (Compute):} GPU-heavy economics with compute-demand cyclicality.
+    \item \textbf{io.net (Aggregated Compute):} multi-currency demand unit and compute-market routing.
+    \item \textbf{Geodnet (GNSS):} GNSS service monetization with burn-linked value-capture claims.
+    \item \textbf{Grass (Bandwidth):} high participation narrative with comparatively opaque accrual pathway.
+    \item \textbf{Nosana (CI/CD/AI jobs):} native-token job settlement with weaker explicit structural sinks.
+    \item \textbf{Aleph.im (Storage/Compute):} utility-token framing with limited public granularity on accrual mechanics.
 \end{enumerate}
+% TODO-CITE: [Person B table sources for each project archetype] project-level documentation links
 
 \subsection{Tokenomic Building Blocks}
 \label{subsec:building_blocks}
+
 \subsubsection{Emission Schedules \& Inflation}
-[TODO: Compare 'Halving' models (Bitcoin style) vs. 'Linear Decay' vs. 'Dynamic Minting'.]
+Three issuance families are central to this thesis comparison:
+\begin{itemize}
+    \item \textbf{Time-based decay / halving:} supply issuance falls according to a predefined schedule, independent of short-term demand.
+    \item \textbf{Linear decay variants:} issuance decreases progressively to reduce long-run dilution pressure.
+    \item \textbf{State-dependent minting:} issuance is conditioned on measurable network state (e.g., capacity growth), slowing inflation when network growth stalls.
+\end{itemize}
 
 Traditional cryptocurrencies often rely on rigid, time-based emission schedules, such as Bitcoin's "Halving" model, which reduces supply regardless of demand or network health. However, recent infrastructure protocols have moved toward "Linear Decay" or "State-Dependent" issuance. Most notably, Filecoin's concept of "Effective Network Time" advances issuance only as physical capacity is added to the network \cite{Bernardineli2022}. This creates a feedback mechanism where the protocol slows its inflation during periods of stagnation, preserving value for future growth—a critical design pattern for capital-intensive DePIN projects.
 
 \subsubsection{The Burn-and-Mint Equilibrium (BME)}
-[TODO: Detailed definition of BME. How Dual-Token systems (Token + Data Credits) separate volatility from utility cost.]
-This structure aligns with the "Web3 Sustainability Loop" proposed by Trent McConaghy (Ocean Protocol), which posits that sustainable data economies requires a closed-loop value flow where network revenue continuously offsets token emissions \cite{McConaghy2020}.
+BME describes a closed-loop structure where service usage creates an explicit sink (typically burn-linked through utility credits), while provider incentives are funded via controlled issuance. In practice, BME implementations differ in strictness: some systems use hard burn-credit coupling, while others combine burns with treasury routing, staking locks, or variable fee splits.
+% TODO-CITE: [Helium/Hivemapper/GEODNET docs in Person B draft] protocol-level BME implementations
+
+This structure aligns with the "Web3 Sustainability Loop" proposed by Trent McConaghy (Ocean Protocol), which posits that sustainable data economies require a closed-loop value flow where network revenue continuously offsets token emissions \cite{McConaghy2020}.
 
 \subsubsection{Work Verification Mechanisms}
-[TODO: Define how 'Proof of Physical Work' is validated on-chain (e.g., Proof of Coverage, Proof of Mapping).]
+DePIN verification design determines who is paid, for what action, and under which quality constraints. Representative mechanisms include proof-of-coverage style attestations (wireless), job-completion proofs (compute), and outcome-quality validation (e.g., usable mapping or GNSS correction contribution). The mechanism choice directly affects reward targeting, fraud surface, and robustness under stress.
+% TODO-CITE: [Person B verification table and protocol docs] proof-mechanism mapping across comparators
+
 Following the taxonomy of token incentives defined by Lisa JY Tan (Economics Design), Onocoy's mechanism relies on "outcome-based" rewards (verified data) rather than "action-based" rewards, distinguishing it from simpler staking protocols \cite{Tan2020}.
 
 \subsection{Monetization and Demand Regimes}
 \label{subsec:demand_regimes}
+
 \subsubsection{The Value Capture Funnel}
-[TODO: Map the flow of Fiat -> Buy Pressure -> Burn -> Supply Reduction.]
+The core value-capture pathway can be formalized as:
+\[
+\text{Fiat/User Payment} \rightarrow \text{Protocol Settlement Layer} \rightarrow \text{Token Sink or Buy Pressure} \rightarrow \text{Net Supply Pressure}
+\]
+
+In the Person B draft, comparator projects clustered into three monetization architectures: (i) fiat-front-end with tokenized backend settlement and burn-linked sinks, (ii) native-token-first payment rails, and (iii) accrual-opaque designs with insufficient public documentation for robust quantification.
+% TODO-CITE: [Person B Section 3.2 tables] monetization archetypes and classification evidence
 
 \subsubsection{Demand Cyclicality: Enterprise vs. Consumer}
-[TODO: Contrast steady B2B demand (Geodnet) vs. cyclical consumer demand (Helium).]
+Demand regime structure differs materially across use cases. Enterprise or professional demand (e.g., GNSS correction, production compute workloads) tends to be more contract-like and potentially less reflexive than retail/consumer demand cycles. Consumer-heavy networks can scale quickly but are typically more narrative-sensitive and prone to sharper usage swings. This distinction matters because the same emission and sink design can behave differently under B2B-stable versus B2C-cyclical demand.
+% TODO-CITE: [Person B demand regime tables] B2B/B2C demand-structure evidence
 
 \subsection{Detailed Analysis of the ONO Mechanism}
 \label{subsec:ono_mechanism}
-[TODO: Deep dive into Onocoy's specific 'Capped Supply' architecture vs. the BME industry standard defined above.]
+Onocoy is modeled as a capped-supply design with deflationary elements, rather than a pure unlimited-mint BME. The architecture combines ONO (transferable utility/governance token) with fiat-denominated, non-transferable Data Credits consumed on usage. This attempts to separate user-facing pricing stability from token volatility while preserving a demand-coupled sink path through service consumption.
+% TODO-CITE: [Onocoy whitepaper Rev 3.0.1; Onocoy docs] ONO/Data Credit architecture
+
+Compared with pure BME variants, this design shifts stress exposure: it can reduce user-price friction under volatile token markets, but its long-run resilience depends on whether demand-side cashflows and sink intensity are sufficient to offset issuance and maintain provider economics as emissions decay.
+% TODO-CITE: [Onocoy mechanism assessment sources] comparative stress implications
 
 \subsection{Conclusion}
-[TODO: Summarize the theoretical vulnerabilities identified in these models, setting the stage for the specific Empirical Stress Analysis in Section 6.]
+The theoretical comparison yields three vulnerability classes that motivate the empirical and simulation phases:
+\begin{itemize}
+    \item \textbf{Reward--Demand Decoupling:} emissions persist while realized service demand weakens.
+    \item \textbf{Accrual Ambiguity:} weak public transparency on sink paths prevents robust solvency inference.
+    \item \textbf{Demand-Regime Mismatch:} monetization architecture and issuance logic calibrated for one demand type fail under another.
+\end{itemize}
+
+These vulnerabilities provide the bridge to empirical stress analysis and DTSE scenario design, where mechanism performance is evaluated under standardized adverse regimes rather than inferred from narrative claims.
+
+\subsection{Person B Draft Import (Provisional, Source-Preserving)}
+\label{subsec:personB_framework_import}
+\input{sections/import_personB_framework_2026-02-22.tex}

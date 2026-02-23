@@ -811,7 +811,7 @@ Use this checklist to ensure every single source in our catalog has been reviewe
 
 ### [Fluence] [9] What is DePIN? The Future of Decentralized Infrastructure
 - **Full Citation:** **[9] What is DePIN? The Future of Decentralized Infrastructure** - Fluence. Status: collected. Background framing for DePIN thesis context.
-- **File:** [references/onocoy_transcripts/raw/2026-02-14_fluence_what-is-depin-future-of-decentralized-infrastructure-transcript.txt](references/onocoy_transcripts/raw/2026-02-14_fluence_what-is-depin-future-of-decentralized-infrastructure-transcript.txt)
+- **File:** [references/depin_token_economics_report_transcripts/raw/2026-02-22_fluence_depin-token-economics-ep02-what-is-depin-transcript.txt](references/depin_token_economics_report_transcripts/raw/2026-02-22_fluence_depin-token-economics-ep02-what-is-depin-transcript.txt)
 - **Relevance to Thesis:** [TODO: How does this help answer the main question?]
 
 | Page/Section | Key Finding / Quote / Data Point | Where it fits in our thesis |
@@ -820,10 +820,9 @@ Use this checklist to ensure every single source in our catalog has been reviewe
 
 ### [Fluence] [10] DePIN Tokenomics: How Token Models Shape the Market
 - **Full Citation:** **[10] DePIN Tokenomics: How Token Models Shape the Market** - Fluence. Status: collected. Background tokenomics framing; not Onocoy primary data.
-- **File:** [references/onocoy_transcripts/raw/2026-02-14_fluence_depin-tokenomics-how-token-models-shape-the-market-transcript.txt](references/onocoy_transcripts/raw/2026-02-14_fluence_depin-tokenomics-how-token-models-shape-the-market-transcript.txt)
+- **File:** [references/depin_token_economics_report_transcripts/raw/2026-02-22_fluence_depin-token-economics-ep03-token-models-shape-market-transcript.txt](references/depin_token_economics_report_transcripts/raw/2026-02-22_fluence_depin-token-economics-ep03-token-models-shape-market-transcript.txt)
 - **Relevance to Thesis:** [TODO: How does this help answer the main question?]
 
 | Page/Section | Key Finding / Quote / Data Point | Where it fits in our thesis |
 | :--- | :--- | :--- |
 | [TODO] | [TODO] | [TODO] |
-

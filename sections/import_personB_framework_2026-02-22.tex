@@ -1,0 +1,70 @@
+% Provisional source-preserving import from Person B draft snapshot.
+% Source: tmp/pdfs/personB_clean_ascii_2026-02-22.txt
+% Expanded integration pass to maximize contributor visibility before final synthesis.
+
+The following imported block preserves expanded comparative framing from Person B's submission while source pin-cites are being finalized.
+
+Person B defines the comparative scope as a Solana-centered DePIN sample: the eight largest DePIN projects on or bridged to Solana at a defined snapshot date, restricted to networks with verifiable infrastructure services (wireless, GNSS correction, mapping, compute, or related data infrastructure). Projects that are primarily financial, social, or gaming-oriented are excluded. Helium Mobile and Helium IoT are treated as Helium sub-networks and excluded from primary ranking to avoid redundancy.
+% TODO-CITE: [Person B sample-definition and cutoff source]
+
+The draft also preserves ecosystem heterogeneity as part of the design logic: Helium is fully migrated to Solana, GEODNET accesses Solana through bridge connectivity, and io.net, Nosana, Grass, and Aleph.im represent infrastructure designs with compute/data-heavy profiles rather than identical physical-hardware profiles.
+% TODO-CITE: [Person B project-scope table sources]
+
+Onocoy is included as a deliberate anchor case even though it is outside the top-eight market-cap set at the selected cutoff. Person B's rationale is data access and interview access, enabling deeper parameter grounding for stress testing.
+
+A submission-time snapshot list (as provided in Person B's draft, February 2026 context) is preserved here for traceability:
+\begin{itemize}
+    \item Helium: approximately 282.99M market cap.
+    \item Grass: approximately 202.91M market cap.
+    \item GEODNET: approximately 57.35M market cap.
+    \item io.net: approximately 39.03M market cap.
+    \item Hivemapper: approximately 21.64M market cap.
+    \item XNET: approximately 15.1M market cap.
+    \item Nosana: approximately 8.43M market cap.
+    \item Aleph.im: approximately 5.41M market cap.
+    \item Onocoy anchor snapshot: approximately 6.49M market cap (outside the ranked top-eight scope).
+\end{itemize}
+
+These values are included as draft-snapshot context from Person B's submission and should not be treated as current market claims.
+% TODO-CITE: [Person B snapshot source table]
+
+Person B then organizes monetization into three high-level archetypes:
+\begin{enumerate}
+    \item Fiat or fiat-pegged front-end pricing with tokenized backend settlement and sink logic.
+    \item Native-token-first payment rails for service consumption.
+    \item Economically opaque structures where public documentation does not clearly expose end-user payment routing and token accrual pathways.
+\end{enumerate}
+
+Near-verbatim examples retained from the draft:
+\begin{itemize}
+    \item Helium and Onocoy: fiat-pegged credit front-end designs with token-linked backend mechanics.
+    \item GEODNET: fiat-denominated service sales paired with buyback-and-burn routing in token layer.
+    \item Hivemapper: burn-linked map-consumption mechanism.
+    \item Nosana: native token as primary payment medium for AI/compute jobs.
+    \item io.net: hybrid, with IO, USDC, and fiat pathways.
+    \item Grass, Aleph.im, XNET: materially less transparent public disclosure for demand-to-token accrual mapping.
+\end{itemize}
+% TODO-CITE: [Person B Section 3.2 demand-unit and payment tables]
+
+A core Person B argument is that value accrual should be modeled as a spectrum from direct to indirect mechanisms. The draft distinguishes direct burns from indirect sinks such as staking locks or treasury balances. Direct burns are treated as structural supply reduction, while indirect sinks are treated as conditional or temporary liquidity reduction that may reverse.
+
+This distinction is carried into the stress-modeling logic: systems with explicit usage-to-burn coupling can be parameterized with demand-elastic burn channels, whereas systems without explicit structural sinks require analysis focused on inflation, payment-unit dependence, and staking incentive dependence.
+% TODO-CITE: [Person B value-accrual section and protocol docs]
+
+The draft also provides a demand-regime interpretation: most projects in the selected set are characterized as B2B/enterprise and developer/API oriented, with Helium as a mixed profile and Grass as a partial outlier with larger consumer/supply-side participation narratives. Person B treats this as a first-order variable for stress testing because enterprise-heavy demand may have different volatility and persistence properties than consumer narrative-driven demand.
+% TODO-CITE: [Person B demand-regime table and notes]
+
+For Onocoy specifically, Person B preserves the following mechanism framing: a dual-token architecture with fiat-denominated Data Credit access and ONO as capped utility/governance token. In this framing, Data Credit consumption acts as the usage-linked operational rail while ONO captures incentive/governance dynamics in a capped-supply design.
+% TODO-CITE: [Person B Onocoy mechanism section; Onocoy docs and whitepaper]
+
+Person B's methodological bridge statement is also preserved: DePIN sustainability should not be inferred from one metric in isolation (for example emissions alone, payment unit alone, or demand profile alone), but from their joint interaction under adverse scenarios.
+
+To preserve contributor wording fidelity, the following near-verbatim passages from Person B's submission are also retained:
+
+The overview of payment structures across the selected Solana-based DePIN projects shows a heterogeneous but analytically coherent pattern, with several protocols converging on similar architectural motifs while others remain comparatively opaque in their economic design. At a high level, three archetypes can be distinguished. First, systems that employ fiat- or fiat-pegged credits at the user interface while implementing token-based settlement and burn logic in the backend, as observed in Helium, GEODNET, Hivemapper and Onocoy. Second, systems in which the native token is explicitly used as the primary payment medium for infrastructure services, as in Nosana and, based on current public information, at least in part in io.net. Third, projects for which publicly available materials emphasize the existence of a utility or staking token but provide limited detail on how end-user payments are structured and whether, and in what way, these payments feed back into token value.
+
+With regard to value accrual, the mechanisms documented in the submission can be organized along a continuum from direct to indirect. At the most direct end are Helium, GEODNET, Hivemapper and Onocoy, where documented mechanics explicitly connect realized infrastructure demand to burn-linked or sink-linked token dynamics. Nosana and io.net are treated as more indirect or multi-channel designs: transaction and staking roles are visible, but quantitative strength of revenue-to-sink channels is less explicitly documented in high-level public materials.
+
+Table 3.3a in the Person B submission indicates a predominance of B2B/enterprise and developer/API demand across the Solana DePIN sample, with Helium as the main mixed-profile case and Grass as a partial exception. For subsequent modeling, Person B maps these demand-regime differences into scenario assumptions: B2B-heavy networks receive more stable baseline usage assumptions, while consumer-exposed projects face higher cyclicality under stress.
+
+\paragraph{Traceability note.} Full verbatim Person B submission snapshots are preserved in Appendix~\ref{subsec:contributor_draft_archive} for audit and attribution during drafting.

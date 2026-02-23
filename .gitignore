@@ -9,6 +9,19 @@
 *.bbl
 *.blg
 *.pdf
+*.bcf
+*.lot
+*.lof
+*.run.xml
+*-SAVE-ERROR
+
+# Ephemeral outputs
+output/
+tmp/
+exports/
+
+# Sandbox experiments
+experiments/
 
 # Editor artifacts
 .DS_Store

@@ -9,8 +9,14 @@ This workflow compares the three main thesis sections to ensure consistency, spe
 ## Input
 - Implicitly uses:
     - `sections/personA_foundations.tex`
-    - `sections/personB_tokenomics.tex`
-    - `sections/personC_modeling.tex`
+    - `sections/personB_framework.tex`
+    - `sections/personC_methodology.tex`
+
+Before running this workflow, resolve the skill route:
+
+```bash
+python3 scripts/knowledge_skill_graph.py --task task.reconcile-a-b-c
+```
 
 ## Steps
 

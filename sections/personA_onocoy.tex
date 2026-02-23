@@ -2,23 +2,30 @@
 \section{Empirical Case: Onocoy}
 \label{sec:onocoy_case}
 
-\textit{[INSTRUCTIONS FOR PERSON A: Please fill this section with descriptive facts. Do not analyze the token price or success yet. Focus on the business and the hardware.]}
-
 \subsection{System Overview}
-\begin{itemize}
-    \item \textbf{GNSS \& RTK Technology:} Explain what Real-Time Kinematics (RTK) is and why it improves GPS accuracy (centimeter-level precision).
-    \item \textbf{The Physical Network:} Describe the density of stations required (e.g., 20km baseline) and why a distributed network makes sense versus a centralized one.
-\end{itemize}
+Onocoy operates a decentralized GNSS correction network based on Real-Time Kinematic (RTK) positioning. RTK combines reference-station correction streams with rover-side measurements to reduce positioning error from meter-scale to centimeter-scale ranges, which is relevant for surveying, precision agriculture, robotics, and industrial automation use cases.
+% TODO-CITE: [Teunissen and Montenbruck 2017] RTK precision and GNSS correction fundamentals
+
+The network architecture depends on geographically distributed reference stations rather than a single centralized infrastructure operator. This topology is designed to improve coverage and redundancy by sourcing correction data from many independent stations connected through a common protocol layer.
+% TODO-CITE: [Onocoy docs / whitepaper] distributed station architecture and service model
 
 \subsection{Network Participants}
-\begin{itemize}
-    \item \textbf{Miners (Reference Stations):} Define the hardware requirements. Cost of entry? (e.g., \$1,000+). Install requirements? (Roof access, clear sky view).
-    \item \textbf{Users (Rovers):} Who buys the data? (Surveyors, drones, agriculture machines). How do they access it? (NTRIP caster).
-\end{itemize}
+Onocoy includes two primary participant groups. First, reference-station operators (often labeled miners in DePIN contexts) deploy and maintain GNSS station hardware, maintain connectivity, and provide reliable uptime/quality signals. Station operation is not purely passive: installation quality, calibration, and maintenance discipline affect delivered correction quality.
+% TODO-CITE: [Onocoy docs; RTCM standards references] operator requirements and quality constraints
+
+Second, data users (rover-side consumers) purchase correction access for high-accuracy positioning workflows. Typical demand comes from professional/industrial use cases where service continuity and measurement quality are operational requirements rather than optional features.
+% TODO-CITE: [Onocoy docs; EUSPA GNSS market report] user categories and demand profile
 
 \subsection{Tokenomic Mechanics (Descriptive)}
-\begin{itemize}
-    \item \textbf{The ONO Token:} Describe the emission schedule (halving? decay?).
-    \item \textbf{Burn/Sink Mechanism:} How does the system capture value? (e.g., Data Credits or burn-and-mint).
-    \item \textbf{Staking Rules:} Are there staking requirements for miners to participate?
-\end{itemize}
+Onocoy uses a dual-layer design with ONO as the transferable utility/governance token and Data Credits as non-transferable utility credits for service consumption. Data Credits are purchased with fiat-denominated value, then consumed and burned during service usage.
+% TODO-CITE: [Onocoy whitepaper Rev 3.0.1, token architecture sections] dual-token and Data Credit mechanics
+
+Supply-side incentive issuance follows a decay schedule for ONO. The whitepaper describes a capped ONO supply with a deflationary release profile (16\% annual deflation factor, equivalent to a four-year halving profile for newly created units), while buyback-and-burn behavior is tied to protocol-level revenue routing choices.
+% TODO-CITE: [Onocoy whitepaper Rev 3.0.1] cap, release schedule, and buyback/burn routing
+
+On public documentation reviewed so far, staking/collateral rules for miner participation are not documented with the same precision as emission and data-credit mechanics. This remains an open descriptive item to confirm from current protocol docs before final freeze.
+% TODO-CITE: [Onocoy docs staking/miner participation requirements] confirm current staking rule set
+
+\subsection{Person A Onocoy Draft Import (Provisional, Source-Preserving)}
+\label{subsec:personA_onocoy_import}
+\input{sections/import_personA_onocoy_2026-02-22.tex}

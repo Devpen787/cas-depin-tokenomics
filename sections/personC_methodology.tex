@@ -15,6 +15,14 @@ The framework does not identify optimal parameter settings or prescribe specific
 
 This aligns with standard practice in complex systems research, where controlled comparison under adverse conditions is preferred over predictive modeling in settings characterized by uncertainty, feedback effects, and heterogeneous agents \cite{Morris2019, Braakman2022}.
 
+This evaluative approach draws directly from the stress-testing frameworks developed by Gauntlet for DeFi protocols. Just as Gauntlet simulates "Value at Risk" (VaR) to predict protocol insolvency during market crashes \cite{Gauntlet2020}, this thesis adapts the methodology to quantify "Coverage at Risk"—the potential loss of physical infrastructure under adverse tokenomic conditions.
+
+\subsection{Justification of Methodology}
+\label{subsec:justification}
+Why employ a simulation-based stress-testing framework rather than traditional financial valuation models? Traditional models (DCF, Comparables) assume market efficiency and linear growth, which fail to capture the catastrophic non-linear feedback loops inherent in tokenized physical networks. 
+
+Because we have defined Onocoy as a \textbf{Cyber-Physical System} (see Section \ref{subsec:depin_cps}), relying on static financial models is insufficient. As established by BlockScience and Gauntlet, these systems require engineering-grade verification to identify "edge case" failures that simple average-case forecasting obscures. Simulation allows us to test the physical resilience of the network (hardware retention) against the financial volatility of the token, properly treating the system as a closed loop requiring control-theoretic analysis.
+
 \subsection{Model Scope and Agent Representation}
 The simulation model represents DePIN dynamics through a limited set of interacting components that capture the core economic relationships relevant to infrastructure sustainability. The scope is defined by what can be meaningfully stress-tested, rather than by an attempt to mirror the full complexity of real-world networks \cite{BrouwerBurg2016}.
 
@@ -34,6 +42,10 @@ Exogenous inputs define the external environment. These include demand regimes, 
 Protocol-level parameters define the incentive mechanisms under evaluation. These include emission limits, burn fractions, reward allocation rules, and treasury handling strategies. Parameters in this category are varied across simulation runs to represent alternative tokenomic designs or policy choices. Importantly, the model does not assume that protocol parameters adapt dynamically in response to outcomes. Any change in emissions or incentive structure is introduced explicitly as part of a scenario, rather than emerging endogenously.
 
 Provider-level parameters describe the economic characteristics of infrastructure operators. These include capital expenditure proxies, ongoing operational costs, and participation thresholds. Provider heterogeneity is introduced by sampling these parameters from predefined distributions. Where practitioner input is used (e.g., typical cost ranges or revenue expectations), it is incorporated as broad intervals influenced by public documentation, not as exact figures.
+
+\subsection{Person A Interview Framing Import (Provisional, Source-Preserving)}
+\label{subsec:personA_methodology_import}
+\input{sections/import_personA_methodology_interviews_2026-02-22.tex}
 
 \subsection{Stress Dimensions and Scenario Design}
 Stress scenarios in the simulation are designed to represent adverse conditions that are plausible for DePIN networks and that materially challenge incentive alignment, provider retention, and service continuity. The model focuses on a limited set of stress dimensions that recur across incentive-driven infrastructure systems.
@@ -188,6 +200,15 @@ Net emissions capture the balance between token issuance and destruction over ti
 Token velocity is estimated using transaction turnover as a proxy. While this does not capture all aspects of monetary velocity, it provides insight into whether tokens circulate primarily as a medium of exchange or accumulate as idle balances.
 
 Velocity is interpreted comparatively across scenarios and mechanisms, not as an absolute indicator of economic health.
+
+\subsubsection{Incentive Efficiency (Capital Efficiency)}
+Adapting Gauntlet's focus on capital efficiency in DeFi markets \cite{Gauntlet2020}, this metric quantifies the cost of physical validation relative to network growth. We define "Incentive Efficiency" as the ratio of Total Token Emissions (valued in USD) to the Aggregate Validated Capacity. 
+
+\[
+\text{Efficiency} = \frac{\sum (\text{Emissions} \times \text{Price})}{\text{Total Capacity}}
+\]
+
+This allows us to evaluate whether a tokenomic mechanism is efficiently bootstrapping infrastructure or simply overpaying for the same physical outcome. A lower cost-per-unit indicates a more defensible network moat.
 
 \subsubsection{Volatility Proxy}
 Price volatility is measured using relative dispersion metrics derived from simulated price series. Given the simplified market representation, volatility is treated as a stress signal affecting provider incentives rather than as a market performance indicator.
