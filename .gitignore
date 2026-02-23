@@ -27,3 +27,13 @@ experiments/
 .DS_Store
 .vscode/
 *.swp
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.toc
+*.out
+*.synctex
+*.synctex.gz
+*.synctex(busy)
+
