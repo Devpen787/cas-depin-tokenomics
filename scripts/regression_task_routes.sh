@@ -19,7 +19,11 @@ fail() {
   exit 1
 }
 
-mapfile -t TASK_IDS < <(python3 - <<'PY'
+# Avoid mapfile for macOS default bash 3.2 compatibility.
+TASK_IDS=()
+while IFS= read -r task_id; do
+  TASK_IDS+=("${task_id}")
+done < <(python3 - <<'PY'
 import json
 with open('.agent/knowledge-skill-graph.json', encoding='utf-8') as f:
     graph = json.load(f)
