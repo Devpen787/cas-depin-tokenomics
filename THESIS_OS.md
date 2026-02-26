@@ -63,3 +63,17 @@ When working on specific domains of this project, agents must leverage the insta
   - `python3 scripts/knowledge_skill_graph.py --validate`
 - Resolve required skill sequence for a task:
   - `python3 scripts/knowledge_skill_graph.py --task <task-id>`
+
+---
+
+## 6. Cursor vs Codex Workflow Split
+
+Use **Cursor** when:
+- Editing LaTeX, running simulations, using MCPs (Figma, browser, etc.)
+- Parallel subagent work via `mcp_task` — citations, simulation, writing, review in parallel
+- See `AGENTS.md` for when to dispatch subagents and which subagent types to use
+
+Use **Codex App** when:
+- `spawn_agents_on_csv` — fan-out work across `citation_manifest.csv` or parameter sweeps
+- Plan Mode — long-horizon planning with checkpoints
+- Codex-specific subagent UX (nicknames, picker UI)

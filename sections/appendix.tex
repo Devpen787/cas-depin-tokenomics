@@ -1,20 +1,291 @@
 \section{Appendix}
 \label{sec:appendix}
 
-\subsection{Contributor Draft Archive (Provisional)}
+\subsection{Contributor Draft Archive}
 \label{subsec:contributor_draft_archive}
-This appendix records where full raw draft snapshots from Person A and Person B are stored in the repository. The purpose is accountability during in-progress collaboration: no submitted material is silently dropped while synthesis is still pending, while the main thesis PDF remains readable and submission-grade.
+This appendix provides a compact provenance index for preserved contributor artifacts. These files are retained in-repo for auditability and collaboration history and are not part of the submission narrative by default.
+Canonical raw archive root:
+\path{output/provenance_archive/raw_import_snapshots_2026-02-24/}.
 
-\subsubsection{Person A Raw Submission Snapshot (2026-02-22)}
-\label{subsubsec:personA_raw_snapshot}
-Repository artifact:
+\small
+\begin{enumerate}
+    \item \textbf{\path{import_personA_foundations_2026-02-22.tex}}\\
+    Owner: Person A; Date: 2026-02-22.\\
+    Repo-relative path: \path{raw_import_snapshots_2026-02-24/import_personA_foundations_2026-02-22.tex}.\\
+    Scope: canonical raw snapshot; sanitized mirror retained in \path{sections/} for build hygiene.\\
+    SHA256 prefix: \path{fc286b91ff92}.
+
+    \item \textbf{\path{import_personA_onocoy_2026-02-22.tex}}\\
+    Owner: Person A; Date: 2026-02-22.\\
+    Repo-relative path: \path{raw_import_snapshots_2026-02-24/import_personA_onocoy_2026-02-22.tex}.\\
+    Scope: canonical raw snapshot; sanitized mirror retained in \path{sections/} for build hygiene.\\
+    SHA256 prefix: \path{33fb2b11442f}.
+
+    \item \textbf{\path{import_personA_methodology_interviews_2026-02-22.tex}}\\
+    Owner: Person A; Date: 2026-02-22.\\
+    Repo-relative path: \path{raw_import_snapshots_2026-02-24/import_personA_methodology_interviews_2026-02-22.tex}.\\
+    Scope: canonical raw snapshot; sanitized mirror retained in \path{sections/} for build hygiene.\\
+    SHA256 prefix: \path{c93285f83a8b}.
+
+    \item \textbf{\path{import_personB_framework_2026-02-22.tex}}\\
+    Owner: Person B; Date: 2026-02-22.\\
+    Repo-relative path: \path{raw_import_snapshots_2026-02-24/import_personB_framework_2026-02-22.tex}.\\
+    Scope: canonical raw snapshot; sanitized mirror retained in \path{sections/} for build hygiene.\\
+    SHA256 prefix: \path{c4297df95ebc}.
+
+    \item \textbf{\path{personA_submission_extracted_ascii_2026-02-22.txt}}\\
+    Owner: Person A; Date: 2026-02-22.\\
+    Repo-relative path: \path{tmp/docs/}\\
+    \path{personA_submission_extracted_ascii_2026-02-22.txt}.\\
+    Scope: preserved raw snapshot; excluded from submission narrative.\\
+    SHA256 prefix: \path{49bd521a1379}.
+
+    \item \textbf{\path{personB_clean_ascii_2026-02-22.txt}}\\
+    Owner: Person B; Date: 2026-02-22.\\
+    Repo-relative path: \path{tmp/pdfs/}\\
+    \path{personB_clean_ascii_2026-02-22.txt}.\\
+    Scope: preserved raw snapshot; excluded from submission narrative.\\
+    SHA256 prefix: \path{cd73b954a4cf}.
+\end{enumerate}
+Full SHA256 values are recorded in \path{output/working_memory/provenance_hashes_2026-02-24.txt}.
+\normalsize
+
+\subsection{DTSE Theory-to-Parameter Mapping}
+\label{app:dtse_theory_mapping}
+This section anchors the conceptual-to-parameter contract used in Chapter~\ref{sec:methodology}. DTSE stress constructs are mapped to explicit parameter families: Reward Addiction (emission-side controls and burn-to-mint coupling), Subsidy Gap (provider cost and fiat-demand baselines), and Speculative Fragility (price-shock channels and churn sensitivity rules).
+
+\subsection{DTSE Configuration Register}
+\label{app:dtse_config_register}
+The full parameter register (ranges, distributions, fixed constants, and profile-specific overrides) is maintained as appendix-grade artifacts linked to the DTSE run manifest:
 \begin{itemize}
-    \item \path{tmp/docs/personA_submission_extracted_ascii_2026-02-22.txt}
+    \item \path{exports/dtse/data/dtse_run_metadata.json}
+    \item \path{exports/dtse/tables/dtse_profile_set.csv}
+\end{itemize}
+Parameter values are treated as modeled assumptions for comparative experiments, not empirical estimates.
+
+\subsection{DTSE Scenario Grid}
+\label{app:dtse_scenario_grid}
+Table~\ref{tab:app_dtse_scenario_grid} summarizes the frozen DTSE scenario grid used in Chapter~\ref{sec:simulation_results}.
+\begin{table}[ht]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabularx}{\textwidth}{@{}l l X@{}}
+        \toprule
+        \textbf{Scenario ID} & \textbf{Label} & \textbf{Description} \\
+        \midrule
+        \texttt{baseline\_neutral} & Baseline Neutral & Scenario disabled; neutral macro and stable demand for reference trajectories. \\
+        \texttt{demand\_contraction} & Demand Contraction & Exogenous usage contraction with higher volatility and bearish background. \\
+        \texttt{liquidity\_shock} & Liquidity Shock & Discrete unlock-style sell-pressure event with thin liquidity depth. \\
+        \texttt{competitive\_yield\_pressure} & Competitive Yield Pressure & External yield opportunity increases modeled switching pressure. \\
+        \texttt{provider\_cost\_inflation} & Provider Cost Inflation & Exogenous increase in provider operating costs under neutral macro conditions. \\
+        \bottomrule
+    \end{tabularx}
+    \caption{DTSE scenario grid summary (frozen Chapter 8 bundle).}
+    \label{tab:app_dtse_scenario_grid}
+\end{table}
+Full grid in \path{exports/dtse/tables/dtse_scenario_grid.csv}.
+
+\subsection{DTSE Scenario-Formula Map (Audit View)}
+\label{app:dtse_scenario_formula_map}
+Table~\ref{tab:app_dtse_scenario_formula_map} provides a compact audit map linking each Chapter~\ref{sec:simulation_results} scenario to its rationale, core calculation rule, frozen configuration values, and implementation anchors.
+\begin{table}[ht]
+    \centering
+    \scriptsize
+    \renewcommand{\arraystretch}{1.2}
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}X@{}}
+        \toprule
+        \textbf{Scenario ID} & \textbf{Why Included} & \textbf{Core Rule (DTSE)} & \textbf{Frozen Inputs / Thresholds} & \textbf{Code / Artifact Anchor} \\
+        \midrule
+        Baseline neutral &
+        Neutral reference path for deviation timing and magnitude comparisons. &
+        \(D_t^{\mathrm{BL}}=B_{\mathrm{BL}}(1+\sigma_{\mathrm{BL}}\varepsilon_t)\) with stable regime settings. &
+        \(\,B_{\mathrm{BL}}=12000,\;\sigma_{\mathrm{BL}}=0,\;\) macro sideways &
+        Export script; scenario grid CSV \\
+
+        Demand contraction &
+        Test reward--demand decoupling under exogenous usage deterioration. &
+        \(D_t^{\mathrm{DC}}=\max\!\left(0,B_{\mathrm{DC}}f_t(1+\sigma_{\mathrm{DC}}\varepsilon_t)\right)\), \(f_t=1.6e^{-t/10}+0.6\). &
+        \(B_{\mathrm{DC}}=10000,\;\sigma_{\mathrm{DC}}=0.08,\;\theta_u=0.10\) &
+        Demand generator; threshold registry CSV \\
+
+        Liquidity shock &
+        Test fast transmission from token-liquidity dislocation to provider stress fields. &
+        Week-\(20\) unlock sell pressure: \(\Delta Q_{t^*}=S_{t^*}\phi\), then \(P'=k/(X+\Delta Q)^2\). &
+        \(t^*=20,\;\phi=0.35,\;\theta_p=0.10\) &
+        Simulation engine; threshold registry CSV \\
+
+        Competitive yield pressure &
+        Isolate external-opportunity churn without requiring demand collapse. &
+        Provider switch pressure \(p_{\mathrm{base}}=0.1\,y^{1.5}\), then type-adjusted probabilities (Provider Type A/B) with bounded noise. &
+        \(y=1.5,\;\theta_{prov}=0.05,\;\theta_{ch}=0.20\) &
+        Simulation engine; threshold registry CSV \\
+
+        Provider cost inflation &
+        Test Subsidy-Gap exposure through exogenous operating-cost increase. &
+        \(c_{\mathrm{base}}^{\mathrm{PCI}}=1.35\,c_{\mathrm{base}}^{\mathrm{BL}}\), propagated through heterogeneous provider-cost rule. &
+        \(m_c=1.35,\;\theta_{\pi}=0.10,\;\theta_{prov}=0.05\) &
+        Export script; simulation engine \\
+        \bottomrule
+    \end{tabularx}
+    \caption{DTSE scenario-formula map for Chapter~\ref{sec:simulation_results} (frozen Chapter 8 bundle).}
+    \label{tab:app_dtse_scenario_formula_map}
+\end{table}
+
+\subsection{DTSE Threshold Definitions}
+\label{app:dtse_threshold_table}
+Table~\ref{tab:app_dtse_threshold_registry_excerpt} provides a concise excerpt of the exported scalar threshold registry used to interpret Chapter~\ref{sec:simulation_results}.
+\begin{table}[ht]
+    \centering
+    \scriptsize
+    \renewcommand{\arraystretch}{1.2}
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.34\textwidth}>{\raggedright\arraybackslash}p{0.08\textwidth}>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}X@{}}
+        \toprule
+        \textbf{Threshold ID} & \textbf{Value} & \textbf{Unit} & \textbf{Scope} & \textbf{Use in Chapter 8} \\
+        \midrule
+        \path{fm_profitability_negative_profit_threshold} & \texttt{0} & \path{usd_per_week} & \path{chapter8_failure_mode} & Profitability-induced churn criterion. \\
+        \path{fm_profitability_sustained_window_weeks} & \texttt{3} & \path{weeks} & \path{chapter8_failure_mode} & Sustained window for \(N\) in failure-mode prose. \\
+        \path{scenario_liquidity_shock_event_week} & \texttt{20} & \path{week_index} & \path{scenario_config} & Event marker used in liquidity-shock reporting. \\
+        \path{scenario_liquidity_shock_investor_sell_pct} & \texttt{0.35} & \path{fraction} & \path{scenario_config} & Unlock-style sell-pressure scalar in liquidity-shock scenario. \\
+        \path{scenario_competitive_yield_scalar} & \texttt{1.50} & \path{relative_yield_multiple} & \path{scenario_config} & External-yield pressure scalar used in competitive-yield scenario. \\
+        \path{scenario_provider_cost_multiplier} & \texttt{1.35} & \path{multiplier} & \path{scenario_config} & Exogenous provider-cost multiplier in cost-inflation scenario. \\
+        \path{signal_price_drop_threshold_pct} & \texttt{0.10} & \path{fraction} & \path{signal_detection} & Price-signal detection threshold versus baseline. \\
+        \path{signal_utilisation_drop_threshold_pct} & \texttt{0.10} & \path{fraction} & \path{signal_detection} & Utilization-signal detection threshold versus baseline. \\
+        \path{signal_profit_drop_threshold_pct} & \texttt{0.10} & \path{fraction} & \path{signal_detection} & Profit-signal detection threshold versus baseline. \\
+        \path{signal_providers_drop_threshold_pct} & \texttt{0.05} & \path{fraction} & \path{signal_detection} & Provider-count signal threshold versus baseline. \\
+        \path{signal_churn_increase_threshold_pct} & \texttt{0.20} & \path{fraction} & \path{signal_detection} & Churn-increase threshold versus baseline. \\
+        \path{profile_ono_v3_calibrated_churn_threshold} & \texttt{10} & \path{usd/week_profit} & \path{profile_param} & ONO provider exit sensitivity scalar. \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Excerpt of scalar threshold registry for frozen Chapter 8 DTSE artifacts.}
+    \label{tab:app_dtse_threshold_registry_excerpt}
+\end{table}
+Full registry in \path{exports/dtse/tables/dtse_threshold_registry.csv}.
+
+\subsection{Override Ledger (Profile-Specific Parameters)}
+\label{app:dtse_override_ledger}
+This table documents profile-specific overrides and global heterogeneity rules used in the DTSE runs reported in Chapter~\ref{sec:simulation_results}. All entries listed here are modeled assumptions (including calibration choices) rather than empirical estimates of real-world protocol behavior. Each entry is traceable to exported configuration and registry artifacts referenced by the frozen run manifest. The table is provided for transparency and reproducibility and does not imply causal attribution or performance claims.
+
+\begin{table}[ht]
+    \centering
+    \scriptsize
+    \renewcommand{\arraystretch}{1.2}
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}p{0.09\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.16\textwidth}@{}}
+        \toprule
+        \textbf{Key / ID} & \textbf{Scope} & \textbf{Class} & \textbf{Purpose / Evidence Status} & \textbf{Artifact Anchor} \\
+        \midrule
+        \path{profile_ono_v3_calibrated_churn_threshold} &
+        ONO &
+        \path{profile_param} &
+        Profile-specific churn sensitivity threshold used to parameterize provider exit response under stress; modeled calibration assumption (not an empirical estimate). &
+        Threshold registry; run manifest \\
+
+        \path{profile_ono_v3_calibrated_max_provider_churn_rate} &
+        ONO &
+        \path{profile_param} &
+        Profile-specific upper bound on provider churn dynamics used for stability and regime control in simulation; modeled assumption for the ONO profile. &
+        Threshold registry; run manifest \\
+
+        \path{profile_helium_bme_v1_churn_threshold} &
+        Helium &
+        \path{profile_param} &
+        Profile-specific churn sensitivity threshold used to parameterize provider exit response under stress for the Helium comparator profile; modeled assumption within DTSE. &
+        Threshold registry; run manifest \\
+
+        \path{profile_geodnet_v1_churn_threshold} &
+        Geodnet &
+        \path{profile_param} &
+        Profile-specific churn sensitivity threshold used to parameterize provider exit response under stress for the Geodnet comparator profile; modeled assumption within DTSE. &
+        Threshold registry; run manifest \\
+
+        \path{competitive_yield_provider_type_adjustment_rule} &
+        Global &
+        \path{scenario_logic} &
+        Global heterogeneity rule within the competitive-yield stress mechanism that applies differential switching sensitivity across provider types; scenario-logic construct anchored to the simulator specification rather than protocol facts. &
+        Scenario formula map; simulation engine; run manifest \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Override ledger for DTSE Chapter 8 runs (profile-specific parameters and global heterogeneity rules).}
+    \label{tab:app_dtse_override_ledger}
+\end{table}
+
+\subsection{DTSE Run Manifest}
+\label{app:dtse_run_manifest}
+Table~\ref{tab:app_dtse_manifest_excerpt} provides a concise excerpt of the frozen run manifest used for Chapter 8 reporting.
+\begin{table}[ht]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabularx}{\textwidth}{@{}l X@{}}
+        \toprule
+        \textbf{Manifest Field} & \textbf{Value} \\
+        \midrule
+        DTSE repo identifier & \path{DePin-Stress-Test} (external repository) \\
+        DTSE commit hash & \path{0f7b69d0b5776137bddcea6ed9fc642259764792} \\
+        Run timestamp (UTC) & \texttt{2026-02-24T09:44:42Z} \\
+        Scenario grid ID & \texttt{dtse\_ch8\_grid\_v1} \\
+        Seed policy & \texttt{seed = MASTER\_SEED + sim\_index}; \texttt{master\_seed = 20260224} \\
+        Horizon / simulations & \texttt{horizon\_weeks = 52}; \texttt{n\_sims = 60} \\
+        Mechanism profile IDs & \path{ono_v3_calibrated, helium_bme_v1, hivemapper_v1, grass_v1, geodnet_v1} \\
+        Scenario IDs & \path{baseline_neutral, demand_contraction, liquidity_shock, competitive_yield_pressure, provider_cost_inflation} \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Run manifest excerpt for frozen Chapter 8 DTSE artifacts.}
+    \label{tab:app_dtse_manifest_excerpt}
+\end{table}
+Full JSON manifest (including artifact SHA256 hashes) at \path{exports/dtse/run_manifest_2026-02-24.json}.
+
+\subsection{DTSE Metric Computation Notes}
+\label{app:dtse_metric_computation}
+Metric computation rules provide the exact formulas and aggregation conventions used in reporting: per-run timeseries definitions, cross-run summaries (median/IQR), and derived diagnostic signatures used in failure-mode classification.
+\begin{itemize}
+    \item \path{exports/dtse/tables/dtse_weekly_summary.csv}
+    \item \path{exports/dtse/tables/dtse_final_summary.csv}
 \end{itemize}
 
-\subsubsection{Person B Raw Submission Snapshot (2026-02-22)}
-\label{subsubsec:personB_raw_snapshot}
-Repository artifact:
-\begin{itemize}
-    \item \path{tmp/pdfs/personB_clean_ascii_2026-02-22.txt}
-\end{itemize}
+\subsection{Empirical Metric Applicability Catalogue}
+\label{app:empirical_metric_applicability}
+This section documents the metric-applicability contract used in Chapter~\ref{sec:empirical_analysis}. It governs only empirical event-window interpretation and does not modify the pre-specified DTSE reporting set in Chapter~\ref{sec:simulation_results}.
+
+\begin{table}[ht]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}X@{}}
+        \toprule
+        \textbf{Metric} & \textbf{Mechanism Compatibility} & \textbf{Empirical Data Requirement} & \textbf{Early-Stage Status} & \textbf{Interpretive Rule} \\
+        \midrule
+        Burn-to-Mint Ratio & Native in BME; adapted in capped-supply reward-distribution designs & Observable burn/sink and reward-distribution fields & Partial & Directional interpretation only when adaptation is used; avoid direct magnitude equivalence across mechanism classes. \\
+        30-Day Retention/Churn & Mechanism-agnostic & Time-indexed active-provider observations across stress windows & Partial & Directional under short histories; stronger inference when stress-window depth is sufficient. \\
+        Revenue per Node & Mechanism-agnostic & Stable revenue denominator plus comparable provider counts & N/R & Mark N/R when revenue depth is insufficient or economically unstable (NR3). \\
+        Token Turnover & Mechanism-agnostic & Sustained market liquidity and turnover observability & N/R & Mark N/R when liquidity is thin and turnover is microstructure-dominated (NR3). \\
+        FDV / Annualized Revenue & Mechanism-agnostic & Reliable market-cap proxy and stable annualized revenue denominator & N/R & Exclude from ranking when denominator instability drives extreme ratios (NR3). \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Empirical metric-applicability catalogue used in Chapter~\ref{sec:empirical_analysis}.}
+    \label{tab:app_empirical_metric_catalogue}
+\end{table}
+
+\begin{table}[ht]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}X@{}}
+        \toprule
+        \textbf{Onocoy Metric} & \textbf{Status} & \textbf{Constraint Type} & \textbf{Interpretive Handling in Chapter~\ref{sec:empirical_analysis}} \\
+        \midrule
+        Burn-to-Mint (adapted) & Partial & Mechanism adaptation & Used directionally as burn-to-distribution trend under capped-supply architecture. \\
+        Retention / Churn & Partial & Temporal depth & Used as primary participation signal with early-stage caveat. \\
+        Revenue per Node & N/R & NR3 & Excluded from cross-project ranking in current empirical windows. \\
+        Token Turnover & N/R & NR3 & Excluded until sustained ONO liquidity supports stable interpretation. \\
+        FDV / Annualized Revenue & N/R & NR3 & Excluded where denominator instability dominates metric value. \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Onocoy empirical metric-applicability profile for current stress windows.}
+    \label{tab:app_onocoy_metric_applicability}
+\end{table}

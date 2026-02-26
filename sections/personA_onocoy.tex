@@ -3,29 +3,43 @@
 \label{sec:onocoy_case}
 
 \subsection{System Overview}
-Onocoy operates a decentralized GNSS correction network based on Real-Time Kinematic (RTK) positioning. RTK combines reference-station correction streams with rover-side measurements to reduce positioning error from meter-scale to centimeter-scale ranges, which is relevant for surveying, precision agriculture, robotics, and industrial automation use cases.
-% TODO-CITE: [Teunissen and Montenbruck 2017] RTK precision and GNSS correction fundamentals
+Onocoy operates a decentralized GNSS correction network based on Real-Time Kinematic (RTK) positioning. RTK combines reference-station correction streams with rover-side measurements to reduce positioning error from meter-scale to centimeter-scale ranges, which is relevant for surveying, precision agriculture, robotics, and industrial automation use cases \cite{OnocoyWhitepaper301}.
 
-The network architecture depends on geographically distributed reference stations rather than a single centralized infrastructure operator. This topology is designed to improve coverage and redundancy by sourcing correction data from many independent stations connected through a common protocol layer.
-% TODO-CITE: [Onocoy docs / whitepaper] distributed station architecture and service model
+The network architecture depends on geographically distributed reference stations rather than a single centralized infrastructure operator. This topology is designed to improve coverage and redundancy by sourcing correction data from many independent stations connected through a common protocol layer \cite{OnocoyWhitepaper301}.
 
 \subsection{Network Participants}
-Onocoy includes two primary participant groups. First, reference-station operators (often labeled miners in DePIN contexts) deploy and maintain GNSS station hardware, maintain connectivity, and provide reliable uptime/quality signals. Station operation is not purely passive: installation quality, calibration, and maintenance discipline affect delivered correction quality.
-% TODO-CITE: [Onocoy docs; RTCM standards references] operator requirements and quality constraints
+Onocoy includes two primary participant groups. First, reference-station operators (often labeled miners in DePIN contexts) deploy and maintain GNSS station hardware, maintain connectivity, and provide reliable uptime/quality signals. Station operation is not purely passive: installation quality, calibration, and maintenance discipline affect delivered correction quality \cite{OnocoyWhitepaper301, OnocoyRewards}.
 
-Second, data users (rover-side consumers) purchase correction access for high-accuracy positioning workflows. Typical demand comes from professional/industrial use cases where service continuity and measurement quality are operational requirements rather than optional features.
-% TODO-CITE: [Onocoy docs; EUSPA GNSS market report] user categories and demand profile
+Second, data users (rover-side consumers) purchase correction access for high-accuracy positioning workflows. Typical demand comes from professional/industrial use cases where service continuity and measurement quality are operational requirements rather than optional features \cite{OnocoyWhitepaper301}.
 
 \subsection{Tokenomic Mechanics (Descriptive)}
-Onocoy uses a dual-layer design with ONO as the transferable utility/governance token and Data Credits as non-transferable utility credits for service consumption. Data Credits are purchased with fiat-denominated value, then consumed and burned during service usage.
-% TODO-CITE: [Onocoy whitepaper Rev 3.0.1, token architecture sections] dual-token and Data Credit mechanics
+Onocoy uses a dual-layer design with ONO as the transferable utility/governance token and Data Credits as non-transferable utility credits for service consumption. Data Credits are purchased with fiat-denominated value, then consumed and burned during service usage \cite{OnocoyWhitepaper301, OnocoyToken}.
 
-Supply-side incentive issuance follows a decay schedule for ONO. The whitepaper describes a capped ONO supply with a deflationary release profile (16\% annual deflation factor, equivalent to a four-year halving profile for newly created units), while buyback-and-burn behavior is tied to protocol-level revenue routing choices.
-% TODO-CITE: [Onocoy whitepaper Rev 3.0.1] cap, release schedule, and buyback/burn routing
+Supply-side incentive issuance follows a decay schedule for ONO. The whitepaper describes a capped ONO supply with a deflationary release profile (16\% annual deflation factor, equivalent to a four-year halving profile for newly created units), while buyback-and-burn behavior is tied to protocol-level revenue routing choices \cite{OnocoyWhitepaper301, OnocoyToken}.
 
-On public documentation reviewed so far, staking/collateral rules for miner participation are not documented with the same precision as emission and data-credit mechanics. This remains an open descriptive item to confirm from current protocol docs before final freeze.
-% TODO-CITE: [Onocoy docs staking/miner participation requirements] confirm current staking rule set
+Public documentation reviewed for this thesis does not specify staking/collateral rules for miner participation with the same precision as emission and data-credit mechanics. For this submission, staking/collateral is treated as an unknown mechanism fact and is only admissible through explicit modeled assumptions where parameter bounds are declared \cite{OnocoyToken, OnocoyRewards}.
 
-\subsection{Person A Onocoy Draft Import (Provisional, Source-Preserving)}
-\label{subsec:personA_onocoy_import}
+\subsection{Case-at-a-Glance Summary}
+\begin{table}[ht]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabularx}{\textwidth}{@{}p{0.28\linewidth}X@{}}
+        \toprule
+        \textbf{Dimension} & \textbf{Onocoy Case Summary (Descriptive)} \\
+        \midrule
+        Infrastructure domain & Decentralized GNSS correction network using RTK positioning services. \\
+        Provider role & Reference-station operators deploy and maintain GNSS hardware, connectivity, and quality-relevant uptime. \\
+        Demand side & Rover-side consumers purchase correction access for professional/industrial positioning workflows. \\
+        Token/credit architecture & Transferable ONO token plus non-transferable Data Credits used and burned during service consumption. \\
+        Supply-side reward logic & Capped/pre-minted style release with decay schedule; buyback-and-burn tied to documented routing choices. \\
+        Known documentation gap & Staking/collateral participation rules are less explicit than emissions and Data-Credit mechanics in available public documentation. \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Onocoy empirical case summary.}
+    \label{tab:onocoy_case_at_a_glance}
+\end{table}
+
+\ifincludeprovenance
 \input{sections/import_personA_onocoy_2026-02-22.tex}
+\fi

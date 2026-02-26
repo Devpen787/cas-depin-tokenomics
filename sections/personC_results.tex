@@ -1,520 +1,301 @@
-% SCOPE CONTRACT: PERSON C (Modeling & Results)
-% MUST:
-% - Describe the simulation methodology (System Dynamics/Agent-Based)
-% - Define specific scenarios (Base case, Bull, Bear, Stress)
-% - Define specific KPIs and success metrics
-% - Present quantitative results, charts, and sensitivity analysis
-% MUST NOT:
-% - Re-explain the tokenomics mechanics (Person B)
-% - Re-define foundational stress testing concepts (Person A)
-
-
-
 \section{Simulation Results}
 \label{sec:simulation_results}
 
-\subsection{Baseline Behavior (Sanity Check)}
-\label{baseline-behavior-sanity-check}
+\subsection{Reporting Conventions and Interpretation Boundaries}
+\label{subsec:results_reporting_conventions}
+This chapter reports DTSE outputs under the stress scenarios specified in Section~\ref{sec:stress_scenarios}. Its role is descriptive and comparative: outcomes are reported as deviations from neutral baseline trajectories using the pre-specified metric set (Section~\ref{sec:evaluation_metrics}). No result is interpreted as a performance claim about any real-world network, and no causal inference is drawn beyond DTSE assumptions and experiment inputs.
 
-This section presents the results of the stress-testing simulations
-described in Chapter 5. The purpose is to report observed outcomes under
-standardized adverse scenarios, not to evaluate their desirability or to
-draw normative conclusions. Interpretation and implications are deferred
-to Chapter 7.
+The DTSE experiment set compares the Onocoy mechanism profile (ONO) against comparator DePIN profiles representing different incentive and value-accrual structures. The profile IDs, scenario grid, and run configuration are fixed in the frozen run manifest and referenced in Appendix Section~\ref{app:dtse_run_manifest}.
 
-Results are organized around comparative stress responses of
-tokenomic mechanisms rather than absolute performance levels. Each
-experiment evaluates how a given protocol configuration behaves relative
-to others when exposed to the same stress inputs. This structure
-reflects the central aim of the thesis: to assess directional
-robustness and failure sensitivity, not to rank protocols by success or
-forecast real-world outcomes.
+Comparability is enforced by holding the reporting horizon, scenario inputs, and aggregation conventions constant across mechanism profiles. Stochasticity is handled with repeated simulation runs under a fixed seed policy. Reported outcomes use distributional summaries (e.g., medians and interquartile ranges) rather than single trajectories. Figures use consistent axes and scenario labels to support direct comparison.
 
-The results are grouped into four thematic blocks:
+Empirical-layer applicability markings in Section~\ref{subsec:metric_applicability_framework} (including \emph{N/R} in retrospective windows) do not constrain this chapter's DTSE outputs. Chapter 8 reports the full pre-specified metric family under frozen simulation inputs and controlled assumptions.
 
+Two interpretation constraints apply throughout this chapter:
 \begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
- Baseline Behavior Under Neutral Conditions\\ Establishes reference trajectories for DTSE state variables (e.g., simulated token price, supply, provider participation, and incentive solvency proxies) in the absence of external stress inputs. These runs serve as comparison anchors and are not interpreted as equilibrium states.
-\item
- Response to Demand-Side Stress\\ Reports DTSE outcomes under exogenously specified demand stress regimes (contraction, volatility, and high-to-decay patterns). Outcomes are evaluated using predefined metrics for provider retention, utilization, and incentive efficiency.
-\item
- Response to Supply- and Liquidity-Side Stress\\ Reports DTSE outcomes under stress applied through supply-side dynamics and liquidity shocks (including unlock-style sell-pressure events). Outcomes are evaluated in terms of dilution dynamics, price drawdowns in the model, and changes in churn-related metrics.
-\item
- Compound Stress and Operational Thresholds\\ Reports DTSE outcomes under combined stress inputs (macroeconomic regime shifts, adverse provider economics, and competitive yield pressure). For these scenarios, we characterize operational thresholds as parameter regions in which predefined criteria (e.g., sustained retention degradation, utilization shortfall, or incentive solvency proxies) cross specified levels within the simulated horizon.
+    \item In the ONO baseline reference trajectories (Figure~\ref{fig:dtse_baseline_reference}), modeled price and provider-count paths already exhibit drift over the 52-week neutral horizon; stress is therefore interpreted as deviation from a drifting reference path, not from a stable-equilibrium baseline.
+    \item Cross-profile values in selected metric families can occupy materially different numeric scales in specific scenarios (for example, incentive-solvency proxy levels in Figure~\ref{fig:dtse_cross_profile_retention}); cross-profile comparisons are therefore directional and scenario-conditional rather than magnitude-equivalent rankings.
 \end{enumerate}
 
-For each block, results are presented using a consistent set of metrics
-defined in Section 5.3. Where stochastic variation is present, outcomes
-are summarized using distributional statistics (median, interquartile
-range, and tail behavior) across multiple simulation runs. Individual
-time series are shown only where they illustrate structurally meaningful
-patterns.
+To avoid role drift, interpretive narratives, mechanism prescriptions, and governance-response discussions are deferred and summarized in Section~\ref{subsec:deferred_interpretation_register}. This chapter reports three elements only: (i) baseline reference behavior, (ii) scenario outcomes as deviations from baseline, and (iii) operational failure-mode signatures as metric patterns in the DTSE experiment set.
 
-All figures follow the same conventions:
-
+\paragraph*{Interpretation Boundary Protocol}
 \begin{itemize}
-\item
- identical time horizons,
-\item
- shared axes where comparison is intended,
-\item
- and standardized scenario labels.
+    \item DTSE (DePIN Tokenomic Stress Evaluator) outputs are model-conditional comparative indicators and are not used for forecasting, valuation, or token price projection.
+    \item Each statement is classified as a mechanism fact (documented protocol rules), a modeled assumption (explicit abstractions for experimental control), or a DTSE output (patterns produced under defined inputs).
+    \item Results are interpreted as deviations from baseline trajectories rather than absolute performance levels, with baseline drift explicitly accounted for.
+    \item Stochastic behavior is reported through distributional summaries across runs, and each major claim is anchored to a scenario plus figure/table reference.
+    \item Cross-profile comparisons are directional and scenario-conditional, especially where metric scales differ across mechanisms in the same channel.
 \end{itemize}
 
-Unless explicitly stated otherwise, all simulations use identical demand
-processes, macro regimes, and random seeds across protocol profiles to
-ensure comparability.
+\subsection{Baseline Behavior (Neutral Reference Runs)}
+\label{baseline-behavior-sanity-check}
+Baseline runs establish reference trajectories for core DTSE state variables (e.g., modeled price signal, token supply and emissions/burns, provider participation, utilization, and incentive-solvency proxies) in the absence of scenario-driven stress inputs. These runs serve as comparison anchors and are not interpreted as equilibrium states.
 
-It is important to emphasize that no result in this chapter
-should be read as a performance claim about any real-world network.
-Observed behaviors reflect the interaction between modeled mechanisms
-and imposed stress conditions under the assumptions documented in
-Chapter 5. The value of these results lies in their comparative
-consistency and in the patterns they reveal across scenarios, not in
-their absolute magnitudes.
+All baseline experiments use the standard DTSE configuration defined in Section~\ref{sec:methodology}. Scenario logic is disabled and exogenous inputs are set to neutral conditions so that baseline dynamics arise from the interaction between each mechanism profile's rule set and modeled provider economics. Baseline outputs are used to verify bounded dynamics and to provide a consistent reference environment for stress-scenario deviation reporting.
 
-\subsubsection{Experimental Setup}\label{experimental-setup}
+Even when baseline trajectories exhibit drift in some state variables under neutral inputs, this does not weaken their role as comparison anchors. Baseline runs are not treated as equilibrium estimates; they provide the internally consistent reference path that arises from each mechanism profile's rule set interacting with modeled provider economics under neutral exogenous conditions.
 
-Baseline simulations are conducted over a fixed horizon of 52 weeks
-using a weekly timestep. For each protocol profile, 100 Monte Carlo
-simulations are executed with a deterministic master seed strategy to
-ensure reproducibility. All simulations use the agent-based execution
-model with identical neutrality constraints applied across profiles.
+Comparative stress interpretation therefore rests on departures from this reference under matched scenario inputs, including when deviations first appear and which metric families register them first. A drifting baseline can cause stress responses to appear as accelerations, reversals, or earlier threshold crossings in existing indicators rather than as entirely novel trajectories. The core interpretation remains unchanged: differences in deviation patterns across scenarios and profiles arise from imposed stress inputs interacting with modeled mechanisms under DTSE assumptions.
 
-Key baseline conditions include a consistent demand regime with zero
-demand volatility, a sideways macroeconomic regime, and the explicit
-disabling of scenario logic, investor unlocks, competitor yield effects,
-and growth shocks. These constraints ensure that observed dynamics arise
-solely from the interaction between protocol-specific tokenomic
-mechanisms and provider-level economics, rather than from exogenous
-stress factors.
+Under neutral conditions, aggregate state variables typically evolve smoothly as a consequence of deterministic rule components and constrained exogenous inputs. Provider-level metrics (e.g., profit and churn) retain dispersion because provider heterogeneity and stochastic decision components remain active even when macro and demand inputs are held fixed. Retention is reported only for profiles with non-zero initial provider counts; where initial provider counts are zero, retention is treated as undefined rather than imputed.
 
-The baseline profiles evaluated in this section include Onocoy (ONO) and
-a set of comparator DePIN protocols representing a range of
-infrastructure types and incentive designs: Helium, Render, Filecoin,
-Akash, Hivemapper, DIMO, Grass, io.net, Nosana, and Geodnet.
+The baseline therefore functions as a calibration layer: subsequent scenario outcomes are interpreted relative to baseline trajectories so that differences in retention, utilization, and incentive-solvency proxies can be attributed to the imposed stress inputs under the DTSE assumptions.
 
-\subsubsection{Baseline Trajectories}\label{baseline-trajectories}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.49\textwidth]{exports/dtse/figures/fig_baseline_ono_price_providers.png}
+    \hfill
+    \includegraphics[width=0.49\textwidth]{exports/dtse/figures/fig_baseline_ono_burn_mint.png}
+    \caption{DTSE ONO baseline reference trajectories: modeled price/providers (left) and emissions versus sinks (right).}
+    \label{fig:dtse_baseline_reference}
+\end{figure}
 
-Across all profiles, baseline simulations generate stable and smooth
-trajectories for core state variables such as token supply, emissions,
-burns, provider count, aggregate capacity, and utilization. In the
-absence of shocks or volatility, these trajectories reflect the
-steady-state behavior implied by each protocol's emission logic, reward
-allocation rules, and provider cost structure.
+\subsection{Stress Scenario Outcomes (Comparative Deviations from Baseline)}
+\label{stress-scenario-results-comparative-outcomes}
+This section reports DTSE outcomes for the stress scenarios specified in Section~\ref{sec:stress_scenarios}. Results are presented as deviations from baseline behavior with emphasis on timing, affected metrics, and cross-profile differences under identical stress inputs. Throughout, descriptions refer to DTSE output patterns within the experiment set and are not framed as empirical generalizations about external systems.
+Detailed scenario equations and threshold definitions are documented in Appendix Sections~\ref{app:dtse_scenario_formula_map} and~\ref{app:dtse_threshold_table}. This chapter focuses on how those definitions appear in observable metric patterns.
 
-Token price series under baseline conditions exhibit limited dispersion
-in early periods for some profiles, with the interquartile range
-collapsing to a single value at certain timesteps. This behavior is a
-direct consequence of strict neutrality assumptions, including zero
-demand noise and the absence of stochastic macro or liquidity effects.
-Under these conditions, price evolution becomes highly constrained by
-deterministic components of the model.
+\paragraph*{Scenario Interpretation Summary}
+\begin{table}[ht]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{3pt}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabularx}{\textwidth}{@{}
+      >{\raggedright\arraybackslash}p{0.18\textwidth}
+      >{\raggedright\arraybackslash}p{0.25\textwidth}
+      >{\raggedright\arraybackslash}p{0.22\textwidth}
+      >{\raggedright\arraybackslash}X
+    @{}}
+    \toprule
+    \textbf{Scenario} & \textbf{Input Change} & \textbf{First-Signal Metric Families} & \textbf{Interpretation Rule (DTSE-Conditional)} \\
+    \midrule
+    Demand contraction & Exogenous service-usage reduction under the specified demand regime. & Utilization, usage-linked sinks, burn-to-mint proxy, provider profit, provider count/churn. & Demand-side stress typically registers first in usage-linked channels, with participation effects appearing later through modeled profitability and churn. \\
+    \addlinespace
+    Liquidity shock & Discrete price dislocation via modeled liquidity channel. & Modeled price signal, provider profit, churn/provider count, lagged participation fields. & Price dislocation can transmit quickly into token-denominated incentive value and provider economics without requiring simultaneous demand change. \\
+    \addlinespace
+    Competitive yield pressure & Exogenous increase in outside-opportunity attractiveness through modeled switching rule. & Churn/provider count, provider profit, utilization (as a non-primary check). & Participation can deviate early because the scenario shifts relative-yield continuation incentives even when internal activity remains comparatively stable. \\
+    \addlinespace
+    Provider cost inflation & Exogenous upward shift in provider operating-cost conditions. & Provider profit, churn/provider count, utilization/capacity. & Cost-side stress typically appears first in profitability fields, then propagates into churn and provider-count deviations as modeled thresholds are crossed. \\
+    \bottomrule
+    \end{tabularx}
+    \caption{Scenario interpretation summary.}
+    \label{tab:dtse_scenario_interpretation_cards}
+\end{table}
 
-By contrast, provider-level economic metrics such as average provider
-profit display visible dispersion across simulations, even under neutral
-conditions. For example, the interquartile range of average provider
-profit for the ONO profile diverges meaningfully from the median within
-the first few weeks, reflecting heterogeneity in provider costs,
-capacity, and churn dynamics. This confirms that the Monte Carlo
-structure is functioning as intended and that stochastic variation
-persists at the agent level even when aggregate demand and macro inputs
-are fixed.
+\subsubsection*{Demand contraction}
+This scenario tests Reward--Demand Decoupling. If usage weakens while reward logic remains active, token-flow fields can remain relatively stable before participation stress becomes visible in provider-count fields.
 
-\subsubsection{Provider Economics and
-Retention}\label{provider-economics-and-retention}
+In the frozen Chapter 8 bundle, demand contraction uses a high-to-decay demand regime with a lower demand baseline (10,000 vs. 12,000 in baseline), 8\% demand volatility, and bearish macro background (Appendix Section~\ref{app:dtse_scenario_grid}). Signal timing follows the frozen baseline-relative utilization deviation rule (10\%) in Appendix Section~\ref{app:dtse_threshold_table}.
 
-Baseline retention metrics indicate that provider populations remain
-largely stable over the 52-week horizon for profiles that begin with a
-non-zero provider count. Where a profile's initial provider count is
-zero, retention metrics are reported as undefined rather than imputed,
-in order to avoid misleading normalization.
+A deterministic check gives week-12 demand near 10{,}820 under contraction versus 12{,}000 under baseline, i.e., approximately a 10\% gap.
 
-Retention is reported in two complementary forms: absolute retention,
-defined as the ratio of active providers relative to the initial
-provider count, and week-to-week retention rate derived from observed
-churn events. Under baseline conditions, churn events are driven solely
-by provider-level profitability thresholds and cost structures, without
-amplification from price shocks or demand collapses.
+In ONO, utilization and usage-linked sinks diverge before provider-count effects become dominant (Figure~\ref{fig:dtse_demand_contraction_ono}); first utilization deviation appears at week 12 and provider-count degradation at week 49 (Table~\ref{tab:dtse_signal_timing_ono}).
 
-These baseline retention trajectories serve as a reference point for
-later stress scenarios, where deviations from baseline behavior can be
-attributed to specific adverse conditions rather than to underlying
-model instability.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.78\textwidth]{exports/dtse/figures/fig_demand_contraction_ono_core.png}
+    \caption{DTSE ONO demand-contraction deviations from baseline: utilization, sinks, and provider profit.}
+    \label{fig:dtse_demand_contraction_ono}
+\end{figure}
 
-\subsubsection{Interpretation Boundaries of Baseline
-Results}\label{interpretation-boundaries-of-baseline-results}
+\subsubsection*{Liquidity shock}
+This channel tests transmission speed from token-liquidity dislocation to provider-side stress fields.
 
-It is important to emphasize that baseline results are descriptive
-rather than evaluative. Observed trends in price, profitability, or
-provider dynamics under neutral conditions should not be interpreted as
-indicators of real-world performance or sustainability. Instead, they
-establish a controlled reference environment in which the internal
-mechanics of each tokenomic system operate without external stress.
+The frozen bundle applies the liquidity event at week 20, with a 35\% unlock-sell scalar, initial liquidity of 250{,}000, and neutral demand/macro settings (Appendix Section~\ref{app:dtse_scenario_grid} and Appendix Section~\ref{app:dtse_threshold_table}). Price and participation timing is read against baseline using the frozen 10\% price-deviation rule.
 
-The baseline therefore functions as a calibration layer for subsequent
-analysis. In later sections, stressed scenarios are evaluated relative
-to these baseline trajectories, allowing deviations in retention,
-incentive solvency, and service continuity to be attributed to specific
-stress mechanisms rather than to baseline model behavior.
+Under finite-depth liquidity assumptions, a 35\% reserve-depth sell event implies an abrupt modeled dislocation (roughly a 45\% step down before slower participation adaptation).
 
-\subsection{Stress Scenarios: Definition and
-Execution}\label{stress-scenarios-definition-and-execution}
+In ONO, a discrete modeled price dislocation appears around the event week (Figure~\ref{fig:dtse_liquidity_shock_ono}); earliest price event appears at week 21 and lagged churn at week 20 (Table~\ref{tab:dtse_signal_timing_ono}).
 
-Scenario inputs are defined in the methodology chapter (Section
-\ref{sec:stress_scenarios}) and are treated here as fixed experimental
-conditions. This section therefore reports outcomes, not scenario
-design. The tested scenario set includes demand contraction, liquidity
-shock, competitive yield pressure, and provider cost inflation under the
-same Monte Carlo configuration used for baseline runs.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.78\textwidth]{exports/dtse/figures/fig_liquidity_shock_ono_price_churn.png}
+    \caption{DTSE ONO liquidity-shock transmission: modeled price dislocation and churn response (event marker: week 20).}
+    \label{fig:dtse_liquidity_shock_ono}
+\end{figure}
 
-Comparability is enforced by keeping horizon, seed policy, and reporting
-metrics constant across profiles and scenarios. Observed differences are
-therefore interpreted as DTSE-conditional responses to scenario inputs,
-rather than as evidence of real-world prevalence or causal certainty.
+\subsubsection*{Competitive yield pressure}
+This channel isolates participation sensitivity to outside opportunities without requiring demand collapse or a discrete liquidity event.
 
-\subsection{Stress Scenario Results
-(Comparative
-Outcomes)}\label{stress-scenario-results-comparative-outcomes}
+The frozen bundle sets the external-yield scalar to 1.5 under neutral demand and macro controls (Appendix Section~\ref{app:dtse_scenario_grid} and Appendix Section~\ref{app:dtse_threshold_table}). The provider-switching block applies higher pressure to \emph{Provider Type A} and lower pressure to \emph{Provider Type B} with bounded random variation; in the ONO calibration, Provider Type A/B maps to rural/urban operator classes.
 
-This section reports the observed outcomes of the stress scenarios
-defined in Section 6.3. Results are presented as deviations from the
-neutral baseline trajectories established in Section 6.2. The focus is
-on \emph{what changes}, \emph{when changes occur}, and \emph{which
-metrics are affected}, without attributing causality or normative
-judgment. Interpretation of these outcomes is deferred to subsequent
-sections.
+Baseline-relative detection uses a 5\% provider-count drop rule and a 20\% churn-increase rule. At an external-yield scalar of 1.5, modeled base switching pressure is about 18.4\%; before random scaling this corresponds to approximately 27.6\% weekly pressure for Provider Type A and 9.2\% for Provider Type B.
 
-All results are aggregated across 100 Monte Carlo simulations per
-protocol profile. Unless stated otherwise, reported trajectories refer
-to median values, with interquartile ranges (p25--p75) used to
-illustrate dispersion where relevant.
+In ONO, this channel appears primarily in participation metrics rather than abrupt capacity discontinuities (Figure~\ref{fig:dtse_competitive_yield_ono}); churn deviation appears at week 1 and provider-count deviation at week 0 (Table~\ref{tab:dtse_signal_timing_ono}).
 
-\subsubsection{Demand Contraction
-Scenario}\label{demand-contraction-scenario}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.78\textwidth]{exports/dtse/figures/fig_competitive_yield_ono_retention_churn.png}
+    \caption{DTSE ONO competitive-yield pressure response: provider-count and churn deviations versus baseline.}
+    \label{fig:dtse_competitive_yield_ono}
+\end{figure}
 
-Under demand contraction, all protocol profiles exhibit a measurable
-decline in utilization, followed by a widening divergence between token
-emissions and realized burns. This effect manifests earliest in metrics
-directly tied to service usage, including demand served, utilization
-rate, and burn-derived revenue.
+\subsubsection*{Provider cost inflation}
+This channel tests Subsidy-Gap exposure directly through exogenous cost pressure.
 
-Across profiles, reduced utilization leads to lower average provider
-revenue while emissions continue according to protocol-specific
-schedules. As a result, the burn-to-emission ratio declines relative to
-baseline, particularly in protocols with fixed or weakly demand-linked
-emission logic. Provider counts remain initially stable but begin to
-diverge from baseline trajectories as profitability thresholds are
-breached for marginal providers.
+The frozen bundle multiplies baseline provider cost by 1.35 under neutral demand and macro settings (Appendix Section~\ref{app:dtse_scenario_grid} and Appendix Section~\ref{app:dtse_threshold_table}), then propagates the change through heterogeneous provider type/tier cost multipliers and configured cost dispersion.
 
-Dispersion across simulations increases over time for provider-level
-metrics such as average provider profit and churn counts, indicating
-sensitivity to heterogeneous cost structures even under identical demand
-trajectories.
+\noindent\emph{Note:} In this chapter, \emph{Provider Type A/B} denotes switching-heterogeneity classes used in the competitive-yield mechanism, while \emph{Cost Tier 1/2} denotes cost segmentation used only in the provider-cost inflation mechanism.
 
-\subsubsection{Liquidity Shock
-Scenario}\label{liquidity-shock-scenario}
+Profit and participation fields are evaluated with the frozen baseline-relative rules (10\% profit deviation and 5\% provider-count deviation). Provider cost rises immediately at week 0, so profit is expected to move before participation. For example, baseline \$12 becomes \$16.2; a lower-cost Cost Tier 1 profile yields approximately \$12.96, while higher-cost Cost Tier 2 profiles remain substantially higher before noise.
 
-The liquidity shock scenario produces immediate and discrete deviations
-in token price trajectories at the point of the unlock event. The
-magnitude of the price response varies significantly across protocol
-profiles, reflecting differences in circulating supply, liquidity depth,
-and emission rates.
+In ONO, cost inflation compresses margins first, then participation follows (Figure~\ref{fig:dtse_cost_inflation_ono}); first profit signal appears at week 0 and lagged provider-count movement at week 2 (Table~\ref{tab:dtse_signal_timing_ono}).
 
-Following the shock, secondary effects are observed in provider
-economics. In profiles where provider rewards are denominated primarily
-in the native token, reductions in token price translate into compressed
-real revenue, leading to increased churn in subsequent weeks. This
-effect is not instantaneous but unfolds with a short lag, corresponding
-to reward distribution timing and provider decision thresholds.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.78\textwidth]{exports/dtse/figures/fig_cost_inflation_ono_profit_providers.png}
+    \caption{DTSE ONO provider-cost inflation response: margin compression and subsequent provider-count dynamics.}
+    \label{fig:dtse_cost_inflation_ono}
+\end{figure}
 
-Notably, while price volatility spikes sharply around the unlock event,
-other metrics such as utilization and capacity remain initially close to
-baseline. This temporal decoupling highlights the indirect transmission
-of liquidity stress from token markets to infrastructure participation.
+\subsubsection*{Cross-scenario synthesis}
+Across the experiment set, stress channels manifest in distinct metric families and timing windows (Figures~\ref{fig:dtse_cross_profile_retention}--\ref{fig:dtse_signal_timing_chart}, Tables~\ref{tab:dtse_cross_scenario_synthesis}--\ref{tab:dtse_signal_timing_ono}). Demand-side stress is detected earlier in utilization-linked channels, liquidity stress is detected first in the price channel, and cost/yield channels are first detected in provider-economics and churn channels.
 
-\subsubsection{Competitive Yield Pressure
-Scenario}\label{competitive-yield-pressure-scenario}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.49\textwidth]{exports/dtse/figures/fig_cross_scenario_retention_profiles.png}
+    \hfill
+    \includegraphics[width=0.49\textwidth]{exports/dtse/figures/fig_cross_scenario_solvency_profiles.png}
+    \caption{DTSE cross-profile final-week comparison by scenario: retention (left) and incentive-solvency proxy (right).}
+    \label{fig:dtse_cross_profile_retention}
+\end{figure}
 
-When external yield pressure is introduced, provider participation
-becomes more elastic across all evaluated profiles. The most pronounced
-effects are observed in provider churn metrics rather than in price or
-utilization measures.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.49\textwidth]{exports/dtse/figures/fig_cross_scenario_ono_metric_deltas_heatmap.png}
+    \hfill
+    \includegraphics[width=0.49\textwidth]{exports/dtse/figures/fig_cross_scenario_signal_timing_ono.png}
+    \caption{DTSE ONO cross-scenario synthesis: final-metric delta heatmap (left) and first-signal timing by stress channel (right).}
+    \label{fig:dtse_signal_timing_chart}
+\end{figure}
 
-Provider exit accelerates in profiles where baseline profitability
-margins are narrow, while protocols with higher average provider surplus
-show greater resistance. The dispersion of outcomes across simulations
-increases markedly, indicating that small differences in provider
-economics can lead to divergent participation trajectories under
-competitive pressure.
+\subsubsection*{Mechanism-Agnostic Cross-Scenario Synthesis (DTSE)}
+Across the DTSE experiment set, stress channels tend to express distinct sequences of metric changes when evaluated as deviations from neutral baselines. This synthesis layer summarizes those sequences in mechanism-agnostic terms without introducing protocol-specific interpretation. The entries below identify \emph{earliest} and \emph{lagging} signals observed under the scenario inputs specified in Section~\ref{sec:stress_scenarios}. Reported relationships describe co-movement and temporal ordering within DTSE assumptions; they do not imply external causal structure or empirical prevalence. ``Mechanism sensitivity'' is reported qualitatively (High/Medium/Low) to indicate how strongly outcomes vary across mechanism profiles under the same stress input.
 
-Unlike liquidity shocks, competitive yield pressure does not produce
-abrupt discontinuities in token price or supply. Instead, its effects
-accumulate gradually, primarily through sustained differences in
-provider retention relative to baseline.
+The ``lagging'' column is read as a separate signal-detection field, not as a guaranteed later timestamp than the ``earliest'' field.
 
-\subsubsection{Provider Cost Inflation
-Scenario}\label{provider-cost-inflation-scenario}
+\begin{table}[ht]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}
+  >{\raggedright\arraybackslash}p{0.36\textwidth}
+  >{\centering\arraybackslash}p{0.14\textwidth}
+  >{\centering\arraybackslash}p{0.14\textwidth}
+  >{\centering\arraybackslash}p{0.14\textwidth}
+  >{\centering\arraybackslash}p{0.16\textwidth}
+@{}}
+\toprule
+\textbf{Scenario} & \textbf{Price} & \textbf{Utilization} & \textbf{Profit} & \textbf{Lagged Providers/Churn} \\
+\midrule
+Demand contraction & w20 & w12 & w38 & w49 / n.a. \\
+Liquidity shock & w21 & w51 & w21 & w20 / w20 \\
+Competitive yield pressure & n.a. & n.a. & n.a. & w0 / w1 \\
+Provider cost inflation & n.a. & n.a. & w0 & w2 / w1 \\
+\bottomrule
+\end{tabularx}
+\caption{ONO signal timing (week index) extracted from the frozen DTSE signal table.}
+\label{tab:dtse_signal_timing_ono}
+\end{table}
 
-Provider cost inflation directly impacts average provider profit across
-all protocol profiles. Increases in operating costs reduce margins
-uniformly, but downstream effects vary depending on reward structure and
-provider heterogeneity.
+\begin{table}[ht]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{@{}
+  >{\raggedright\arraybackslash}p{0.20\textwidth}
+  >{\raggedright\arraybackslash}p{0.22\textwidth}
+  >{\raggedright\arraybackslash}p{0.22\textwidth}
+  >{\raggedright\arraybackslash}X
+@{}}
+\toprule
+\textbf{Stress Channel} &
+\textbf{Earliest Signal (ONO)} &
+\textbf{Lagging Detection Field} &
+\textbf{Associated Failure Signature} \\
+\midrule
+Demand contraction (exogenous) &
+Utilization (w12); demand served; burns/sinks &
+Provider participation (providers w49; churn n.a.) &
+Reward--Demand Decoupling \\
+\addlinespace
+Liquidity shock (modeled price dislocation) &
+Modeled price signal drawdown (w21) &
+Provider profitability/churn (w21/w20) &
+Liquidity-Driven Compression \\
+\addlinespace
+Competitive yield pressure (exogenous opportunity cost) &
+Churn rate (w1) &
+Provider-count deviation (w0) &
+Elastic Provider Exit \\
+\addlinespace
+Provider cost inflation (exogenous margin shift) &
+Provider profitability (w0) &
+Provider-count/churn (w2/w1) &
+\shortstack[l]{Profitability-Induced Churn\\+ Latent Capacity Degradation} \\
+\bottomrule
+\end{tabularx}
+\caption{Mechanism-agnostic cross-scenario synthesis with ONO timing anchors from frozen DTSE signal tables.}
+\label{tab:dtse_cross_scenario_synthesis}
+\end{table}
 
-In several profiles, median provider profit crosses below zero earlier
-than under other stress scenarios, leading to persistent negative
-profitability even in the absence of price shocks or demand contraction.
-Churn metrics respond accordingly, with elevated exit rates observed
-once cost thresholds are exceeded.
+This synthesis table maps stress-channel inputs to DTSE output sequences and associated operational signatures. All entries remain DTSE-conditional and scenario-specific. The next subsection formalizes these signatures as failure-mode definitions and diagnostic criteria using the same metric vocabulary and interpretation boundaries.
 
-Importantly, capacity and utilization do not decline immediately in this
-scenario. Instead, reductions in active providers precede observable
-changes in service capacity, indicating a lag between economic stress
-and infrastructure degradation.
+\subsection{Operational Failure-Mode Signatures}
+\label{failure-modes-observed-operational-definitions}
+This section defines operational failure-mode signatures as recurring patterns of metric behavior observed in DTSE outputs under specified stress inputs. Failure modes are not treated as binary outcomes or protocol-level judgments. Instead, they provide a shared vocabulary for describing model-conditional stress responses using pre-specified metrics and thresholds.
 
-\subsubsection{Cross-Scenario
-Comparison}\label{cross-scenario-comparison}
+For ONO in this thesis calibration, ``emissions'' refer to modeled reward distributions from a fixed token inventory path, not uncapped token creation. This wording is kept for cross-profile comparability because the same metric family is used across mechanism profiles with different supply architectures \cite{OnocoyToken, OnocoyRewards}.
 
-Comparing across stress scenarios reveals distinct temporal and
-metric-specific signatures:
-
-\begin{itemize}
-\item
- Demand contraction primarily affects burn-linked metrics and
- utilization.
-\item
- Liquidity shocks propagate rapidly through price metrics before
- affecting provider participation.
-\item
- Competitive yield pressure manifests as gradual erosion of provider
- counts.
-\item
- Cost inflation exerts sustained pressure on provider profitability
- with delayed capacity effects.
-\end{itemize}
-
-Across all scenarios, deviations from baseline trajectories are most
-pronounced in provider-level metrics, while aggregate supply and
-emission variables tend to remain closer to baseline unless explicitly
-modified by the scenario.
-
-These observed patterns form the empirical basis for identifying
-recurring failure modes in DePIN tokenomic systems, which are formalized
-in the following section.
-
-\subsection{Failure Modes Observed
-(Operational
-Definitions)}\label{failure-modes-observed-operational-definitions}
-
-Table \ref{tab:failure_modes} provides a diagnostic matrix for identifying the five recurring failure modes formalized in this section.
+Table~\ref{tab:failure_modes} summarizes the diagnostic matrix used in this chapter.
 
 \begin{table}[ht]
     \centering
     \small
-    \renewcommand{\arraystretch}{1.3} 
-    \begin{tabularx}{\textwidth}{@{} 
-        >{\raggedright\arraybackslash\hsize=0.85\hsize}X 
-        >{\raggedright\arraybackslash\hsize=1.25\hsize}X 
-        >{\raggedright\arraybackslash\hsize=0.9\hsize}X 
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabularx}{\textwidth}{@{}
+        >{\raggedright\arraybackslash\hsize=0.8\hsize}X
+        >{\raggedright\arraybackslash\hsize=1.35\hsize}X
+        >{\raggedright\arraybackslash\hsize=0.85\hsize}X
     @{}}
         \toprule
-        \textbf{Failure Mode} & \textbf{Operational Definition} & \textbf{Precursor Metric} \\
+        \textbf{Failure Mode} & \textbf{Operational Definition (DTSE)} & \textbf{Primary Trigger Field} \\
         \midrule
-        \textbf{Reward--Demand Decoupling} & Emissions persist despite declining usage. & Declining burn-to-emission ratio. \\
+        \textbf{Reward--Demand Decoupling} & Utilization and usage-linked sink fields fall versus baseline while distribution remains active, producing persistent burn-to-mint deterioration. & Utilization deviation exceeds 10\%, then burn-to-mint continues to weaken. \\
         \addlinespace
-        \textbf{Profitability-Induced Churn} & Exit driven by sustained negative margins (not price). & Avg provider profit $<0$ for $N$ weeks. \\
+        \textbf{Profitability-Induced Churn} & Provider economics remain structurally negative and participation diverges from baseline without requiring a discrete price event. & Average provider profit remains below zero for at least three weeks and churn rises by at least 20\% versus baseline. \\
         \addlinespace
-        \textbf{Liquidity-Driven Compression} & Price crash reduces real reward value, causing delayed churn. & Price shock $\to$ lagged exit. \\
+        \textbf{Liquidity-Driven Compression} & A discrete price dislocation compresses token-denominated reward value and propagates into provider stress fields in the same or adjacent windows. & Price deviation exceeds 10\% around the configured event week (week 20), followed by lagged churn/profit deterioration. \\
         \addlinespace
-        \textbf{Elastic Provider Exit} & High sensitivity to yield relative to competitors. & Elevated churn despite stable internal metrics. \\
+        \textbf{Elastic Provider Exit} & Participation responds to outside yield opportunities even when internal usage is not collapsing. & At the configured external-yield scalar (1.5), churn rises by at least 20\% and provider count falls by at least 5\% before utilization is the first trigger. \\
         \addlinespace
-        \textbf{Latent Capacity Degradation} & Service capacity drops long after economic stress begins. & Provider count drops before capacity drops. \\
+        \textbf{Latent Capacity Degradation} & Provider participation erodes first, while service fields deteriorate later as redundancy is consumed. & Provider-count deviation is detected before utilization deviation under the frozen 5\% provider and 10\% utilization rules. \\
         \bottomrule
     \end{tabularx}
-    \caption{Operational Failure Modes: Diagnostic Matrix}
+    \caption{Operational failure-mode signatures: diagnostic matrix (DTSE).}
     \label{tab:failure_modes}
 \end{table}
 
+\subsubsection*{Reward--Demand Decoupling}
+This signature appears when usage-linked activity weakens but reward distributions remain active long enough for burn-to-mint to deteriorate against baseline. In practical terms, the network keeps paying the supply side while the demand side is no longer absorbing value at the same pace, so the subsidy component grows inside the modeled economics. This is conceptually consistent with burn-credit designs where usage is expected to anchor accrual \cite{RenderBME, FrontiersDePIN2025}. In ONO terms, the risk is not new token creation but continued distribution from a fixed inventory under weaker usage, which still produces the same solvency pressure in the burn-to-distribution proxy \cite{OnocoyToken, OnocoyRewards}. A second reference example is ONO's reward and bonus policy layer, which adjusts distribution conditions through documented program rules rather than uncapped creation \cite{OnocoyRewards, OnocoyBonus}.
 
+\subsubsection*{Profitability-Induced Churn}
+This signature appears when provider margins stay negative for long enough that exits become rational even without a one-off market shock. DTSE flags this with the explicit sustained-profitability condition (three consecutive weeks below zero) and rising churn relative to baseline. The real-world analogy is straightforward: once operating costs persistently exceed expected reward value, operators power down or reallocate hardware. DePIN participatory-sensing literature already treats contributor effort and operating cost coverage as a first-order condition for sustained supply participation \cite{Chiu2024, FrontiersDePIN2025}. A second example is compute-heavy provider settings, where electricity and infrastructure cost floors create similar break-even exit behavior when incentive value compresses \cite{Lin2024}.
 
-This section formalizes the recurring failure modes observed across
-stress scenarios by defining them in operational, measurable terms.
-Failure modes are not treated as binary outcomes or protocol-level
-judgments. Instead, they are defined as \emph{patterns of metric
-behavior} that emerge consistently under specific adverse conditions and
-indicate increasing fragility in the incentive system.
+\subsubsection*{Liquidity-Driven Compression}
+This signature captures fast financial transmission: a price dislocation reduces fiat-equivalent reward value before the physical network can adjust. In DTSE, the week-20 shock is mapped into a price-threshold crossing and then into lagged profitability and churn fields. The physical layer may look unchanged in the first window, but operator economics move immediately because costs are fiat-like while rewards are token-denominated. A concrete reference example in this thesis is the Helium stress window analyzed in Section~\ref{sec:empirical_analysis}, framed through event-window logic rather than equilibrium assumptions \cite{MacKinlay1997}. The same channel is consistent with broader evidence that policy and macro uncertainty transmit quickly into crypto-asset stress conditions \cite{Ho2022}.
 
-Each failure mode is grounded in observable deviations from baseline
-trajectories and is specified using explicit metric signatures. These
-definitions provide a common vocabulary for comparing DePIN tokenomic
-systems and serve as the analytical bridge between empirical results and
-subsequent implications.
+\subsubsection*{Elastic Provider Exit}
+This signature captures relative-yield competition: operators leave because other opportunities look better, not because local demand has already collapsed. DTSE identifies this pattern when churn and provider-count thresholds trigger under competitive-yield pressure while utilization is not the first field to break. The practical reading is that multi-homing or low-friction reallocation can make supply more mobile than demand, so participation can deteriorate ahead of visible service deterioration. In GNSS-like settings, ONO and GEODNET are useful reference points for understanding how operators compare incentive conditions across adjacent ecosystems \cite{OnocoyRewards, GeodnetLocationNFT}. A second cited example is GPU-oriented DePIN supply, where re-routing to higher-yield external opportunities is structurally easier than rebuilding demand, reinforcing short-horizon exit elasticity \cite{Lin2024, Chiu2024}.
 
-\subsubsection{Reward--Demand
-Decoupling}\label{rewarddemand-decoupling}
+\subsubsection*{Latent Capacity Degradation}
+This signature captures delayed fragility: the network can appear stable while redundancy is being consumed. DTSE records this as a time-order condition where provider-count deviation is detected before utilization/service metrics cross their own thresholds. In plain language, the first operators leaving may not break service immediately if overlap remains, but resilience is still declining underneath the surface. This lagged pattern is consistent with the broader literature on path dependence, hysteresis, and delayed visible effects in complex incentive systems \cite{Arthur1989, Morris2019, Ballandies2023}. A second, complementary example comes from two-sided platform dynamics, where participation-side erosion can precede visible demand-side deterioration until a threshold of lost coverage or liquidity is crossed \cite{RochetTirole2003}.
 
-Definition:\\ Reward--demand decoupling occurs when token emissions and provider
-rewards remain elevated relative to realized service demand, resulting
-in a sustained divergence between minting and burn-linked revenue.
+\subsection{Deferred Interpretation Register}
+\label{subsec:deferred_interpretation_register}
+Interpretive typologies, governance-response narratives, and protocol-specific recommendations are intentionally deferred to preserve chapter role boundaries. This chapter is restricted to DTSE outcome reporting, baseline comparison, and operational failure-mode signatures under standardized stress inputs.
 
-Operational indicators:
-
-\begin{itemize}
-\item
- Persistent decline in utilization relative to baseline.
-\item
- Decreasing burn-to-emission ratio over time.
-\item
- Stable or increasing emissions despite reduced demand served.
-\item
- Compression of average provider profit without immediate price
- collapse.
-\end{itemize}
-
-Observed context:\\ This pattern is most clearly observed under demand contraction
-scenarios, where reduced usage does not immediately propagate into lower
-emissions. The decoupling persists until provider profitability
-thresholds are crossed, at which point secondary effects such as churn
-begin to emerge.
-
-\subsubsection{Profitability-Induced
-Provider
-Churn}\label{profitability-induced-provider-churn}
-
-Definition:\\ Profitability-induced provider churn refers to accelerated provider
-exit driven by sustained negative or marginal profitability, independent
-of abrupt market shocks.
-
-Operational indicators:
-
-\begin{itemize}
-\item
- Average provider profit crossing below zero for multiple consecutive
- periods.
-\item
- Gradual increase in churn count relative to baseline.
-\item
- Divergence between provider count trajectories and baseline without
- corresponding demand or price shocks.
-\item
- Increasing dispersion in provider-level outcomes across simulations.
-\end{itemize}
-
-Observed context:\\ This failure mode is prominent in provider cost inflation and
-competitive yield pressure scenarios, where economic pressure
-accumulates slowly rather than arriving as a discrete event.
-
-\subsubsection{Liquidity-Driven Incentive
-Compression}\label{liquidity-driven-incentive-compression}
-
-Definition:\\ Liquidity-driven incentive compression occurs when abrupt price
-declines reduce the real value of token-denominated rewards, leading to
-downstream effects on provider participation despite unchanged nominal
-reward structures.
-
-Operational indicators:
-
-\begin{itemize}
-\item
- Sharp, localized price drawdowns coinciding with liquidity events.
-\item
- Lagged decline in average provider profit following price shocks.
-\item
- Increased churn after reward distribution cycles.
-\item
- Temporary decoupling between utilization/capacity metrics and provider
- participation.
-\end{itemize}
-
-Observed context:\\ This pattern emerges most clearly in liquidity shock scenarios, where
-price volatility precedes changes in provider behavior. The delayed
-response highlights the indirect transmission of market stress into
-infrastructure-level outcomes.
-
-\subsubsection{Elastic Provider Exit Under
-External Yield
-Pressure}\label{elastic-provider-exit-under-external-yield-pressure}
-
-Definition:\\ Elastic provider exit describes heightened sensitivity of provider
-participation to marginal changes in relative yield, resulting in
-sustained attrition without dramatic price or demand movements.
-
-Operational indicators:
-
-\begin{itemize}
-\item
- Elevated churn rates under competitive yield pressure relative to
- baseline.
-\item
- Minimal contemporaneous changes in token price or utilization.
-\item
- Increasing dispersion in provider retention outcomes.
-\item
- Gradual erosion of provider count rather than abrupt collapse.
-\end{itemize}
-
-Observed context:\\ This failure mode is observed when alternative opportunities are
-introduced, even in the absence of internal protocol stress. It reflects
-the substitutability of provider capital and labor across competing
-networks.
-
-\subsubsection{Latent Capacity
-Degradation}\label{latent-capacity-degradation}
-
-Definition:\\ Latent capacity degradation refers to delayed reductions in service
-capacity that follow earlier provider exits, resulting in a temporal gap
-between economic stress and observable service degradation.
-
-Operational indicators:
-
-\begin{itemize}
-\item
- Provider count declines preceding reductions in aggregate capacity.
-\item
- Stable utilization metrics masking declining redundancy.
-\item
- Capacity drops occurring several periods after profitability-induced
- churn.
-\item
- Reduced resilience to subsequent demand or liquidity shocks.
-\end{itemize}
-
-Observed context:\\This pattern appears across multiple stress scenarios and highlights
-the non-instantaneous relationship between provider economics and
-service-level outcomes in infrastructure-based systems.
-
-\subsubsection{Role of Failure Mode
-Definitions}\label{role-of-failure-mode-definitions}
-
-These failure modes do not imply protocol failure in an absolute sense.
-Rather, they represent \emph{structural stress signatures} that can
-accumulate, interact, and amplify under adverse conditions. By defining
-failure modes operationally, the analysis enables systematic comparison
-across DePIN designs and provides a foundation for evaluating mitigation
-strategies in subsequent sections.
-
-\subsection{Model-Conditional Interpretation (DTSE)}
-\label{subsec:model_conditional_interpretation_dtse}
-
-Interpretive and applied design discussion has been intentionally scoped
-out of the core results narrative to preserve chapter role boundaries.
-This chapter reports comparative outcome patterns and operational failure
-signatures only. Any design implications must be read as
-model-conditional hypotheses, not prescriptive recommendations or
-real-world performance claims.
-
-Detailed applied implications (for example, protocol-specific governance
-or parameter-adjustment suggestions) are intentionally excluded from the
-results chapter to avoid mixing reporting and prescription.
-
-\subsection{Deferred Interpretive Material}
-\label{subsec:deferred_interpretive_material}
-
-Interpretive typologies, governance-response narratives, and case-specific
-action suggestions are intentionally deferred from this chapter. This
-results chapter remains restricted to DTSE outcome reporting, baseline
-comparisons, and operational failure signatures under standardized stress
-inputs. A subsequent synthesis pass can reintroduce selected
-interpretations in a dedicated discussion location with explicit evidence
-boundaries.
+Broader interpretation is handled in the Discussion section (Section~\ref{sec:discussion}), where mechanism-level implications and recommendation logic are tied back to cited evidence and DTSE scope constraints. Forward-looking design extensions remain explicitly scoped in the future-research agenda (Section~\ref{subsec:future_research_agenda}).

@@ -4,6 +4,7 @@
 - `Andrew_Ballandies_2025_AreYouADePINDecisionTree.pdf`
 - `Appel_Grennan_2024_DecentralizedGovernanceAndDigitalAssetPrices.pdf`
 - `Ballandies_2023_ATaxonomyForBlockchainBasedDePIN.pdf`
+- `Ballandies_2023_ChainSelectionForDecentralizedPhysicalInfrastructureNetworkDePIN_Medium.pdf`
 - `Bane_Gala_2025_StateOfDePIN.pdf`
 - `Bolaji_etal_2025_AssessingModelValidationMetricsInExperimentalSolidMechanics.pdf`
 - `Braakman_Pathmanathan_2022_EvaluationFrameworkForSystemsModels.pdf`
@@ -48,6 +49,7 @@
 - `Rasel_Smith_2025_TokenEmissionMethodology_ComparativeStudyOfRealTimeAndBatchClaimsAdjudicationModels.pdf`
 - `SoriaRuizOgarrio_MoyaVelasco_EstevezMendoza_2026_TheRoadToDecentralization_OptimalCoverageOnDePIN.pdf`
 - `Strnad_2025_DelegationAndParticipationInDecentralizedGovernance_EpistemicView.pdf`
+- `Sharma_2025_BuildingTheRealWorldWeb_HowSolanaPowersTheDePINRevolution_Medium.pdf`
 - `Unknown_YearTBD_DecentralizedPhysicalInfrastructureNetworks_BlockchainBasedParadigmForPhysicalWorldInfrastructures.pdf`
 - `Voshmgir_2025_TokenEconomyThirdEdition.pdf`
 - `Voshmgir_Zargham_2020_FoundationsOfCryptoeconomicSystems.pdf`
@@ -60,6 +62,7 @@
 - `Andrew_Ballandies_2025_AreYouADePINDecisionTree.md`
 - `Appel_Grennan_2024_DecentralizedGovernanceAndDigitalAssetPrices.md`
 - `Ballandies_2023_ATaxonomyForBlockchainBasedDePIN.md`
+- `Ballandies_2023_ChainSelectionForDecentralizedPhysicalInfrastructureNetworkDePIN_Medium.md`
 - `Bane_Gala_2025_StateOfDePIN.md`
 - `Bolaji_etal_2025_AssessingModelValidationMetricsInExperimentalSolidMechanics.md`
 - `Braakman_Pathmanathan_2022_EvaluationFrameworkForSystemsModels.md`
@@ -103,6 +106,7 @@
 - `Rasel_Smith_2025_TokenEmissionMethodology_ComparativeStudyOfRealTimeAndBatchClaimsAdjudicationModels.md`
 - `SoriaRuizOgarrio_MoyaVelasco_EstevezMendoza_2026_TheRoadToDecentralization_OptimalCoverageOnDePIN.md`
 - `Strnad_2025_DelegationAndParticipationInDecentralizedGovernance_EpistemicView.md`
+- `Sharma_2025_BuildingTheRealWorldWeb_HowSolanaPowersTheDePINRevolution_Medium.md`
 - `Unknown_YearTBD_DecentralizedPhysicalInfrastructureNetworks_BlockchainBasedParadigmForPhysicalWorldInfrastructures.md`
 - `Voshmgir_2025_TokenEconomyThirdEdition.md`
 - `Voshmgir_Zargham_2020_FoundationsOfCryptoeconomicSystems.md`
@@ -110,6 +114,7 @@
 - `Wang_Yu_Sai_Sun_Nguyen_Chen_2025_UnderstandingDAOs_AnEmpiricalStudyOnGovernanceDynamics.md`
 - `Zhang_Wang_Zheng_Cartlidge_2026_SystemicRiskInDeFi_NetworkBasedFragilityAnalysisOfTVLDynamics.md`
 - `onocoy_whitepaper_301.md`
+- `HeliumCoreDevelopers_2022_HIP70_ScalingTheHeliumNetwork.md`
 
 ## Working Documents (DOCX)
 - `Onocoy_2026_TokenomicsAudit_DownsideResilience_EvidentiaryGapAssessment.docx`

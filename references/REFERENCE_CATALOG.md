@@ -13,8 +13,10 @@ Source files: `citation_manifest.csv` and `onocoy_transcripts/transcript_manifes
 - **Uncertainty quantification and propagation through complex chains of computational models** (2021) - Stephen Gow. Methods for uncertainty quantification and propagation across linked computational model pipelines.
 - **Agent-Based Model of Initial Token Allocations: Evaluating Wealth Concentration in Fair Launches** (2022) - Joaquin Delgado Fernandez; Tom Barbereau; Orestis Papageorgiou. Agent-based analysis of governance token allocation schemes and resulting wealth concentration outcomes.
 - **Calibrating Agent-Based Models using Uncertainty Quantification Methods** (2022) - Josie McCulloch; Jiaqi Ge; Jonathan A. Ward; Alison Heppenstall; J. Gareth Polhill; Nick Malleson. Practical methods for ABM calibration with uncertainty quantification to improve parameter credibility.
+- **HIP-70: Scaling the Helium Network** (2022) - Helium Core Developers. Primary governance proposal describing oracle-based Proof-of-Coverage/data-transfer scaling architecture and migration rationale to Solana.
 - **Evaluation Framework for Systems Models** (2022) - Sietse Braakman; Pras Pathmanathan; Helen Moore. Structured evaluation framework for systems models spanning verification, validation, and decision fit-for-purpose.
 - **A Taxonomy for Blockchain-based Decentralized Physical Infrastructure Networks (DePIN)** (2023) - Mark C. Ballandies; Hongyang Wang; Andrew C. C. Law; et al.. Protocol classification and comparability criteria for benchmark cohorts.
+- **Chain selection for a decentralized physical infrastructure network (DePIN)** (2023) - Mark C. Ballandies. Practitioner write-up of chain-selection tradeoffs for DePIN implementations (scalability, ecosystem, and compatibility considerations).
 - **An Agent-Based Model Framework for Utility-Based Cryptoeconomies** (2023) - Kiran Karra; Tom Mellan; Maria Silva; Juan P. Madrigal-Cianci; Axel Cubero Cortes; Zixuan Zhang. Framework for simulation of utility-based cryptoeconomies using autonomous agent behavior and token dynamics.
 - **Burn-and-Mint Tokenomics: Deflation and Strategic Incentives** (2023) - Uros Kalabic; Mark Ballandies; Krzysztof Paruch; et al.. Burn-to-mint solvency and emission-demand coupling design.
 - **DePIN: A Framework for Token-Incentivized Participatory Sensing** (2024) - Michael T. C. Chiu; Sachit Mahajan; Mark C. Ballandies; Uros V. Kalabic. DePIN threat model, Sybil defense, quality assurance, and governance considerations.
@@ -41,6 +43,7 @@ Source files: `citation_manifest.csv` and `onocoy_transcripts/transcript_manifes
 - **Incentive-Compatible Recovery from Manipulated Signals, with Applications to Decentralized Physical Infrastructure** (2025) - Jason Milionis; Jens Ernstberger; Joseph Bonneau; Scott Duke Kominers; Tim Roughgarden. Formal mechanism-design treatment of manipulated signal recovery with direct applicability to DePIN data integrity incentives.
 - **ONOCOY: Enabling Mass Adoption of High Precision GNSS Positioning Using Web3 (White Paper Revision 3.0.1)** (2025) - onocoy Association. Case-study ground truth for token model, rewards logic, governance design, and validator architecture.
 - **State of DePIN 2025** (2025) - Dylan Bane; Salvador Gala. Sector baselines and comparative market context for DePIN stress assumptions.
+- **Building the Real World Web: How Solana Powers the DePIN Revolution** (2025) - Prapti Sharma. Practitioner perspective on Solana-centered DePIN narrative and ecosystem positioning; contextual market framing source.
 - **The microvelocity of money in Ethereum** (2025) - Francesco Maria De Collibus; Carlo Campajola; Claudio J. Tessone. Empirical velocity-of-money analysis on Ethereum, useful for token-circulation and demand-side stress assumptions.
 - **Token Design Strategies for Entrepreneurial Crypto Projects: A Systematic Literature Review** (2025) - Zishan Ashraf Mohammad; Joachim Bauer. Broad tokenomics strategy landscape and design-pattern context.
 - **Token Economy (Third Edition)** (2025) - Shermin Voshmgir. Token design concepts and governance/token taxonomy background.
@@ -91,8 +94,8 @@ Source files: `citation_manifest.csv` and `onocoy_transcripts/transcript_manifes
 - **[10] DePIN Tokenomics: How Token Models Shape the Market** - Fluence. Status: collected. Background tokenomics framing; not Onocoy primary data.
 
 ## Quick counts
-- Citation manifest entries: 70
-- Academic/foundational: 53
+- Citation manifest entries: 73
+- Academic/foundational: 56
 - Onocoy docs/blog/dashboard: 15
 - Internal/user-provided analyses: 2
 - Transcript entries: 10

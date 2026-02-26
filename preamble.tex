@@ -15,10 +15,12 @@
 \usepackage{setspace}
 \onehalfspacing
 
-% Prevent widows and orphans (single lines at page boundaries)
+% Prevent widows and orphans while avoiding extreme whitespace side effects.
 \widowpenalty=10000
 \clubpenalty=10000
 \displaywidowpenalty=10000
+\raggedbottom
+\setlength{\emergencystretch}{3em}
 
 % Math Support
 \usepackage{amsmath}
@@ -31,6 +33,15 @@
 \usepackage{float}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{subcaption}
+\floatplacement{figure}{htbp}
+\floatplacement{table}{htbp}
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{5}
+\setcounter{totalnumber}{10}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}
 
 % Tables
 \usepackage{booktabs} % Professional table rules
@@ -38,6 +49,7 @@
 \usepackage{multirow}
 \usepackage{longtable}
 \usepackage{tabularx} % Auto-width tables
+\usepackage{microtype}
 
 % Bibliography management
 \usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
@@ -45,6 +57,7 @@
 
 % Utility
 \usepackage{enumerate} % Easy list customization
+\usepackage{indentfirst}
 \usepackage[pdftex, pdfusetitle]{hyperref}
 \usepackage{url}
 \usepackage{fancyvrb}
@@ -72,7 +85,9 @@
     citecolor=black,
     filecolor=black,
     urlcolor=black,
-    pdfborder={0 0 0}
+    pdfborder={0 0 0},
+    plainpages=false,
+    pdfpagelabels=true
 }
 
 % Fix URL formatting in bibliography
@@ -81,3 +96,16 @@
 % Allow URLs to break on lowercase and uppercase letters to prevent bad spacing
 \setcounter{biburllcpenalty}{7000}
 \setcounter{biburlucpenalty}{8000}
+
+% Make \paragraph headings block-style (not run-in) for cleaner thesis typography.
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+  {0.85\baselineskip}%
+  {0.3\baselineskip}%
+  {\normalfont\normalsize\bfseries}}
+
+\makeatother
+
+% Provenance rendering switch (default: off for submission builds)
+\newif\ifincludeprovenance
+\includeprovenancefalse

@@ -1,0 +1,146 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Interpretation Boundaries and Claim Classes}
+This section reintroduces interpretation that was deferred from the results chapter (Section~\ref{subsec:deferred_interpretation_register}). The goal is to connect DTSE outputs (Section~\ref{sec:simulation_results}) to the thesis question while keeping the evidence boundaries defined in Section~\ref{sec:methodology}. Claims are grouped into three classes:
+
+\begin{itemize}
+    \item \emph{Mechanism facts}: protocol-defined rules (issuance, reward allocation, and sinks) documented in official specifications; these determine the deterministic rule layer instantiated in DTSE and must be evidenced by protocol documentation rather than simulation output \cite{OnocoyWhitepaper301, OnocoyToken, OnocoyRewards}.
+    \item \emph{Modeled assumptions}: abstractions introduced for experimental control, including exogenous demand regimes, reduced-form price-process signals, provider cost distributions, and decision rules; these are not claims about real-world prevalence \cite{Morris2019, Braakman2022}.
+    \item \emph{DTSE outputs}: descriptive patterns in model state variables and evaluation metrics produced under the specified scenario inputs; these support comparative sensitivity statements inside the DTSE experiment set and are not interpreted as direct empirical measurements.
+\end{itemize}
+
+This framing avoids category errors in the sections that follow. Interpretive statements remain model-conditional and are bounded by the stress-channel definitions (Section~\ref{sec:stress_scenarios}) and metric interpretation boundaries (Section~\ref{sec:evaluation_metrics}).
+
+\subsection{Human Intervention Archetypes Under Stress}
+The results chapter defines failure modes as operational signatures: recurring metric patterns under specified stress inputs (Table~\ref{tab:failure_modes}). This subsection adds \emph{human intervention archetypes}: practical labels for how decision-makers might respond when a system approaches those signatures. These archetypes are thesis-proposed analytical categories, not claims of universal behavior. They are grounded in DTSE metric signatures and stress-channel sequences summarized in Table~\ref{tab:dtse_cross_scenario_synthesis}.
+
+DTSE does not represent intent, governance feasibility, or off-chain constraints. Accordingly, the archetypes below are descriptive labels for response classes that can be expressed in DTSE terms (rule changes and/or exogenous-input changes). They do not imply that such responses will occur or are always feasible outside the modeled context.
+For ONO-specific interpretation in this section, ``emissions'' should be read as modeled reward distributions from a fixed inventory path, not as uncapped new token creation.
+
+\subsubsection*{Subsidy Continuation}
+Teams leave the mechanism rule set unchanged while usage-linked sinks weaken under demand-side stress. In DTSE, this aligns with Reward--Demand Decoupling: utilization and burn-linked measures decline relative to baseline while emissions remain elevated under mechanism rules, followed by margin compression in provider profitability. In demand-contraction outcomes, utilization and usage-linked sink trajectories diverge from baseline before provider participation effects dominate. The label does not imply intent; it names the modeled posture of maintaining rules under adverse usage conditions.
+Operational friction outside DTSE is often treasury runway and governance latency: teams may recognize decoupling early but still delay parameter changes while approval processes are ongoing.
+
+\subsubsection*{Broad Incentive Increase}
+Teams increase aggregate incentive intensity to counter participation erosion under stress. In DTSE, this is represented as a parameter or rule change that increases emissions or effective reward rates. The expected tradeoff is shorter-horizon retention support at the cost of weaker incentive-solvency proxies (for example, burn-to-mint divergence) and altered net-emission dynamics. The linkage is to Profitability-Induced Churn and Elastic Provider Exit because the response targets provider economics and switching sensitivity. In competitive-yield pressure and provider-cost inflation outcomes, deviations register first in participation and provider-economics channels, which is the evidence context for this archetype. Counterfactual intervention modeling extensions are scoped in Section~\ref{subsec:future_research_agenda}.
+Operational friction outside DTSE is budget discipline: short-term participation support can conflict with medium-term solvency targets and governance risk tolerance.
+
+\subsubsection*{Incentive Re-Targeting}
+Teams change reward allocation rather than aggregate reward magnitude, for example by concentrating incentives on higher-commitment capacity or validated service outcomes. In DTSE, this is represented by changes to allocation parameters and thresholds that reshape provider profitability and churn distributions without necessarily increasing total emissions. The associated failure-mode linkages are Elastic Provider Exit and Latent Capacity Degradation: re-targeting can reduce sensitivity to external yield opportunities and preserve capacity redundancy under participation erosion. In competitive-yield pressure outcomes, stress appears mainly in participation metrics rather than abrupt capacity discontinuities, which is the comparative context for discussing allocation-focused responses. DTSE captures these consequences through the modeled allocation rule and assumed provider heterogeneity only \cite{Tan2020, Chiu2024}.
+Operational friction outside DTSE is implementation complexity: verification criteria, monitoring quality, and communication overhead can limit how quickly re-targeting can be deployed.
+
+\subsubsection*{Non-Structural Response}
+Teams use actions that do not change mechanism rules or exogenous DTSE inputs, such as communication strategies, governance signaling, or informal coordination without parameter change. DTSE does not model these actions directly. Within DTSE, this is equivalent to no modeled intervention, so interpretation is limited to continued system evolution under the same stress inputs. DTSE output patterns cannot assess efficacy of non-structural actions unless those actions are translated into modeled parameter, exogenous-input, or decision-rule changes.
+Operational friction outside DTSE is credibility decay: communication-only responses can lose effect quickly if operators continue to observe deteriorating margins.
+
+\subsubsection*{Coordinated Operational Intervention}
+Teams coordinate actions that change operational conditions treated as exogenous drivers in DTSE, such as provider cost structures, effective capacity, or service-demand trajectories. In the DTSE experiment set, these interventions correspond to counterfactual adjustments of exogenous inputs (demand regimes, cost inflation, liquidity depth assumptions) rather than mechanism rule changes. The results chapter shows demand-side stress registering first in utilization-linked channels and cost-side stress registering first in provider profitability, which motivates framing this archetype in exogenous demand and cost terms. DTSE can represent these interventions only when they can be expressed as scenario-grid input changes.
+Operational friction outside DTSE is coordination capacity: these interventions may require simultaneous changes across partners, operations, and treasury policy.
+
+Taken together, these archetypes provide a neutral vocabulary for discussing responses to DTSE-identified stress signatures without intent labels or empirical prevalence claims. They also clarify what interventions are representable in DTSE (rule changes and exogenous-input changes) versus out of scope (unmodeled governance dynamics and off-chain behavior).
+
+\subsection{Onocoy-Specific Interpretive Signals}
+The thesis uses Onocoy as the empirical anchor for mechanism mapping and for stress-testing relevance in hardware-dependent systems. This subsection does not introduce new mechanism claims. It specifies how DTSE vocabulary is used to define interpretive signals for a capped-supply profile when mechanism facts are sourced from official documentation.
+The underlying mechanism mapping is documented in Section~\ref{sec:onocoy_case}.
+
+Within the DTSE framework, an Onocoy-specific interpretive signal is an observable quantity (or documented rule parameter) mapped to DTSE metric families without behavioral inference. The mapping classes used in this thesis are:
+\begin{enumerate}
+    \item \textbf{Usage-linked sinks/credits:} mapped to burn-linked measures and incentive-solvency proxies.
+    \item \textbf{Reward rules:} mapped to emissions and net-emission dynamics.
+    \item \textbf{Eligibility/verification requirements:} mapped to modeled participation thresholds or effective capacity contributions, explicitly labeled as modeled assumptions where required.
+\end{enumerate}
+For clarity in this ONO mapping, references to emissions denote distribution dynamics from pre-minted supply schedules documented by the protocol, rather than uncapped issuance.
+
+Using this approach, the failure-mode diagnostic matrix (Table~\ref{tab:failure_modes}) becomes the interpretive lens. Reward--Demand Decoupling maps to declining utilization and weakening usage-linked sink strength relative to issuance-driven incentives. Profitability-Induced Churn maps to sustained negative modeled provider margins under cost and price-process assumptions. Liquidity-Driven Compression maps to scenarios where a modeled price dislocation reduces token-denominated reward value with lagged participation effects. Elastic Provider Exit maps to participation sensitivity under competitive-yield pressure in the modeled switching rule. Latent Capacity Degradation maps to delayed capacity shortfalls after earlier participation erosion.
+
+The interpretive boundary remains strict: these signals are not presented as forecasts about the empirical case. They define how a documented mechanism configuration can be instantiated in DTSE and how DTSE outputs can be read as conditional indicators of sensitivity under stylized stress inputs. Where the mapping requires parameter values not specified in official documentation, the mapping is treated as a modeled assumption with explicit bounds and sensitivity analysis. Assumption bounds and sensitivity intervals are listed in Appendix Section~\ref{app:dtse_config_register}.
+
+\subsection{External Validity, Generalization Limits, and Evidence Boundaries}
+DTSE is designed for comparative evaluation under controlled perturbations, not for point forecasting or empirical calibration. External validity is therefore limited by construction, and generalization remains conditional on the DTSE assumptions and scenario specification. The cross-scenario synthesis table (Table~\ref{tab:dtse_cross_scenario_synthesis}) summarizes typical temporal ordering and metric-family sensitivity inside the DTSE experiment set, but does not establish that the same ordering will hold outside the modeled environment.
+
+Several material limitations are summarized as follows \cite{Morris2019, Braakman2022, Collins2024}:
+\begin{enumerate}
+    \item \textbf{Demand abstraction:} demand regimes are exogenous stylizations; DTSE does not endogenize user formation, price elasticity, or adoption feedback beyond explicit parameterization.
+    \item \textbf{Price-process abstraction:} the modeled price series can transmit stress into provider margins but does not model market microstructure, strategic trading, or institutionally mediated liquidity in detail.
+    \item \textbf{Behavioral simplification:} provider behavior is represented through simplified decision rules; strategic coordination and multi-homing appear only through modeled thresholds/switching logic.
+    \item \textbf{Governance scope limits:} governance and verification dynamics remain out of scope unless explicitly represented in DTSE inputs and evidenced by protocol documentation.
+\end{enumerate}
+
+\begin{table}[ht]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}X@{}}
+        \toprule
+        \textbf{Limitation} & \textbf{Affected Claim Class} & \textbf{Interpretive Impact} & \textbf{Mitigation / Audit Path} \\
+        \midrule
+        Exogenous demand stylization &
+        Modeled assumptions; DTSE outputs &
+        Limits claims about endogenous adoption dynamics and demand elasticity outside modeled scenarios &
+        Keep claims baseline-relative and scenario-conditional; audit scenario inputs in Appendix Section~\ref{app:dtse_scenario_grid}. \\
+        \addlinespace
+        Reduced-form price process &
+        Modeled assumptions; DTSE outputs &
+        Limits claims about market microstructure and strategic trading behavior &
+        Restrict interpretation to incentive-transmission patterns; audit formulas and thresholds in Appendix Sections~\ref{app:dtse_scenario_formula_map} and~\ref{app:dtse_threshold_table}. \\
+        \addlinespace
+        Simplified provider decision rules &
+        Modeled assumptions; DTSE outputs &
+        Limits behavioral realism for coordination, multi-homing, and strategic adaptation &
+        Use directional pattern language; audit profile assumptions and overrides in Appendix Sections~\ref{app:dtse_config_register} and~\ref{app:dtse_override_ledger}. \\
+        \addlinespace
+        Governance and verification out of scope &
+        Mechanism facts; modeled assumptions; DTSE outputs &
+        Prevents causal interpretation of governance-response efficacy from DTSE results alone &
+        Keep governance claims in discussion as scoped interpretation; route extensions to Section~\ref{subsec:future_research_agenda}. \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Limitation-to-claim impact map for discussion-level interpretation.}
+    \label{tab:limitation_claim_impact_map}
+\end{table}
+
+Two Chapter~8 interpretation constraints are especially important for external-validity boundaries. First, ONO baseline trajectories under neutral inputs are not stationary over the full horizon, so scenario readouts should be interpreted as relative deviation patterns rather than stable-versus-unstable comparisons. Second, selected cross-profile metrics can span large numeric ranges in specific stress channels, so cross-profile statements should emphasize directional robustness patterns under matched inputs rather than scalar score ordering.
+
+These boundaries shape how the thesis answers the main question. The thesis does not claim universal superiority of any mechanism class. It presents DTSE as an evaluator that compares mechanism profiles (including BME and capped-supply structures) under standardized stress channels and summarizes behavior through operational failure-mode signatures. Mechanism-level conclusions therefore remain statements about relative robustness within the experiment set, conditional on the scenario grid and parameter ranges used.
+
+\subsubsection*{Evaluator Usage Stance}
+This thesis treats DTSE as a decision-support evaluator for structured comparison, not as a forecasting engine. Intended use is straightforward: run matched stress channels, read first-signal patterns, and identify where sensitivity concentrates before design or governance changes are considered. This keeps interpretation grounded in claim classes and artifact traceability while avoiding overreach beyond modeled assumptions.
+
+\subsection{Reproducibility and Artifact Traceability}
+A central contribution of DTSE is methodological defensibility through artifact traceability. The methodology specifies explicit parameterization, scenario inputs, and random-seed policy, with distributional result summaries rather than single-run narratives. In this discussion chapter, each interpretive claim is tied to (i) a scenario identifier, (ii) a metric definition and computation rule, and (iii) an output artifact (figure or table) that shows the pattern. This traceability is anchored in Appendix Section~\ref{app:dtse_run_manifest}, Appendix Section~\ref{app:dtse_scenario_grid}, and Appendix Section~\ref{app:dtse_metric_computation}.
+
+Provenance also matters for collaborator trust. Mechanism facts should be traceable to protocol documentation, and modeled assumptions should be traceable to documented parameter ranges and sensitivity sweeps. Where practitioner context informs a parameter bound, the bound should be marked explicitly as an assumption and not treated as an empirical estimate. This traceability discipline reduces ambiguity in interpretation and allows subsequent readers to reproduce, audit, or extend the DTSE experiment set without relying on undocumented judgment.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+\subsection{Answer to the Research Question}
+The thesis asks how DePIN tokenomic mechanisms, including BME and capped-supply structures, behave under physical and economic stress and how robustness can be evaluated before catastrophic failure. DTSE addresses this question by providing a comparative evaluator that applies standardized stress channels to alternative mechanism profiles and reports outcomes as deviations from neutral baselines using a pre-specified metric set (Sections~\ref{sec:methodology}--\ref{sec:simulation_results}). Within the DTSE experiment set, stress channels express distinct sequences of metric deviations (Table~\ref{tab:dtse_cross_scenario_synthesis}), and these sequences can be summarized using operational failure-mode signatures (Table~\ref{tab:failure_modes}). The thesis therefore answers the research question in evaluative terms: robustness is assessed by comparative sensitivity of retention, service continuity, and incentive-solvency proxies under controlled stress inputs, rather than by forecasts or empirical prevalence claims.
+
+\subsection{Theoretical and Methodological Contributions}
+This work contributes a coherent argument flow from foundational stress constructs through mechanism vocabulary to an evaluator that makes assumptions explicit. The contributions can be summarized as follows:
+\begin{itemize}
+    \item \textbf{Methodological framing:} DTSE defines a context-of-use for simulation-based DePIN stress testing with explicit non-goals and interpretation boundaries.
+    \item \textbf{Comparative stress contract:} the thesis specifies standardized exogenous stress channels and a fixed metric suite with operational thresholds for cross-profile comparison.
+    \item \textbf{Diagnostic vocabulary:} Chapter~8 formalizes failure modes as metric-pattern signatures rather than protocol judgments.
+    \item \textbf{Interpretive governance:} the discussion layer introduces neutral intervention archetypes while preserving separation between mechanism facts, modeled assumptions, and DTSE outputs.
+\end{itemize}
+
+\subsection{Limitations}
+The conclusions of this thesis are bounded by the DTSE abstraction and by the scenario and parameter ranges used. Demand regimes are exogenous stylizations, the price-process signal is reduced-form, and provider decision rules are simplified representations of participation behavior. Governance interventions, adversarial dynamics, and verification integrity are not evaluated unless explicitly modeled and evidenced. Consequently, DTSE outputs support comparative, model-conditional statements about sensitivity and failure-mode signatures within the experiment set; they do not support claims of real-world prevalence, causal certainty, or universal mechanism superiority without additional evidence and validation.
+\cite{Morris2019, Braakman2022}.
+
+\subsection{Future Research Agenda}
+\label{subsec:future_research_agenda}
+Several extensions follow directly from the limitations and evaluator framing:
+\begin{enumerate}
+    \item Expand mechanism coverage and rule fidelity for additional documented designs while preserving the same stress-channel and metric contracts for comparability.
+    \item Strengthen calibration and validation pathways where data is available, for example by benchmarking selected DTSE outputs against historical stress episodes without converting DTSE into a forecasting model \cite{McCulloch2022, Collins2024}.
+    \item Represent additional decision layers currently out of scope, such as governance-response latency or verification failures, provided evidence boundaries remain explicit and auditable.
+    \item Formalize intervention modeling through counterfactual parameter and rule changes evaluated with the same failure-mode vocabulary, preserving separation between modeled intervention effects and claims about real-world feasibility.
+\end{enumerate}
+
+\subsection{Closing Statement}
+DTSE is presented as an evaluative instrument for reasoning about DePIN tokenomics under stress when analytic treatment is insufficient and empirical evidence is incomplete. By making assumptions explicit, reporting outcomes comparatively, and defining failure modes operationally, the framework supports more disciplined discussion of robustness and sensitivity without conflating simulation outputs with empirical facts. The thesis contributes a reproducible structure for such evaluation and a neutral interpretive vocabulary that can be extended as mechanism documentation, data availability, and modeling scope evolve.

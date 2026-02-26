@@ -17,6 +17,7 @@
 \begin{document}
 
 % Title Page
+\hypersetup{pageanchor=false}
 \begin{titlepage}
     \centering
     \vspace*{1cm}
@@ -48,12 +49,12 @@
 
 % Abstract
 \section*{Abstract}
-Decentralized Physical Infrastructure Networks (DePIN) rely on token-based incentive systems to bootstrap and sustain real-world infrastructure operated by independent providers. While tokenomics is frequently discussed in terms of growth and market valuation, significantly less attention has been paid to how these mechanisms behave under adverse conditions such as demand shocks, liquidity events, or deteriorating provider economics \cite{Messari2024}. This gap is particularly consequential for DePIN systems, where infrastructure churn can lead to irreversible losses in service capacity due to physical deployment constraints.
+Decentralized Physical Infrastructure Networks (DePIN) use token-based incentives to bootstrap and sustain real-world infrastructure operated by independent providers. While tokenomics is often discussed through growth and valuation narratives, less attention is given to how mechanisms behave under adverse conditions such as demand contraction, liquidity dislocations, or deteriorating provider economics \cite{Messari2024, FrontiersDePIN2025}. This matters in DePIN because physical deployment constraints and hardware sunk costs can make participation loss slow to reverse and service-capacity deterioration persistent.
 
-This thesis evaluates the robustness of DePIN tokenomic mechanisms under standardized stress conditions using a reproducible, simulation-based framework. Rather than forecasting token prices or predicting network success, the analysis focuses on comparative, directional behavior: how different incentive structures respond when subjected to adverse scenarios \cite{Morris2019}. An agent-based simulation model is employed to represent heterogeneous infrastructure providers interacting with a rule-based protocol under exogenous demand and macroeconomic regimes \cite{Braakman2022}.
+This thesis evaluates DePIN tokenomic robustness under standardized stress inputs using DTSE (DePIN Tokenomic Stress Evaluator), a reproducible simulation-based framework for comparative mechanism analysis. The objective is not to forecast token prices or project real-world outcomes, but to compare directional stress behavior across incentive structures under common assumptions and scenario controls \cite{Morris2019}. DTSE is implemented as an agent-based model in which heterogeneous infrastructure providers interact with rule-based protocol dynamics under exogenous demand and macroeconomic regimes \cite{Braakman2022}.
 
-The framework is applied to the Onocoy network and its ONO token as a primary case study. Results are interpreted as conditional insights into mechanism resilience, not as claims of causal certainty or real-world prediction. The contribution of this work lies in demonstrating how stress-testing can be systematically applied to DePIN tokenomics, offering a tool for researchers and builders to evaluate incentive robustness before failure occurs.
-\vspace{1cm} 
+The framework is applied to the Onocoy network and ONO token as the primary empirical case anchor. Results are interpreted as model-conditional evidence about mechanism resilience within the defined scenario grid, not as causal or financial claims about live markets. The core contribution is a structured, auditable methodology for stress-oriented comparison of DePIN tokenomics, together with an operational vocabulary for diagnosing failure-mode signatures under explicit modeling assumptions.
+\vspace{1cm}
 % End of Abstract
 
 \newpage
@@ -71,33 +72,32 @@ The framework is applied to the Onocoy network and its ONO token as a primary ca
 \newpage
 
 % Main Body
-\cleardoublepage
+\clearpage
 \phantomsection
+\hypersetup{pageanchor=true}
 \pagenumbering{arabic}
 
 % Include sections
 \input{sections/personA_foundations}
-\newpage
 
 \input{sections/personB_framework}
-\newpage
 
 \input{sections/personA_onocoy}
-\newpage
 
 \input{sections/empirical_analysis}
-\newpage
 
 \input{sections/personC_methodology}
-\newpage
 
 \input{sections/personC_results}
-\newpage
+
+\input{sections/personC_discussion_conclusion}
 
 % Appendix
 \appendix
+% Appendix table numbering: A.1, A.2, ...
+\renewcommand{\thetable}{A.\arabic{table}}
+\setcounter{table}{0}
 \input{sections/appendix}
-\newpage
 
 % Bibliography
 \printbibliography

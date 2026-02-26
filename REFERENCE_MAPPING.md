@@ -2,6 +2,24 @@
 
 This document tracks specific findings, claims, and data from ALL our sources down to the exact page number.
 
+## Phase 2 Load-Bearing Citation Updates (2026-02-24)
+
+| Cite key | Evidence class | Primary claims now supported | Main usage locations |
+| :--- | :--- | :--- | :--- |
+| `Arthur1989` | peer-reviewed | Path dependence, lock-in, and sunk-cost hysteresis framing for infrastructure participation | `sections/personA_foundations.tex`, `sections/empirical_analysis.tex` |
+| `RochetTirole2003` | peer-reviewed | Multi-actor platform framing for DePIN actor structure | `sections/personA_foundations.tex` |
+| `Collins2024` | peer-reviewed | ABM validation/verification framing and interpretation boundaries | `sections/personC_methodology.tex`, `sections/personC_discussion_conclusion.tex`, `sections/empirical_analysis.tex` |
+| `McCulloch2022` | peer-reviewed | ABM calibration and uncertainty-quantification support for DTSE future calibration pathways | `sections/personC_methodology.tex`, `sections/personC_discussion_conclusion.tex` |
+| `MacKinlay1997` | peer-reviewed | Event-study methodology framing for retrospective stress-window benchmarking in empirical analysis | `sections/empirical_analysis.tex` |
+| `BinanceHNTUSDTWeekly2022_2023` | primary-market-data (exchange) | HNT market-compression context during the 2022--2023 stress window using exchange-origin OHLC data | `sections/empirical_analysis.tex` |
+| `HeliumHIP70` | primary-governance-doc | Helium migration/subDAO governance response framing in the empirical stress case | `sections/empirical_analysis.tex` |
+| `OnocoyWhitepaper301` | protocol-doc | Onocoy mechanism facts: RTK/GNSS service model, participant roles, token architecture, emissions framing | `sections/personA_onocoy.tex`, `sections/personB_framework.tex`, `sections/empirical_analysis.tex`, `sections/personC_discussion_conclusion.tex` |
+| `Ballandies2023` | secondary-context (working paper) | DePIN taxonomy/context support (non-peer-reviewed; not sole support for core method claims) | `sections/personA_foundations.tex`, `sections/personB_framework.tex`, `sections/empirical_analysis.tex` |
+| `Chiu2024` | secondary-context (preprint) | DePIN framework context and verification/mechanism design framing (preprint; non-peer-reviewed) | `sections/personA_foundations.tex`, `sections/personB_framework.tex`, `sections/empirical_analysis.tex`, `sections/personC_discussion_conclusion.tex` |
+| `AndrewBallandies2025` | secondary-context (preprint) | DePIN classification criteria context (preprint; non-peer-reviewed) | `sections/personA_foundations.tex` |
+| `Lin2024` | secondary-context (preprint) | DePIN challenge taxonomy and stress-channel context (preprint; non-peer-reviewed) | `sections/personA_foundations.tex`, `sections/personB_framework.tex`, `sections/empirical_analysis.tex` |
+| `Halaburda2021` | secondary-context (working paper) | DeFi/crypto microeconomics contextual contrast (non-peer-reviewed) | `sections/personA_foundations.tex` |
+
 ## Master Tracking Checklist
 Use this checklist to ensure every single source in our catalog has been reviewed for page-level citations.
 

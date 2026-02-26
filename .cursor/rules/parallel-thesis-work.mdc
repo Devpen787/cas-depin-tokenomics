@@ -1,0 +1,29 @@
+---
+description: Use parallel subagents when thesis work spans 2+ independent domains (citations, simulation, writing, review)
+alwaysApply: true
+---
+
+# Parallel Thesis Work
+
+When the user requests work spanning **2+ independent thesis domains**, use `mcp_task` to dispatch subagents in parallel.
+
+## Domain Pairs (Dispatch in Parallel)
+
+| Domain A | Domain B | Example |
+|----------|----------|---------|
+| Citations | Writing | Resolve TODO-CITE + draft section |
+| Simulation | Methodology | Run DTSE + update personC_methodology.tex |
+| Review | Citations | Hostile review + reference resolution |
+| Empirical | Results | empirical_analysis.tex + personC_results.tex |
+
+## Subagent Types
+
+- **explore** — Codebase search, file discovery
+- **code-reviewer** — Hostile review, consistency, preflight
+- **generalPurpose** — Citations, REFERENCE_MAPPING, drafting
+
+## Do Not Parallelise When
+
+- Tasks edit the same file
+- One task depends on the output of another
+- User explicitly asks for sequential work

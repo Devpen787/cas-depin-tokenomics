@@ -10,11 +10,11 @@ Canonical reference library for thesis writing and evidence audits.
 - Do not add alternate filename variants for the same document.
 
 ## Current Inventory
-- Root PDFs: 54
-- Root Markdown companions: 53
+- Root PDFs: 56
+- Root Markdown files: 59
 - Root DOCX working docs: 2
 - Root CSV manifests: 1
-- Transcript raw files: 9
-- Transcript manifests: 1
+- Transcript raw files: 16
+- Transcript manifests: 3
 
 See `INDEX.md` for the full file list.
