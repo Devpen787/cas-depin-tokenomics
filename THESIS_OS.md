@@ -77,3 +77,48 @@ Use **Codex App** when:
 - `spawn_agents_on_csv` — fan-out work across `citation_manifest.csv` or parameter sweeps
 - Plan Mode — long-horizon planning with checkpoints
 - Codex-specific subagent UX (nicknames, picker UI)
+
+---
+
+## 7. Anti-Literal Integration Protocol (Mandatory)
+
+This protocol exists to prevent literal or premature edits during strategic thesis work.
+
+### A. Task Modes (Required)
+- Every substantial request must run in one explicit mode:
+  - `MODE: SYNTHESIS` = analysis only, no file edits.
+  - `MODE: PATCH` = approved edits only.
+- If mode is not explicitly provided, default to `MODE: SYNTHESIS`.
+
+### B. Mandatory Two-Gate Flow
+1. **Gate A — Synthesis Memo (No Edits):**
+   - Distill insights from inputs.
+   - Classify each candidate insertion by:
+     - claim class (mechanism fact / modeled assumption / DTSE output / context),
+     - evidence class (protocol doc / peer-reviewed / primary governance / contextual grey-lit),
+     - target section,
+     - include-or-exclude rationale,
+     - dilution risk.
+2. **Gate B — Patch Manifest (No Edits Yet):**
+   - Provide exact planned changes (file + section + brief replacement text intent).
+   - Limit each patch set to at most **2 thesis source files**.
+   - Wait for explicit approval token: `APPROVE PATCH SET`.
+
+No edits are allowed before Gate B approval.
+
+### C. Render Blacklist (Submission PDF)
+The following are internal workflow artifacts and must not be rendered in thesis narrative or appendix unless explicitly requested by the user:
+- `output/working_memory/*`
+- playbooks, audit notes, planning docs, and investigation logs
+- ad hoc internal markdown used for brainstorming or source triage
+
+These files may inform synthesis but are not admissible as thesis evidence anchors by default.
+
+### D. Appendix Admissibility Rule
+- Appendix content must be submission-relevant and auditable.
+- Allowed: compact evidence-control tables, frozen artifact pointers, run manifest excerpts.
+- Not allowed by default: pointers to internal working-memory investigations.
+
+### E. Regression Safety Rule
+- If a patch introduces process-oriented content into submission chapters (e.g., internal doc pointers), roll it back before commit.
+- After each patch set, run compile + reference + TODO + lexicon gates before further edits.

@@ -14,6 +14,26 @@ Always ensure your output aligns with the architecture and SOPs defined in `THES
 
 ---
 
+## Anti-Literal Execution Guard (Mandatory)
+
+For strategic requests that include words like "review", "analyze", "integrate", "strengthen narrative", or "where should this go":
+
+1. Default to `MODE: SYNTHESIS` unless user explicitly requests `MODE: PATCH`.
+2. In `MODE: SYNTHESIS`, do not edit files. Produce:
+   - insight extraction,
+   - claim/evidence classification,
+   - target-section recommendations,
+   - include/exclude rationale.
+3. Before any edits, provide a patch manifest and wait for explicit user approval token:
+   - `APPROVE PATCH SET`
+4. Patch set size limit: maximum 2 thesis source files per approved set.
+5. Never render internal workflow artifacts in thesis PDF by default:
+   - `output/working_memory/*`
+   - planning/audit/internal investigation notes.
+6. If an edit accidentally introduces internal-process content into submission chapters, rollback before commit.
+
+---
+
 ## Cursor-Specific: Parallel Subagents
 
 When the user requests work spanning **2+ independent thesis domains**, use `mcp_task` to dispatch subagents in parallel instead of working sequentially.
