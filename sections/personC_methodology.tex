@@ -5,17 +5,19 @@
 \label{sec:methodology}
 
 \subsection{Purpose, Scope, and Context-of-Use}
-This chapter introduces DTSE (DePIN Tokenomic Stress Evaluator), a simulation-based framework used to compare how DePIN tokenomic mechanisms behave under the same adverse inputs. The purpose is comparative: DTSE is used to evaluate relative sensitivity, trade-offs, and failure-mode signatures across mechanisms exposed to identical stress conditions. Results are interpreted as model-conditional comparisons rather than absolute performance scores or real-world projections \cite{Morris2019, Braakman2022}.
+This chapter introduces DTSE (DePIN Tokenomic Stress Evaluator), a simulation-based framework for comparing how DePIN tokenomic mechanisms behave under the same adverse inputs. The purpose is comparative: DTSE evaluates relative sensitivity, trade-offs, and operational failure-mode signatures across mechanisms exposed to matched stress conditions. Results are interpreted as model-conditional comparisons, not as absolute performance scores \cite{Morris2019, Braakman2022}.
 
-The thesis requires an evaluator that can bridge mechanism design (e.g., Burn-and-Mint Equilibrium versus capped-supply structures) to stress behavior in hardware-dependent networks. Treating Onocoy as a cyber-physical system (Section~\ref{subsec:depin_cps}), DTSE is used to represent feedback between protocol incentive rules, provider participation decisions, and service capacity under exogenously specified stress regimes.
+DTSE is used here because the thesis needs one evaluator that can apply identical stress inputs to different mechanism designs (e.g., Burn-and-Mint Equilibrium and capped-supply structures) and then compare their responses on the same metric set. Treating Onocoy as a cyber-physical system (Section~\ref{subsec:depin_cps}), the model represents feedback among protocol incentive rules, provider participation decisions, and service capacity under explicitly specified stress regimes.
 
-Several non-goals bound interpretation. DTSE does not generate token price forecasts, valuation estimates, or market-capitalization projections. Price dynamics appear only as internal state variables driven by explicitly modeled assumptions (Section~\ref{subsec:dtse_model_overview_assumptions}). Outputs are not treated as causal claims about real-world networks. Patterns reported in Section~\ref{sec:simulation_results} remain conditional on model structure, parameterization, and stress specification.
+Interpretation boundaries are explicit. DTSE does not forecast token prices, valuation levels, or market capitalization. Price appears only as an internal model state driven by stated assumptions (Section~\ref{subsec:dtse_model_overview_assumptions}). Outputs in Section~\ref{sec:simulation_results} are therefore comparative indicators within the DTSE experiment set, conditioned on model structure, parameterization, and stress specification.
 
-DTSE does not identify optimal parameter settings and does not prescribe tokenomic designs. Its role is to provide a transparent and reproducible basis for mechanism-level comparison under stress while keeping assumptions explicit and auditable \cite{Morris2019}.
+DTSE is not used to derive an optimal tokenomic design. Its role is to provide a transparent and reproducible basis for mechanism-level stress comparison with auditable assumptions \cite{Morris2019}.
 
 \subsection{DTSE Model Overview and Assumptions}
 \label{subsec:dtse_model_overview_assumptions}
-DTSE is implemented as an agent-based simulation where heterogeneous infrastructure providers interact with a rule-based protocol under exogenous stress inputs \cite{Collins2024, McCulloch2022}. The modeling choice is practical: it captures provider heterogeneity and threshold behavior without requiring a full market microstructure model.
+DTSE is implemented as an agent-based simulation where heterogeneous infrastructure providers interact with a rule-based protocol under exogenous stress inputs \cite{Collins2024, McCulloch2022}. In practical terms, DTSE links three elements: protocol rules (distribution and sink behavior), provider decisions (continue or exit), and network outcomes (capacity, utilization, and service continuity). The model is designed to isolate mechanism response under controlled stress, not to reproduce full market microstructure.
+
+In this chapter, \emph{exogenous} means the scenario sets an input from outside the model so it is held comparable across mechanisms. \emph{Endogenous} means the model generates that state internally as an outcome of rules, inputs, and agent decisions.
 
 \subsubsection*{Separation of fact, modeled assumption, and interpretation boundary}
 DTSE distinguishes three evidentiary layers that are used consistently throughout the thesis.
@@ -28,14 +30,13 @@ DTSE distinguishes three evidentiary layers that are used consistently throughou
 \subsubsection*{Agents and decision rules}
 Providers are modeled as heterogeneous agents with differentiated cost structures and effective capacity contributions. Behavior is restricted to economically motivated decisions (entry, continuation, exit/churn) based on modeled profitability thresholds and accumulated losses \cite{Collins2024, McCulloch2022}.
 
-Users are not modeled as individual agents. Instead, service demand is specified as an exogenous input (Section~\ref{sec:stress_scenarios}) to support controlled comparison across mechanisms \cite{Morris2019, Braakman2022}.
+Users are not modeled as individual agents. Instead, service demand is specified as an exogenous input (Section~\ref{sec:stress_scenarios}) to support controlled comparison across mechanisms \cite{Morris2019, Braakman2022}. This keeps demand paths matched so differences in outcomes are attributable to mechanism rules and provider response, not to different modeled user behavior.
 
 \subsubsection*{Protocol abstraction and endogenous state}
 The protocol is represented as a rule-based system governing emissions, reward allocation, usage-linked burns/sinks, and internal price-process dynamics. Given a parameterization and exogenous inputs, protocol behavior is deterministic and does not adapt strategically within runs (e.g., no governance intervention). Endogenous state variables include token supply, emissions and burns, provider profitability, churn/retention, utilization/capacity, and incentive-solvency proxies.
 
 \subsubsection*{Price-process signal (model scope)}
-The modeled token price series is a reduced-form internal signal that responds to specified assumptions about demand, liquidity depth, and supply-side dynamics. It is included to translate token-denominated incentives into in-model provider revenue and margin dynamics, not to reproduce market microstructure or to forecast real prices.
-\cite{Morris2019, Collins2024}.
+The modeled token price series is a reduced-form internal signal that responds to specified assumptions about demand, liquidity depth, and supply-side dynamics. It is included to translate token-denominated incentives into in-model provider revenue and margin dynamics, not to reproduce market microstructure or forecast real prices \cite{Morris2019, Collins2024}.
 
 \subsubsection*{Theory-to-parameter translation}
 DTSE operationalizes the thesis stress constructs by mapping them to explicit parameter families used in stress experiments. Reward Addiction is evaluated using burn-to-mint and emission-cap related parameters; Subsidy Gap is evaluated through provider-cost assumptions and usage-linked fiat-revenue baselines; Speculative Fragility is evaluated through churn sensitivity under adverse modeled price conditions.
