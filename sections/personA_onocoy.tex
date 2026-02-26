@@ -19,6 +19,13 @@ Supply-side incentive issuance follows a decay schedule for ONO. The whitepaper 
 
 Public documentation reviewed for this thesis does not specify staking/collateral rules for miner participation with the same precision as emission and data-credit mechanics. For this submission, staking/collateral is treated as an unknown mechanism fact and is only admissible through explicit modeled assumptions where parameter bounds are declared \cite{OnocoyToken, OnocoyRewards}.
 
+\subsection{Blockchain Settlement Scope and Decision Boundary}
+This thesis treats Onocoy's blockchain choice as a settlement-layer design decision tied to service monetization requirements, not as a general claim that one chain is universally superior. The descriptive requirement in scope is straightforward: the network must support frequent, low-value accounting events while keeping core GNSS correction delivery off-chain for latency and operational reasons \cite{OnocoyWhitepaper301, OnocoyToken}.
+
+The practical comparator boundary is also explicit. A DePIN network can either (i) build and maintain dedicated chain infrastructure, or (ii) use an existing settlement ecosystem and focus engineering effort on service delivery and mechanism operations. This thesis uses Helium's migration record as a contextual industry signal for that tradeoff and does not treat it as proof of optimality for Onocoy \cite{HeliumHIP70}.
+
+For thesis governance, blockchain-choice interpretation follows the same evidence hierarchy used elsewhere. Mechanism facts rely on protocol documentation. Any performance, ecosystem, or alternative-chain comparisons are treated as contextual framing unless backed by directly auditable primary artifacts. The corresponding source-class and admissibility audit is summarized in Appendix Section~\ref{app:onocoy_blockchain_gap_audit}.
+
 \subsection{Case-at-a-Glance Summary}
 \begin{table}[ht]
     \centering

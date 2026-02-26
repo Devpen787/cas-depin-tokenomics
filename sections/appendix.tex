@@ -289,3 +289,37 @@ This section documents the metric-applicability contract used in Chapter~\ref{se
     \caption{Onocoy empirical metric-applicability profile for current stress windows.}
     \label{tab:app_onocoy_metric_applicability}
 \end{table}
+
+\subsection{Onocoy Blockchain Gap Audit (Source-Class View)}
+\label{app:onocoy_blockchain_gap_audit}
+This audit section records how blockchain-choice statements are admitted in the thesis. It is a source-class and scope-control layer: mechanism facts are supported by protocol documentation, while ecosystem and comparator framing is treated as contextual unless directly backed by auditable primary artifacts.
+
+\begin{table}[ht]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.23\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}X@{}}
+        \toprule
+        \textbf{Claim Area} & \textbf{Evidence Class} & \textbf{Primary Anchor in Thesis} & \textbf{Interpretive Handling} \\
+        \midrule
+        Onocoy settlement and token mechanics & Mechanism facts & \cite{OnocoyWhitepaper301, OnocoyToken, OnocoyRewards} & Admitted as descriptive mechanism facts; unresolved rule fields are kept as unknowns unless modeled assumptions are declared. \\
+        \addlinespace
+        Chain-operation burden and migration lessons & Contextual primary case & \cite{HeliumHIP70} & Used as industry context for decision boundaries; not treated as proof of optimality for Onocoy. \\
+        \addlinespace
+        Alternative-chain positioning and ecosystem comparisons & Contextual framing & Working-memory audit artifacts listed below & Allowed only as bounded context unless supported by stable primary evidence in bibliography. \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Source-class audit for blockchain-choice statements used in the Onocoy case chapter.}
+    \label{tab:app_onocoy_blockchain_gap_audit}
+\end{table}
+
+Working-memory provenance for this audit:
+\begin{itemize}
+    \item Root folder: \path{output/working_memory/}
+    \item \path{ONOCOY_INTELLIGENCE_INDEX.md}
+    \item \path{ONOCOY_CONSOLIDATED_INTELLIGENCE.md}
+    \item \path{ONOCOY_CONSOLIDATED_INTELLIGENCE_PART2.md}
+    \item \path{ONOCOY_CONSOLIDATED_INTELLIGENCE_PART3.md}
+    \item \path{BLOCKCHAIN_GAP_AUDIT.md}
+\end{itemize}
