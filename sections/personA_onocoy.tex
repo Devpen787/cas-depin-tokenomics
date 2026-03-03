@@ -18,15 +18,26 @@ Onocoy uses a dual-layer design with ONO as the transferable utility/governance 
 Supply-side incentive issuance follows a decay schedule for ONO. The whitepaper describes a capped ONO supply with a deflationary release profile (16\% annual deflation factor, equivalent to a four-year halving profile for newly created units), while buyback-and-burn behavior is tied to protocol-level revenue routing choices \cite{OnocoyWhitepaper301, OnocoyToken}.
 
 Public documentation reviewed for this thesis does not specify staking/collateral rules for miner participation with the same precision as emission and data-credit mechanics. For this submission, staking/collateral is treated as an unknown mechanism fact and is only admissible through explicit modeled assumptions where parameter bounds are declared \cite{OnocoyToken, OnocoyRewards}.
+Within the thesis comparison design, Onocoy serves as the capped-supply empirical anchor against BME-oriented comparator profiles under matched stress inputs in DTSE.
 
 \subsection{Blockchain Settlement Scope and Decision Boundary}
 This thesis treats Onocoy's blockchain choice as a settlement-layer design decision tied to service monetization requirements, not as a general claim that one chain is universally superior. The descriptive requirement in scope is straightforward: the network must support frequent, low-value accounting events while keeping core GNSS correction delivery off-chain for latency and operational reasons \cite{OnocoyWhitepaper301, OnocoyToken}.
 
+\paragraph*{Decision window and ecosystem context (time-bounded)}
+This thesis evaluates the blockchain decision in the 2022--2026 DePIN build window. During that period, teams often faced a practical tradeoff between operating sovereign chain infrastructure and shipping service-layer functionality under tight execution constraints. Public ecosystem reporting from the same window describes DePIN activity concentrating in established settlement environments while purpose-built DePIN chain strategies were still developing \cite{Messari2024, FrontiersDePIN2025}. Here, that evidence is used as status context for decision timing, not as universal proof that one chain class is always superior.
+
+\paragraph*{Published chain-selection benchmark (project-primary)}
+A published Onocoy chain-selection record reports a structured screening funnel (35 chains screened, 8 shortlisted, 3 finalists). It links final selection to throughput and cost constraints, block-time requirements, ecosystem readiness, and engineering execution considerations in the decision window \cite{Ballandies2023ChainSelection}. In this thesis, these benchmarks are treated as project-primary decision evidence for timing and architecture tradeoffs, not as universal cross-chain performance proof.
+
 The practical comparator boundary is also explicit. A DePIN network can either (i) build and maintain dedicated chain infrastructure, or (ii) use an existing settlement ecosystem and focus engineering effort on service delivery and mechanism operations. This thesis uses Helium's migration record as a contextual industry signal for that tradeoff and does not treat it as proof of optimality for Onocoy \cite{HeliumHIP70}.
 
-For thesis governance, blockchain-choice interpretation follows the same evidence hierarchy used elsewhere. Mechanism facts rely on protocol documentation. Any performance, ecosystem, or alternative-chain comparisons are treated as contextual framing unless backed by directly auditable primary artifacts. The corresponding source-class and admissibility audit is summarized in Appendix Section~\ref{app:onocoy_blockchain_gap_audit}.
+\paragraph*{Operate service layer, not chain operations}
+The architecture choice in scope is operational: keep latency-critical GNSS correction delivery off-chain and use the blockchain layer for economic settlement, accounting, and governance primitives \cite{OnocoyWhitepaper301, OnocoyToken}. This aligns with a broader lesson documented in Helium's migration governance record: chain-maintenance burden can compete directly with product-layer execution capacity \cite{HeliumHIP70}.
+
+For thesis governance, blockchain-choice interpretation follows the same evidence hierarchy used elsewhere. Mechanism facts rely on protocol documentation, while ecosystem and alternative-chain comparisons are treated as contextual framing unless backed by directly auditable primary artifacts. This architectural boundary also defines the DTSE scope in later chapters: the settlement chain is held as fixed context so the stress analysis can isolate what drives network survival under matched inputs, namely mechanism rules and provider participation economics.
 
 \subsection{Case-at-a-Glance Summary}
+Table~\ref{tab:onocoy_case_at_a_glance} consolidates the Onocoy case dimensions used as the empirical anchor for subsequent methodology and results chapters.
 \begin{table}[ht]
     \centering
     \small

@@ -5,96 +5,92 @@
 \label{sec:methodology}
 
 \subsection{Purpose, Scope, and Context-of-Use}
-This chapter introduces DTSE (DePIN Tokenomic Stress Evaluator), a simulation-based framework for comparing how DePIN tokenomic mechanisms behave under the same adverse inputs. The purpose is comparative: DTSE evaluates relative sensitivity, trade-offs, and operational failure-mode signatures across mechanisms exposed to matched stress conditions. Results are interpreted as model-conditional comparisons, not as absolute performance scores \cite{Morris2019, Braakman2022}.
+This chapter introduces the DePIN Tokenomic Stress Evaluator (DTSE), a simulation framework for comparing how tokenomic mechanism profiles respond to standardized stress channels under matched conditions. DTSE is designed to surface relative sensitivity, structural trade-offs, and operational failure-mode signatures through baseline-relative deviations rather than to produce absolute scores \cite{Morris2019, Braakman2022}.
 
-DTSE is used here because the thesis needs one evaluator that can apply identical stress inputs to different mechanism designs (e.g., Burn-and-Mint Equilibrium and capped-supply structures) and then compare their responses on the same metric set. Treating Onocoy as a cyber-physical system (Section~\ref{subsec:depin_cps}), the model represents feedback among protocol incentive rules, provider participation decisions, and service capacity under explicitly specified stress regimes.
+A controlled simulation environment is used because competing mechanisms can appear similar under neutral conditions yet diverge under stress. By treating the anchor case as a cyber-physical system (Section~\ref{subsec:depin_cps}) and applying identical shocks across mechanism profiles, DTSE captures interactions between protocol rules, provider decisions, and service capacity over time.
 
-Interpretation boundaries are explicit. DTSE does not forecast token prices, valuation levels, or market capitalization. Price appears only as an internal model state driven by stated assumptions (Section~\ref{subsec:dtse_model_overview_assumptions}). Outputs in Section~\ref{sec:simulation_results} are therefore comparative indicators within the DTSE experiment set, conditioned on model structure, parameterization, and stress specification.
+DTSE is used as an evaluator inside an explicit model contract; it does not optimize for ``best'' tokenomics or provide point forecasts. Modeled price is treated as an internal signal generated under stated assumptions (Section~\ref{subsec:dtse_model_overview_assumptions}). Results in Section~\ref{sec:simulation_results} are reported as baseline-relative deviations under matched stress inputs, with assumptions and artifacts made auditable for reproduction and extension \cite{Morris2019}.
 
-DTSE is not used to derive an optimal tokenomic design. Its role is to provide a transparent and reproducible basis for mechanism-level stress comparison with auditable assumptions \cite{Morris2019}.
+This chapter does four things in sequence. First, it defines the DTSE architecture and the evidence layers used to interpret it. Second, it fixes the stress-scenario contract used in the experiment set. Third, it states the metric and threshold contract used to read outputs. Fourth, it records the reproducibility and model-limit conditions that bound the later claims.
 
-\subsection{DTSE Model Overview and Assumptions}
+\noindent\textbf{Chain-context scope:} Settlement-layer architecture is treated as fixed environmental context for a given mechanism profile. DTSE varies stress inputs, mechanism parameters, and provider-response rules under matched conditions, but it does not model chain-migration decisions within a run. This keeps blockchain-choice context analytically separable from in-model stress dynamics.
+
+\subsection{DTSE Architecture, Evidence Layers, and Core Assumptions}
 \label{subsec:dtse_model_overview_assumptions}
-DTSE is implemented as an agent-based simulation where heterogeneous infrastructure providers interact with a rule-based protocol under exogenous stress inputs \cite{Collins2024, McCulloch2022}. In practical terms, DTSE links three elements: protocol rules (distribution and sink behavior), provider decisions (continue or exit), and network outcomes (capacity, utilization, and service continuity). The model is designed to isolate mechanism response under controlled stress, not to reproduce full market microstructure.
+DTSE is implemented as an agent-based simulation in which heterogeneous infrastructure providers interact with a rule-based protocol under exogenous stress inputs \cite{Collins2024, McCulloch2022}. DTSE links three core elements: protocol rules (distribution and sink behavior), provider decisions (continue or exit), and network outcomes (capacity, utilization, and service continuity). The model isolates mechanism response under controlled stress rather than attempting to replicate full market microstructure.
 
-In this chapter, \emph{exogenous} means the scenario sets an input from outside the model so it is held comparable across mechanisms. \emph{Endogenous} means the model generates that state internally as an outcome of rules, inputs, and agent decisions.
+In this chapter, \emph{exogenous} inputs are imposed from outside the model so they remain comparable across mechanisms. \emph{Endogenous} states are generated internally as outcomes of rules, inputs, and agent decisions.
 
-\subsubsection*{Separation of fact, modeled assumption, and interpretation boundary}
-DTSE distinguishes three evidentiary layers that are used consistently throughout the thesis.
+\noindent\textbf{Evidence layers and interpretation boundary:}
+DTSE uses three evidence layers throughout the thesis:
 \begin{itemize}
-    \item \emph{Mechanism facts:} protocol-defined rules (e.g., issuance, burns/sinks, and reward allocation logic) sourced from official documentation and instantiated as deterministic rule sets in the simulator.
-    \item \emph{Modeled assumptions:} abstractions required for experimental control (e.g., exogenous demand regimes, reduced-form price-process signals, and provider cost distributions).
-    \item \emph{Interpretation boundaries:} what DTSE outputs mean, namely comparative indicators under stated assumptions rather than empirical measurements or claims of external validity.
+    \item \emph{Mechanism facts:} protocol-defined rules (issuance, sinks, reward allocation) sourced from official documentation and instantiated as deterministic rule sets in the simulator.
+    \item \emph{Modeled assumptions:} abstractions required for experimental control (exogenous demand regimes, reduced-form price signals, provider cost distributions, and decision rules).
+    \item \emph{DTSE outputs:} descriptive metric patterns produced under the frozen scenario inputs, interpreted as comparative indicators within the stated assumptions rather than as empirical measurements.
 \end{itemize}
 
-\subsubsection*{Agents and decision rules}
-Providers are modeled as heterogeneous agents with differentiated cost structures and effective capacity contributions. Behavior is restricted to economically motivated decisions (entry, continuation, exit/churn) based on modeled profitability thresholds and accumulated losses \cite{Collins2024, McCulloch2022}.
+\noindent\textbf{Agents and decision rules:}
+Providers are modeled as heterogeneous agents with different cost structures and effective capacity contributions. Behavior is restricted to economically motivated decisions (entry, continuation, exit/churn) based on modeled profitability thresholds and accumulated losses \cite{Collins2024, McCulloch2022}.
 
 Users are not modeled as individual agents. Instead, service demand is specified as an exogenous input (Section~\ref{sec:stress_scenarios}) to support controlled comparison across mechanisms \cite{Morris2019, Braakman2022}. This keeps demand paths matched so differences in outcomes are attributable to mechanism rules and provider response, not to different modeled user behavior.
 
-\subsubsection*{Protocol abstraction and endogenous state}
+\noindent\textbf{Protocol abstraction and endogenous state:}
 The protocol is represented as a rule-based system governing emissions, reward allocation, usage-linked burns/sinks, and internal price-process dynamics. Given a parameterization and exogenous inputs, protocol behavior is deterministic and does not adapt strategically within runs (e.g., no governance intervention). Endogenous state variables include token supply, emissions and burns, provider profitability, churn/retention, utilization/capacity, and incentive-solvency proxies.
 
-\subsubsection*{Price-process signal (model scope)}
+\noindent\textbf{Price-process signal (model scope):}
 The modeled token price series is a reduced-form internal signal that responds to specified assumptions about demand, liquidity depth, and supply-side dynamics. It is included to translate token-denominated incentives into in-model provider revenue and margin dynamics, not to reproduce market microstructure or forecast real prices \cite{Morris2019, Collins2024}.
 
-\subsubsection*{Theory-to-parameter translation}
-DTSE operationalizes the thesis stress constructs by mapping them to explicit parameter families used in stress experiments. Reward Addiction is evaluated using burn-to-mint and emission-cap related parameters; Subsidy Gap is evaluated through provider-cost assumptions and usage-linked fiat-revenue baselines; Speculative Fragility is evaluated through churn sensitivity under adverse modeled price conditions.
+\noindent\textbf{Theory-to-parameter translation:}
+DTSE operationalizes the thesis stress constructs by mapping them to explicit parameter families used in stress experiments. Reward Addiction is evaluated using burn-to-mint and emission-cap related parameters; Subsidy Gap is evaluated through provider-cost assumptions and usage-linked fiat-revenue baselines; Speculative Fragility is evaluated through churn sensitivity under adverse modeled price conditions \cite{Morris2019, Braakman2022}.
 The authoritative mapping table is provided in Appendix Section~\ref{app:dtse_theory_mapping}.
 
-\subsubsection*{Parameterization discipline}
+\noindent\textbf{Parameterization discipline:}
 Parameters are treated as \emph{ranges and regimes} rather than point estimates. Where practitioner context or public documentation informs plausible bounds, it is used only to select broad intervals for sensitivity analysis and is not treated as empirical evidence for mechanism claims.
 The parameter and distribution register is documented in Appendix Section~\ref{app:dtse_config_register}.
 
-\subsection{Stress Scenario Specification (DTSE-Selected Stylized Channels)}
+\subsection{Stress Scenario Contract}
 \label{sec:stress_scenarios}
-In this thesis, stress is defined as an externally imposed adverse condition applied as a DTSE input. Stress is not defined as an outcome (e.g., price decline or provider exit), which avoids circularity. Stress scenarios are designed to challenge three sustainability dimensions under matched experimental conditions: provider retention, service continuity, and incentive solvency.
+In this thesis, stress is defined as an externally imposed adverse condition applied as a DTSE input. Stress is not defined as an outcome (e.g., price decline or provider exit), which avoids circularity. Stress scenarios are designed to challenge three sustainability dimensions under matched experimental conditions: provider retention, service continuity, and incentive solvency \cite{Morris2019, Braakman2022}.
 
 All stress dimensions are specified as exogenous inputs so that the same stress conditions can be applied across alternative mechanism profiles and differences in outcomes can be attributed to mechanism responses under the DTSE assumptions \cite{Morris2019}.
 
-\subsubsection*{Macroeconomic regimes (stylized background conditions)}
+\noindent\textbf{Macroeconomic regimes (stylized background conditions):}
 DTSE specifies regime-based modifiers that influence the modeled price-process drift and volatility (bearish, sideways, bullish). These regimes are DTSE-selected stylizations used to vary background conditions for comparative evaluation.
 
-\subsubsection*{Demand regimes (exogenous service usage)}
+\noindent\textbf{Demand regimes (exogenous service usage):}
 Demand is modeled as an exogenous stochastic time series with multiple stylized forms (stable, growth, volatile, high-to-decay). Demand remains exogenous by design to isolate provider-side incentive responses under identical demand trajectories.
 
-\subsubsection*{Liquidity shocks (discrete dislocations)}
+\noindent\textbf{Liquidity shocks (discrete dislocations):}
 Liquidity stress is introduced through discrete unlock-style events combined with finite market depth, producing abrupt changes in the modeled price signal. The objective is to evaluate mechanism sensitivity to sudden price dislocations under specified assumptions, not to model investor behavior.
+The transmission rule is treated as a DTSE modeling assumption and is fixed in the frozen scenario-formula map and threshold registry (Appendix Sections~\ref{app:dtse_scenario_formula_map} and~\ref{app:dtse_threshold_table}).
 
-\subsubsection*{Provider economics stress (margin compression and opportunity cost)}
+\noindent\textbf{Provider economics stress (margin compression and opportunity cost):}
 Provider-side stress is represented via scenario controls that shift modeled operating costs, competitor-yield opportunity parameters, and profitability thresholds. DTSE may distinguish provider types (e.g., higher-cost versus lower-cost configurations) to represent heterogeneous sensitivity to the same stress input.
 
-\subsubsection*{Tokenomics parameter stress (design sensitivity)}
+\noindent\textbf{Tokenomics parameter stress (design sensitivity):}
 Stress is also applied directly to mechanism parameters (e.g., emission caps, burn fractions, and initial supply conditions) to evaluate how DTSE outcomes vary across design choices under standardized external stress.
 
-\subsubsection*{Selected Chapter-8 Scenario Set and Selection Rationale}
-For Chapter~\ref{sec:simulation_results}, this thesis fixes one baseline scenario and four stress scenarios: demand contraction, liquidity shock, competitive yield pressure, and provider cost inflation. The selection follows the theory-to-parameter contract in Appendix Section~\ref{app:dtse_theory_mapping}. Each scenario is mapped to one dominant stress channel to keep interpretation traceable: demand contraction (reward--demand decoupling), liquidity shock (token-liquidity transmission), competitive yield pressure (external-opportunity churn), and provider cost inflation (Subsidy-Gap pressure).
+\noindent\textbf{Stress Scenario Set and Rationale:}
+\label{subsec:dtse_scenario_set}
+For Chapter~\ref{sec:simulation_results}, the experiment set includes one neutral baseline and four stress channels: demand contraction, liquidity shock, competitive yield pressure, and provider cost inflation. The set follows the theory-to-parameter mapping documented in Appendix Section~\ref{app:dtse_theory_mapping}. Each scenario is anchored to a primary stress channel for traceable interpretation: demand contraction (Reward--Demand Decoupling), liquidity shock (token-liquidity transmission), competitive yield pressure (outside-opportunity churn), and provider cost inflation (Subsidy-Gap pressure). Fixed background modifiers (e.g., bearish macro settings in demand contraction) are treated as part of the scenario specification rather than as separate interpretation channels.
 
+To keep the contract auditable, each scenario is defined by frozen inputs, an explicit update rule, and baseline-relative signal logic:
 \begin{itemize}
-    \item \textbf{Demand contraction} tests whether usage-linked channels weaken before participation channels.
-    \item \textbf{Liquidity shock} tests short-latency transmission from token-market dislocation into provider economics.
-    \item \textbf{Competitive yield pressure} tests participation elasticity to outside opportunities under stable internal demand.
-    \item \textbf{Provider cost inflation} tests margin compression and lagged participation response under exogenous OpEx pressure.
+    \item \textbf{Demand contraction:} high-to-decay demand regime with \(B_{\mathrm{DC}}=10000\), \(\sigma_{\mathrm{DC}}=0.08\), and baseline reference \(B_{\mathrm{BL}}=12000\), \(\sigma_{\mathrm{BL}}=0\).
+    \item \textbf{Liquidity shock:} discrete unlock-style sell event at week \(t^*=20\) with \(\phi=0.35\), propagated through finite-depth AMM-style price updates.
+    \item \textbf{Competitive yield pressure:} external-yield scalar \(y=1.5\) with type-specific switching pressure (higher for Provider Type A, lower for Provider Type B) under bounded noise.
+    \item \textbf{Provider cost inflation:} base-cost multiplier \(1.35\) propagated through the heterogeneous provider-cost rule used by the DTSE engine.
 \end{itemize}
 
-To keep interpretation auditable, each scenario is documented with explicit frozen inputs, a defined update rule, and baseline-relative signal logic.
+Signal timing in Chapter~\ref{sec:simulation_results} uses baseline anchoring by output class. ONO timing tables report first threshold crossing versus the ONO baseline. Cross-profile deviation figures report each profile relative to its own baseline under the same frozen scenario inputs. Frozen thresholds are documented in Appendix Section~\ref{app:dtse_threshold_table}, and exact scenario equations are documented in Appendix Section~\ref{app:dtse_scenario_formula_map}.
 
-Demand contraction uses a high-to-decay demand regime with \(B_{\mathrm{DC}}=10000\), \(\sigma_{\mathrm{DC}}=0.08\), and baseline reference \(B_{\mathrm{BL}}=12000\), \(\sigma_{\mathrm{BL}}=0\).
+\noindent\textbf{Interview-Informed Context and Assumption Bounds:}
+Interview-derived practitioner context is used only to set assumption ranges and operational frictions that are not fully specified in public protocol material. Interview signals are treated as indicative inputs, never as mechanism facts. No confidential internal data is published; interview-informed inputs are introduced only as bounded modeled assumptions and disclosed in the configuration register \cite{Morris2019, Braakman2022}.
+In this thesis, interview elicitation is operationalized as a bounded-assumption protocol: practitioner signals can narrow plausible parameter ranges, but they do not define mechanism facts and are not used as standalone empirical evidence.
 
-Liquidity shock applies a discrete unlock-style sell event at week \(t^*=20\) with \(\phi=0.35\), then propagates it through finite-depth AMM-style price updates.
+In this thesis, interview-informed signals include provider payback expectations, observed churn drivers, internal demand indicators, and practitioner views on emission-adjustment trade-offs. These signals support calibration ranges and stress-plausibility checks. They are not used for causal claims or standalone empirical inference.
 
-Competitive yield pressure sets external-yield scalar \(y=1.5\) and applies type-specific provider-switching pressure (higher for Provider Type A, lower for Provider Type B) with bounded noise.
-
-Provider cost inflation applies base-cost multiplier \(1.35\) and propagates the shift through the heterogeneous provider-cost rule used by the simulation engine.
-
-Signal timing in Chapter~\ref{sec:simulation_results} is computed as first threshold crossing versus the ONO baseline, using frozen thresholds from Appendix Section~\ref{app:dtse_threshold_table}. Exact scenario formulas and timing equations are documented in Appendix Section~\ref{app:dtse_scenario_formula_map}.
-
-\subsubsection*{Interview-Informed Context and Assumption Bounds}
-Interview-derived practitioner context is used only to inform assumption ranges and operational frictions that may be under-specified in public protocol material. In this methodology, interview signals are treated as indicative rather than deterministic, and they are never promoted to mechanism facts. No confidential internal data is published; interview-informed inputs are introduced only as bounded modeled assumptions with explicit disclosure in the configuration register.
-
-In scope for this thesis, interview-informed signals include provider payback expectations, observed churn drivers, internal demand indicators, and practitioner views on emission-adjustment trade-offs. These signals are used for calibration ranges and stress plausibility checks, not for causal claims or standalone empirical inference.
-
-The interpretation boundary for interview-informed material is explicit:
+The boundary for interview-informed material is explicit:
 \begin{itemize}
     \item granular provider-level financial data is not fully public,
     \item token-market behavior may diverge from stylized model assumptions,
@@ -102,68 +98,74 @@ The interpretation boundary for interview-informed material is explicit:
     \item interview inputs are not treated as direct evidence of causal mechanisms.
 \end{itemize}
 
-\subsubsection*{Scenario combination rules}
+\noindent\textbf{Scenario combination rules:}
 Stress dimensions are combined according to pre-defined rules to preserve interpretability. Parameter-based stresses (macro regime, demand regime, provider economics) may be combined to form compound stress scenarios. Scenario-specific modes, if present, are treated as mutually exclusive to reduce confounding.
 \cite{Morris2019, Braakman2022}.
 
-\subsubsection*{Documentation of scenario grids}
+\noindent\textbf{Documentation of scenario grids:}
 The full scenario grid (input values, combinations, and run identifiers) is appendix-grade material and is documented in a configuration register to support auditability and reproducibility (Appendix Section~\ref{app:dtse_scenario_grid}). A compact rationale-to-formula audit map is provided in Appendix Section~\ref{app:dtse_scenario_formula_map}.
 
-\subsection{Evaluation Metrics and Operational Thresholds}
+\subsection{Metric Contract and Operational Thresholds}
 \label{sec:evaluation_metrics}
-DTSE uses a pre-specified metric set defined before results analysis. Metrics are selected to be (i) comparable across mechanisms and scenarios, (ii) relevant to provider incentives and service delivery, and (iii) transparent in computation and interpretation \cite{Morris2019}. Metrics are used to compare relative robustness under standardized stress, not to establish optimal designs or to make real-world performance claims.
+DTSE uses a pre-specified metric suite defined before results analysis. Metrics are chosen to be comparable across mechanisms and scenarios, relevant to provider incentives and service delivery, and auditable in computation and interpretation \cite{Morris2019}. They are used to compare baseline-relative sensitivity under standardized stress channels within the DTSE contract.
 
-\paragraph{Controlled comparability vs.\ profile specificity}
-DTSE enforces controlled comparability by holding constant the reporting horizon, scenario definitions (frozen grid), aggregation conventions, and pre-specified metric vocabulary. Mechanism profiles are not forced to be structurally identical: each profile instantiates its own rule set and may differ through profile-specific parameters and overrides, including heterogeneity settings for agent/operator variation. These profile-specific settings are treated as modeled assumptions rather than empirical estimates, and are documented for traceability in the configuration register, threshold registry, and frozen run manifest (Appendix A.3--A.7). Results are interpreted as baseline-relative responses to identical stress inputs under different mechanism profiles, not as magnitude-equivalent rankings of real-world protocols.
+\noindent\textbf{Controlled comparability vs.\ profile specificity:}
+DTSE holds constant the reporting horizon, scenario definitions (frozen grid), aggregation conventions, and metric vocabulary. Mechanism profiles are not forced to be structurally identical: each profile instantiates its own rule set and may differ through profile-specific parameters and overrides, including heterogeneity settings for operator variation. These settings are treated as modeled assumptions and documented for traceability in the configuration register, threshold registry, and run manifest (Appendix A.3--A.7). Results are interpreted as baseline-relative responses to identical stress inputs, not as magnitude-equivalent rankings of live protocols.
 
-The empirical chapter uses an additional applicability gate for historical windows (Section~\ref{subsec:metric_applicability_framework}) and can mark selected metrics as \emph{N/R}. That empirical \emph{N/R} policy is a retrospective data-observability control only. It does not change DTSE metric generation in Chapter~\ref{sec:simulation_results}, where the full pre-specified metric set is produced under controlled simulation assumptions.
+The empirical chapter uses an additional metric-applicability gate for historical windows and can mark selected metrics as \emph{N/R}. That empirical \emph{N/R} policy is a retrospective data-observability control only. It does not change DTSE metric generation in Chapter~\ref{sec:simulation_results}, where the full pre-specified metric set is produced under controlled simulation assumptions.
 
-\subsubsection*{Core DTSE reporting equations}
-Chapter~\ref{sec:simulation_results} relies on a small equation set to keep metric interpretation auditable while avoiding unnecessary formal overhead.
+\noindent\textbf{Core DTSE reporting equations:}
+Chapter~\ref{sec:simulation_results} relies on a small equation set to keep metric interpretation auditable. Time-indexed metrics are computed per period \(t\); horizon-level metrics are computed over the reporting window \(\mathcal{T}\).
 \begin{align*}
 \text{Burn-to-Mint}_t &= \frac{\text{Burns}_t}{\max(\text{Emissions}_t,\epsilon)}, \\
 \text{Net Emissions}_t &= \text{Emissions}_t - \text{Burns}_t, \\
 \text{Velocity Proxy}_t &= \frac{\text{Transaction Turnover}_t}{\max(\text{Effective Token Stock}_t,\epsilon)}, \\
 t_m^* &= \min \left\{ t : \frac{\left|m_t^{\mathrm{SC}}-m_t^{\mathrm{BL}}\right|}{\max\!\left(\left|m_t^{\mathrm{BL}}\right|,\epsilon\right)} \ge \theta_m \right\}, \\
-\text{Incentive Efficiency} &= \frac{\sum_t (\text{Emissions}_t \times \text{Price}_t)}{\sum_t \text{Validated Capacity}_t}.
+\text{Incentive Efficiency} &= \frac{\sum_{t \in \mathcal{T}} (\text{Emissions}_t \times \text{Price}_t)}{\sum_{t \in \mathcal{T}} \text{Validated Capacity}_t}.
 \end{align*}
-These equations provide the operational definitions for solvency, emission pressure, activity intensity, baseline-relative signal timing, and capital efficiency. Scenario-specific mechanism equations remain in Appendix Section~\ref{app:dtse_scenario_formula_map}.
+Scenario-specific mechanism equations are documented in Appendix Section~\ref{app:dtse_scenario_formula_map}.
 
-\subsubsection*{Provider retention and churn}
+\noindent\textbf{Provider retention and churn:}
 Retention is measured as the proportion of active providers remaining over time. Churn captures the rate and magnitude of provider exit events. Retention is interpreted directionally under comparable stress and does not imply permanent stability.
 
-\subsubsection*{Capacity utilization and service continuity}
+\noindent\textbf{Capacity utilization and service continuity:}
 Service continuity is assessed through utilization and demand-satisfaction rates: utilization reflects effective use of deployed capacity, while demand satisfaction reflects the proportion of modeled demand served given available capacity.
 
-\subsubsection*{Incentive solvency (burn-to-mint ratio)}
+\noindent\textbf{Incentive solvency (burn-to-mint ratio):}
 Incentive solvency is proxied by the burn-to-mint ratio defined above. Persistent divergence is interpreted as subsidy dependence within the DTSE assumptions, not as a universal threshold claim.
 
-\subsubsection*{Net emissions and inflation dynamics}
+\noindent\textbf{Net emissions and inflation dynamics:}
 Net emissions follow the accounting identity defined above and track the balance between issuance and destruction over time. Changes under stress are interpreted as mechanism response signals rather than as performance targets.
 
-\subsubsection*{Token velocity (proxy)}
+\noindent\textbf{Token velocity (proxy):}
 Token velocity is estimated using the turnover-normalized proxy defined above. Given the abstraction of market structure, this metric is used comparatively and interpreted cautiously.
 \cite{CFA2018}.
 
-\subsubsection*{Incentive efficiency (capital efficiency)}
+\noindent\textbf{Incentive efficiency (capital efficiency):}
 Incentive efficiency quantifies the modeled emission cost of validated capacity using the definition above. Lower cost-per-unit is interpreted as higher in-model efficiency under identical stress inputs, not as a direct claim about real-world competitiveness.
 
-\subsubsection*{Volatility proxy}
+\noindent\textbf{Volatility proxy:}
 Price volatility is measured using dispersion metrics derived from the modeled price series. Volatility is treated as a stress signal affecting provider incentives rather than as a market-performance indicator.
 
-\subsubsection*{Derived summary indicators}
+\noindent\textbf{Derived summary indicators:}
 Two summary indicators support synthesis. (i) \emph{Death spiral probability} is defined operationally as the frequency with which simulations exhibit concurrent degradation in modeled price, provider count, and service capacity beyond pre-specified thresholds within the simulation horizon. (ii) Aggregate network revenue and average provider profitability are tracked to contextualize retention and churn dynamics \cite{Morris2019}. Threshold definitions used in this thesis are documented in Appendix Section~\ref{app:dtse_threshold_table}.
+Within this thesis, the death-spiral indicator is treated as a DTSE-defined composite operational criterion tied to the frozen threshold registry, rather than as a claim that one universal formalization applies across all tokenized systems.
 
-\subsection{Reproducibility, Verification, and Limitations}
-Reproducibility is treated as a core requirement. Each DTSE experiment is defined by an explicit parameterization, scenario input set, and random-seed policy, enabling regeneration and inspection without interactive tuning.
-The run manifest and identifier policy are documented in Appendix Section~\ref{app:dtse_run_manifest}.
+\subsection{Reproducibility, Verification, and Method Limits}
+\label{subsec:dtse_reproducibility}
+Reproducibility is treated as a core requirement. Each DTSE experiment is defined by an explicit parameterization, scenario input set, and deterministic seed schedule, enabling regeneration and inspection without interactive tuning. The run manifest and identifier policy are documented in Appendix Section~\ref{app:dtse_run_manifest}.
 
-\subsubsection*{Monte Carlo aggregation and dispersion reporting}
-Stochastic elements (demand variation, provider heterogeneity sampling, churn decision noise, and price-related noise) are evaluated through repeated simulation runs with seeded pseudo-random number generation. Results are summarized using distributional statistics (e.g., median and interquartile ranges) rather than relying on single trajectories \cite{Morris2019}.
+\noindent\textbf{Run schedule:} Each scenario--profile condition is evaluated using 60 repeated runs. Seeds follow a deterministic schedule \(\text{seed}=\text{master\_seed}+\text{sim\_index}\) with \(\text{master\_seed}=20260224\). The full run manifest (scenario IDs, profile IDs, and run identifiers) is provided in Appendix Section~\ref{app:dtse_run_manifest}.
 
-\subsubsection*{Verification (internal validity)}
+\noindent\textbf{Monte Carlo aggregation and dispersion reporting:}
+Stochastic elements (demand variation, provider heterogeneity sampling, churn decision noise, and price-related noise) are evaluated through repeated simulation runs with seeded pseudo-random number generation. Results are summarized using distributional statistics (median and interquartile ranges) rather than single trajectories \cite{Morris2019}.
+
+\noindent\textbf{Verification (internal validity):}
 Verification is framed as internal consistency checking under stated assumptions rather than empirical validation. Checks include baseline runs without stress (boundedness and invariants), controlled perturbations (directional response under isolated inputs), and sensitivity analysis over key parameter families (cost ranges, emission limits, churn thresholds).
 \cite{Collins2024, Braakman2022}.
 
-\subsubsection*{Limitations and interpretation boundaries}
-DTSE abstracts from several factors that may matter in practice, including endogenous user formation, strategic provider behavior beyond the modeled decision rules, governance interventions, legal constraints, and detailed market microstructure. The modeled price signal is reduced-form, and demand is exogenous by design. These choices preserve interpretability and experimental control but limit external validity. Accordingly, DTSE outputs are reported as comparative, model-conditional indicators of robustness and failure sensitivity, not as real-world projections.
+\noindent\textbf{Modeling limits within DTSE:}
+DTSE abstracts from factors that may matter in practice, including endogenous user formation, strategic provider behavior beyond the modeled decision rules, governance interventions, legal constraints, and detailed market microstructure. Demand is exogenous by design and the modeled price signal is reduced-form. These choices preserve interpretability and experimental control. Accordingly, DTSE outputs are reported as comparative indicators within the stated model contract, not as real-world projections.
+
+\noindent\textbf{Experimental Contract Summary:}
+DTSE comparisons in this thesis follow a fixed contract: (i) one neutral baseline and four stress channels with frozen inputs (Section~\ref{subsec:dtse_scenario_set}); (ii) a pre-specified metric suite and threshold rules for baseline-relative detection (Section~\ref{sec:evaluation_metrics}); (iii) profile-specific rule sets held fixed within each run; and (iv) Monte Carlo aggregation over 60 repeated runs per condition under a deterministic seed schedule (described above). Results are reported as deviations from each profile's baseline under matched stress inputs, and interpreted through operational failure-mode signatures defined in Chapter~\ref{sec:simulation_results}.

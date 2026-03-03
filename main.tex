@@ -4,8 +4,8 @@
 \input{preamble}
 
 % Section Numbering Depth
-\setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
 
 \title{
     \textbf{DePIN Tokenomics Under Stress} \\
@@ -39,40 +39,62 @@
     Lucerne University of Applied Sciences and Arts (HSLU)
     
     \vspace{0.8cm}
+
+    Classification: Public
+    
+    \vspace{0.8cm}
     
     \today
     
 \end{titlepage}
+
+% Declaration page
+\thispagestyle{empty}
+\section*{Declaration of Originality}
+We hereby declare that we have completed this thesis independently and have used only the sources and aids indicated. All passages taken directly or indirectly from other works have been identified as quotations or paraphrases and referenced accordingly. We further confirm that this thesis does not contain unauthorized third-party material and that any confidential information has been handled in accordance with the applicable submission requirements.
+
+\vfill
+
+\noindent Place, date:\hfill Signatures:
+
+\vspace{1.8cm}
+
+\noindent\rule{0.28\textwidth}{0.4pt}\hfill\rule{0.28\textwidth}{0.4pt}\hfill\rule{0.28\textwidth}{0.4pt}
+\clearpage
 
 % Front Matter
 \pagenumbering{roman}
 
 % Abstract
 \section*{Abstract}
-Decentralized Physical Infrastructure Networks (DePIN) use token-based incentives to bootstrap and sustain real-world infrastructure operated by independent providers. While tokenomics is often discussed through growth and valuation narratives, less attention is given to how mechanisms behave under adverse conditions such as demand contraction, liquidity dislocations, or deteriorating provider economics \cite{Messari2024, FrontiersDePIN2025}. This matters in DePIN because physical deployment constraints and hardware sunk costs can make participation loss slow to reverse and service-capacity deterioration persistent.
+\phantomsection
+\addcontentsline{toc}{section}{Abstract}
+Decentralized Physical Infrastructure Networks (DePIN) use token-based incentives to bootstrap and sustain real-world infrastructure operated by independent providers. While tokenomics is often discussed through growth and valuation narratives, less attention is given to how mechanisms behave under adverse conditions such as demand contraction, liquidity dislocations, or deteriorating provider economics \cite{Messari2024, FrontiersDePIN2025}. This matters in DePIN because hardware sunk costs and deployment constraints can make participation loss slow to reverse and capacity deterioration persistent.
 
-This thesis evaluates DePIN tokenomic robustness under standardized stress inputs using DTSE (DePIN Tokenomic Stress Evaluator), a reproducible simulation-based framework for comparative mechanism analysis. The objective is not to forecast token prices or project real-world outcomes, but to compare directional stress behavior across incentive structures under common assumptions and scenario controls \cite{Morris2019}. DTSE is implemented as an agent-based model in which heterogeneous infrastructure providers interact with rule-based protocol dynamics under exogenous demand and macroeconomic regimes \cite{Braakman2022}.
+This thesis evaluates DePIN tokenomic robustness under standardized stress inputs using DTSE (DePIN Tokenomic Stress Evaluator), a reproducible simulation-based framework for comparative mechanism analysis. DTSE applies matched stress channels to alternative mechanism profiles and reports outcomes as deviations from neutral baselines using a pre-specified metric suite. The analysis shifts the robustness question from ``is a mechanism stable'' to ``which subsystem moves first under a given channel, and how quickly deviations propagate into participation, service continuity, and incentive--usage alignment''.
 
-The framework is applied to the Onocoy network and ONO token as the primary empirical case anchor. Results are interpreted as model-conditional evidence about mechanism resilience within the defined scenario grid, not as causal or financial claims about live markets. The core contribution is a structured, auditable methodology for stress-oriented comparison of DePIN tokenomics, together with an operational vocabulary for diagnosing failure-mode signatures under explicit modeling assumptions.
+DTSE is implemented as an agent-based model in which heterogeneous infrastructure providers interact with rule-based protocol dynamics under exogenous demand and macroeconomic regimes \cite{Morris2019, Braakman2022}. The framework is applied to the Onocoy network and ONO token as the empirical anchor for mechanism mapping and stress-test relevance in a hardware-dependent setting. Results are interpreted as model-conditional comparative evidence within the defined scenario grid, not as forecasts or financial claims. The contribution is an auditable evaluator for stress-oriented comparison of DePIN tokenomics, together with an operational vocabulary for diagnosing failure-mode signatures under explicit modeling assumptions.
 \vspace{1cm}
 % End of Abstract
 
-\newpage
+\clearpage
 
 % Table of Contents
 \tableofcontents
-\newpage
+\clearpage
 
 % List of Figures
+\phantomsection
+\addcontentsline{toc}{section}{List of Figures}
 \listoffigures
-\newpage
 
 % List of Tables
+\phantomsection
+\addcontentsline{toc}{section}{List of Tables}
 \listoftables
-\newpage
+\clearpage
 
 % Main Body
-\clearpage
 \phantomsection
 \hypersetup{pageanchor=true}
 \pagenumbering{arabic}

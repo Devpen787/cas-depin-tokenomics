@@ -1,26 +1,25 @@
 % Character encoding and languages
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{courier}
 \usepackage[english]{babel}
 
-% Fonts: Time-tested academic choices (Times-like)
-\usepackage{times}     % Use Times font for text (simpler, avoids math font errors)
-\usepackage{courier}  % Courier for monospace
-\usepackage{helvet}   % Helvetica for sans-serif
+% Fonts: Times-style serif text/math for thesis readability; English-only document language
 
 % Page Layout
-\usepackage[a4paper, top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
 
 % Line Spacing (1.5 spacing is standard for review/readability)
 \usepackage{setspace}
 \onehalfspacing
 
-% Prevent widows and orphans while avoiding extreme whitespace side effects.
-\widowpenalty=10000
-\clubpenalty=10000
-\displaywidowpenalty=10000
+% Balance widow/orphan control without forcing large blank regions.
+\widowpenalty=3000
+\clubpenalty=3000
+\displaywidowpenalty=2000
 \raggedbottom
-\setlength{\emergencystretch}{3em}
+\setlength{\emergencystretch}{2em}
 
 % Math Support
 \usepackage{amsmath}
@@ -33,6 +32,11 @@
 \usepackage{float}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{subcaption}
+\captionsetup{
+    justification=raggedright,
+    singlelinecheck=false,
+    skip=6pt
+}
 \floatplacement{figure}{htbp}
 \floatplacement{table}{htbp}
 \setcounter{topnumber}{5}
@@ -50,21 +54,44 @@
 \usepackage{longtable}
 \usepackage{tabularx} % Auto-width tables
 \usepackage{microtype}
+\renewcommand{\tabularxcolumn}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 % Bibliography management
 \usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
+\usepackage{csquotes}
 \addbibresource{bibliography.bib}
 
 % Utility
-\usepackage{enumerate} % Easy list customization
+\usepackage{etoolbox}
+\usepackage{enumitem}
+\setlist[itemize]{
+  topsep=0.35\baselineskip,
+  itemsep=0.2\baselineskip,
+  parsep=0pt,
+  partopsep=0pt,
+  leftmargin=2.4em,
+  labelsep=0.7em,
+  itemindent=0pt,
+  listparindent=\parindent
+}
+\setlist[enumerate]{
+  topsep=0.35\baselineskip,
+  itemsep=0.2\baselineskip,
+  parsep=0pt,
+  partopsep=0pt,
+  leftmargin=2.6em,
+  labelsep=0.7em,
+  itemindent=0pt,
+  listparindent=\parindent
+}
 \usepackage{indentfirst}
-\usepackage[pdftex, pdfusetitle]{hyperref}
+\usepackage[pdfusetitle]{hyperref}
 \usepackage{url}
 \usepackage{fancyvrb}
 \usepackage{xcolor}
 \usepackage{listings}
 \lstdefinestyle{rawdraft}{
-    basicstyle=\rmfamily\normalsize,
+    basicstyle=\ttfamily\small,
     breaklines=true,
     breakatwhitespace=false,
     columns=fullflexible,
@@ -78,6 +105,7 @@
 }
 
 
+
 % Hyperref setup (clean, no boxes)
 \hypersetup{
     colorlinks=true,
@@ -85,9 +113,7 @@
     citecolor=black,
     filecolor=black,
     urlcolor=black,
-    pdfborder={0 0 0},
-    plainpages=false,
-    pdfpagelabels=true
+    pdfborder={0 0 0}
 }
 
 % Fix URL formatting in bibliography
@@ -105,6 +131,36 @@
   {\normalfont\normalsize\bfseries}}
 
 \makeatother
+
+% Small paragraph spacing for improved readability in long-form text.
+\setlength{\parskip}{0.2em}
+
+% Table style baseline for consistent spacing across chapters.
+\newcommand{\thesistablestyle}{%
+  \renewcommand{\arraystretch}{1.2}%
+  \setlength{\tabcolsep}{3pt}%
+}
+\AtBeginEnvironment{tabular}{\thesistablestyle}
+\AtBeginEnvironment{tabularx}{\thesistablestyle}
+\AtBeginEnvironment{longtable}{\thesistablestyle}
+
+% Heading-space guard without external packages: avoid headings near page bottoms.
+\newcommand{\thesisneedspace}[1]{%
+  \par
+  \begingroup
+  \ifdim\pagegoal<\maxdimen
+    \dimen0=\pagegoal
+    \advance\dimen0 by -\pagetotal
+    \ifdim\dimen0<#1\newpage\fi
+  \fi
+  \endgroup
+}
+\preto\section{\thesisneedspace{6\baselineskip}}
+
+% Reusable figure widths for visual consistency.
+\newcommand{\figsinglewidth}{0.92\textwidth}
+\newcommand{\figpairwidth}{0.485\textwidth}
+\newcommand{\figdensepairwidth}{0.47\textwidth}
 
 % Provenance rendering switch (default: off for submission builds)
 \newif\ifincludeprovenance

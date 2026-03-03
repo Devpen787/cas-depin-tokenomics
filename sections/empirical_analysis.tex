@@ -4,10 +4,10 @@
 \section{Empirical Stress Analysis}
 \label{sec:empirical_analysis}
 
-\subsection{Introduction}
+\subsection{Empirical Analysis Orientation}
 Decentralized Physical Infrastructure Networks (DePIN) use cryptographic incentives to coordinate real-world hardware across sectors such as wireless connectivity and geospatial services \cite{FrontiersDePIN2025}. Unlike purely digital crypto systems, DePIN networks operate under physical constraints such as hardware sunk costs, geographic friction, and operational latency, which materially change risk transmission \cite{Ballandies2023, Lin2024}. Sustainability therefore depends on the interaction between mechanism design and provider behavior under stress \cite{Chiu2024}.
 
-This chapter provides a retrospective empirical layer that complements DTSE. ``Retrospective'' means it evaluates documented historical stress windows in live networks; it does not run counterfactual scenarios. ``Empirical'' means it reports observed stress behavior and comparable diagnostics, without treating those observations as proof of future outcomes.
+This chapter provides a retrospective empirical layer that complements DTSE. ``Retrospective'' means it evaluates documented historical stress windows in live networks; it does not run counterfactual scenarios. ``Empirical'' means it reports observed stress behavior and comparable diagnostics without treating those observations as proof of future outcomes.
 
 Historically, cryptoeconomic evaluation has relied heavily on ABM and stochastic simulation \cite{Morris2019, Collins2024}. Those tools remain essential, but outputs are assumption-conditional. Empirical event-window analysis adds a second evidence layer by showing how comparable systems behaved in realized stress windows \cite{MacKinlay1997}.
 
@@ -16,7 +16,9 @@ Accordingly, this chapter uses an event-study-based static stress framework. It 
 \subsection{Theoretical Framework: Operationalizing Stress Without Simulation}
 To analyze DePIN robustness in an empirical layer, this chapter combines comparative statics with empirical event studies \cite{MacKinlay1997}. Here, comparative statics means comparing observable metrics across defined regimes, and event study means measuring deviations around specific historical shocks. Stress is therefore defined as an observed market-and-network regime, not as a simulated perturbation.
 
-\subsubsection{Defining Stress Factors in Physical Networks}
+This subsection defines (i) the stress families used in the empirical layer, (ii) the mechanism-design features treated as static defenses, and (iii) the event-window logic used to extract comparable stress signatures.
+
+\subsubsection{Stress factors in physical networks}
 In this framework, stress factors are exogenous shocks that challenge economic viability. Three stress families are used \cite{Lin2024, Ho2022}:
 
 \begin{itemize}
@@ -25,7 +27,7 @@ In this framework, stress factors are exogenous shocks that challenge economic v
     \item \textbf{Competitive Yield Pressure:} participation elasticity when comparable external opportunities offer higher returns for similar hardware profiles \cite{Lin2024, Chiu2024}. In DePIN terms, this captures whether operators can reallocate capacity when adjacent networks offer better reward conditions.
 \end{itemize}
 
-\subsubsection{Mechanism Design as a Static Defense}
+\subsubsection{Mechanism design as a static defense}
 Within a static framework, mechanism design is evaluated by its ability to absorb stress:
 
 \begin{itemize}
@@ -34,37 +36,43 @@ Within a static framework, mechanism design is evaluated by its ability to absor
     \item \textbf{Sunk Cost Moats:} physical hardware is often illiquid and location-bound, creating real exit friction that can delay churn during drawdowns \cite{Arthur1989, Ballandies2023}. In DePIN terms, this is a retention buffer from physical frictions, not necessarily from incentive strength.
 \end{itemize}
 
-\subsubsection{Methodology: Empirical Event Studies}
+\subsubsection{Empirical event-study method}
 This chapter applies event-study logic from financial econometrics \cite{MacKinlay1997}. Historical shocks (for example, broad crypto drawdowns, mechanism transitions, and reward-structure changes) are treated as event windows. Within those windows, participation and incentive metrics are compared against pre-event baselines to identify deviations in churn, utilization, and solvency proxies.
 
 This empirical layer does not estimate causal treatment effects. It provides structured comparative evidence for stress signatures that later inform DTSE scenario design and interpretation boundaries.
 
-\subsection{Comparative Scope: The Solana DePIN Ecosystem}
+\subsection{Comparator Set and Empirical Scope}
 This chapter uses a Solana-centric comparator set to keep mechanism and data conventions reasonably aligned. Existing DePIN ecosystem analyses describe Solana as a major execution layer in current market structure \cite{FrontiersDePIN2025, Messari2024}; this thesis uses that context as a practical sampling frame, not as a normative claim.
 
-\subsubsection{The Comparative Set}
-Projects are grouped by hardware and operating-cost profile, because those factors strongly influence stress transmission:
+This subsection clarifies (i) how context sources are used, (ii) how the comparator set is grouped for interpretability, and (iii) how the empirical universe narrows into the frozen DTSE profile set.
 
-\subsubsection*{Archetype A: Commodity Sensor Networks (Low OpEx, Moderate CapEx)}
+\subsubsection{Use of blockchain context sources}
+This chapter uses ecosystem material in two roles. First, context sources describe deployment patterns and decision timing in the observed window (for example, where DePIN execution activity was concentrated and which architectural options were practically available) \cite{Messari2024, FrontiersDePIN2025}. Second, mechanism and architecture facts remain anchored to protocol and governance primary documentation \cite{HeliumHIP70, OnocoyWhitepaper301, OnocoyToken}. The split is deliberate: contextual reporting informs scope and comparator interpretation, but it is not used as load-bearing proof for mechanism facts.
+
+\subsubsection{Comparator set by hardware archetype}
+Projects are grouped by hardware and operating-cost profile because those factors strongly influence stress transmission:
+
+\paragraph{Archetype A: Commodity sensor networks (low OpEx, moderate CapEx).}
 \begin{itemize}
     \item \textbf{Helium (IoT/Mobile):} mature hotspot network used here as a retention and migration-stress reference case \cite{FrontiersDePIN2025}.
     \item \textbf{Geodnet (GNSS/RTK):} adjacent GNSS network with explicit location-governance constructs (\emph{Location NFT}) relevant to supply-density and yield management \cite{GeodnetLocationNFT}.
     \item \textbf{Onocoy (GNSS/RTK):} focal case in this thesis; capped/pre-minted supply with documented distribution and reward program rules \cite{OnocoyWhitepaper301, OnocoyToken, OnocoyRewards}.
 \end{itemize}
 
-\subsubsection*{Archetype B: High-Performance Compute (High OpEx, High CapEx)}
+\paragraph{Archetype B: high-performance compute (high OpEx, high CapEx).}
 \begin{itemize}
     \item \textbf{Render:} GPU-intensive provider base used as a compute-oriented comparator for participation sensitivity under cost and yield pressure \cite{Lin2024, FrontiersDePIN2025}.
     \item \textbf{io.net:} aggregated compute network included as a compute-market comparator in this chapter's sample.
 \end{itemize}
 
-\subsubsection*{Archetype C: Active-Labor Physical Work}
+\paragraph{Archetype C: active-labor physical work.}
 \begin{itemize}
     \item \textbf{Hivemapper:} mapping network requiring ongoing active labor; participation is therefore sensitive to variable effort-cost coverage \cite{Chiu2024, FrontiersDePIN2025}.
 \end{itemize}
 
 \subsubsection{Comparator Lineage and Scope Funnel}
 To keep scope transitions explicit, this chapter separates three layers: the empirical universe used for retrospective comparison in this chapter, the event-window sample that remains analytically emphasized, and the frozen DTSE profile set used in Chapter~\ref{sec:simulation_results}. This avoids scope ambiguity when readers compare Chapter~\ref{sec:empirical_analysis} with the DTSE manifest.
+Table~\ref{tab:comparator_lineage_funnel} shows this scope funnel from empirical comparator universe to frozen DTSE profile set.
 
 \begin{table}[ht]
     \centering
@@ -78,7 +86,7 @@ To keep scope transitions explicit, this chapter separates three layers: the emp
         Chapter~\ref{sec:empirical_analysis} comparator universe &
         Helium, Geodnet, Onocoy, Render, Hivemapper, io.net &
         Retrospective empirical stress benchmarking under observed windows &
-        Uses publicly documented projects with heterogeneous hardware profiles; metric applicability gates (Section~\ref{subsec:metric_applicability_framework}) determine which comparisons are inferentially valid. \\
+        Uses publicly documented projects with heterogeneous hardware profiles; the metric applicability framework below determines which comparisons are inferentially valid. \\
         \addlinespace
         Chapter~\ref{sec:empirical_analysis} stress-window emphasis &
         Helium, Geodnet, Onocoy, Hivemapper (plus contextual references to Render/io.net where relevant) &
@@ -86,7 +94,7 @@ To keep scope transitions explicit, this chapter separates three layers: the emp
         Emphasis follows event-window observability and metric applicability constraints (including N/R policy). \\
         \addlinespace
         Chapter~\ref{sec:simulation_results} frozen DTSE profile set &
-        \path{ono_v3_calibrated, helium_bme_v1, hivemapper_v1, grass_v1, geodnet_v1} &
+        \shortstack[l]{\texttt{ono\_v3\_calibrated,}\\\texttt{helium\_bme\_v1,}\\\texttt{hivemapper\_v1,}\\\texttt{grass\_v1,}\\\texttt{geodnet\_v1}} &
         Controlled counterfactual comparison under matched DTSE stress inputs &
         Fixed by frozen manifest (Appendix Section~\ref{app:dtse_run_manifest}); profile inclusion reflects implementation-ready DTSE rule mappings rather than the broader empirical universe. \\
         \bottomrule
@@ -102,7 +110,7 @@ To compare heterogeneous systems consistently, this chapter uses standardized me
     \centering
     \small
     \renewcommand{\arraystretch}{1.35}
-    \begin{tabular}{p{0.20\linewidth} p{0.22\linewidth} p{0.46\linewidth}}
+    \begin{tabular}{>{\raggedright\arraybackslash}p{0.20\linewidth} >{\raggedright\arraybackslash}p{0.22\linewidth} >{\raggedright\arraybackslash}p{0.46\linewidth}}
         \toprule
         \textbf{Category} & \textbf{Standardized Metric} & \textbf{Definition \& Proxy Utility} \\
         \midrule
@@ -121,10 +129,11 @@ To compare heterogeneous systems consistently, this chapter uses standardized me
     \label{tab:comparative_metrics}
 \end{table}
 
-\subsubsection*{Empirical observability and non-imputation}
+\subsubsection{Empirical observability and non-imputation}
 The standardized metric catalog in Table~\ref{tab:comparative_metrics} provides a common comparative vocabulary for heterogeneous DePIN profiles, but empirical observability differs across mechanisms, maturity stages, and available public data in the analyzed event windows. A metric is reported only when its required inputs are publicly observable at the necessary resolution and can be computed under consistent definitions without imputing missing values. Where these conditions are not met, the metric is marked \emph{N/R} (not reliably observable) and accompanied by a short reason code. Metrics marked \emph{N/R} are not used for comparative inference in this empirical chapter. This reporting rule applies to the empirical layer only and does not alter DTSE computation in later chapters, where the pre-specified metric set is produced consistently under the simulator's controlled assumptions.
+When these observability limits are combined with the mechanism-documentation gaps identified in Section~\ref{sec:onocoy_case}, a ceiling appears: empirical windows alone cannot identify failure thresholds. This motivates DTSE in later chapters as a controlled setting to test threshold behavior that is not directly observable in live-network history.
 
-\noindent\textbf{N/R reason codes:}
+\subsubsection{N/R reason codes}
 \begin{itemize}
     \item \textbf{NR1} Required inputs are not publicly observable at the necessary resolution for the event window.
     \item \textbf{NR2} Native metric definitions differ materially across protocols and cannot be harmonized without strong additional assumptions.
@@ -141,7 +150,9 @@ To prevent category errors in cross-network comparison, this chapter applies fou
     \item \textbf{Maturity gate:} market/revenue-dependent metrics require sufficient liquidity and revenue depth to avoid unstable denominators and microstructure-dominated noise (NR3).
 \end{enumerate}
 
-\noindent\textbf{Comparative inference rule:} a metric marked \emph{N/R} for a given project-window is excluded from comparative ranking in this empirical chapter. It may still appear as context, but it is not used as evidence for cross-project ordering.
+\paragraph{Comparative inference rule.}
+A metric marked \emph{N/R} for a given project-window is excluded from comparative ranking in this empirical chapter. It may still appear as context, but it is not used as evidence for cross-project ordering.
+Table~\ref{tab:metric_applicability_matrix} applies this rule across the Chapter~\ref{sec:empirical_analysis} comparator set.
 
 \begin{table}[ht]
     \centering
@@ -163,7 +174,7 @@ To prevent category errors in cross-network comparison, this chapter applies fou
     \label{tab:metric_applicability_matrix}
 \end{table}
 
-\subsubsection*{Stress-channel metric emphasis}
+\subsubsection{Stress-channel metric emphasis}
 Table~\ref{tab:stress_metric_applicability_map} makes the scenario-to-metric logic explicit for empirical interpretation. This map is used to choose the first-signal metric family in each empirical stress channel and to avoid over-weighting low-signal metrics in unsuitable windows.
 
 \begin{table}[ht]
@@ -185,7 +196,7 @@ Table~\ref{tab:stress_metric_applicability_map} makes the scenario-to-metric log
     \label{tab:stress_metric_applicability_map}
 \end{table}
 
-\subsubsection*{Onocoy applicability profile}
+\subsubsection{Onocoy applicability profile}
 \label{subsec:onocoy_metric_applicability_profile}
 For this empirical chapter, Onocoy is not scored as if all five standardized metrics were equally informative. The current applicability profile is:
 \begin{itemize}
@@ -198,47 +209,54 @@ This chapter therefore uses an ``applicable metrics only'' inference policy for 
 \subsection{Empirical Stress Test: Historical Performance Analysis}
 This section applies the static framework to documented stress windows. The goal is descriptive benchmarking of observed behavior, not causal proof or forecast generation.
 
-\subsubsection{Stress Scenario 1: Liquidity Shock and Crypto Winter (2022--2023)}
-\textbf{Context:} Exchange primary market data for HNT/USDT show severe price compression during the 2022--2023 window. This period is used as an empirical reference for liquidity-driven incentive compression under broad adverse conditions \cite{BinanceHNTUSDTWeekly2022_2023,Ho2022}.
+\noindent\textbf{Stress Scenario 1 -- Liquidity Shock and Crypto Winter (2022--2023):}
+\noindent\textbf{Context:}
+Exchange primary market data for HNT/USDT show severe price compression during the 2022--2023 window. This period is used as an empirical reference for liquidity-driven incentive compression under broad adverse conditions \cite{BinanceHNTUSDTWeekly2022_2023,Ho2022}.
 
-\textbf{Observed pattern (reported):}
+\noindent\textbf{Observed pattern (reported):}
 \begin{itemize}
     \item Active hotspot counts did not collapse one-for-one with price drawdown in reported windows, consistent with physical exit friction and sunk-cost effects \cite{Ballandies2023}.
-    \item Growth and maintenance dynamics appeared weaker than aggregate installed-base persistence, consistent with latent capacity-quality erosion risk.
+    \item In the sampled reporting window, growth and maintenance indicators were treated as weaker than aggregate installed-base persistence; this is used as a contextual signal for latent capacity-quality erosion risk rather than a standalone empirical estimate.
     \item Governance-level structural response (migration/sub-DAO architecture) was proposed to reconfigure incentive and governance surfaces under stress \cite{HeliumHIP70}.
 \end{itemize}
 
-\textbf{Implication for Onocoy:} Installed GNSS infrastructure may remain comparatively sticky during drawdowns due to deployment friction, while new growth and maintenance intensity may degrade earlier. This chapter treats that as motivation for DTSE sensitivity testing, not as protocol-level projection.
+\noindent\textbf{Implication for Onocoy:}
+Installed GNSS infrastructure may remain comparatively sticky during drawdowns due to deployment friction, while new growth and maintenance intensity may degrade earlier. This chapter treats that as motivation for DTSE sensitivity testing, not as protocol-level projection.
 
-\subsubsection{Stress Scenario 2: Competitive Yield Pressure (2024--2025)}
-\textbf{Context:} As DePIN verticals mature, adjacent networks increasingly compete for overlapping provider profiles and installation geographies \cite{Lin2024, Chiu2024}.
+\noindent\textbf{Stress Scenario 2 -- Competitive Yield Pressure (2024--2025):}
+\noindent\textbf{Context:}
+As DePIN verticals mature, adjacent networks increasingly compete for overlapping provider profiles and installation geographies \cite{Lin2024, Chiu2024}.
 
-\textbf{Observed pattern (reported):}
+\noindent\textbf{Observed pattern (reported):}
 \begin{itemize}
     \item GNSS-like settings show explicit density and location-governance controls (for example, Location NFT logic) used to shape local yield conditions \cite{GeodnetLocationNFT}.
-    \item Where multi-homing is feasible, operators can rebalance toward higher near-term yield or stronger liquidity conditions.
-    \item Reported allocation behavior is consistent with elastic provider participation under external yield pressure, rather than purely demand-driven participation changes.
+    \item Where multi-homing is feasible, operator reallocation is treated in this chapter as a plausible mechanism-level interpretation under external-yield pressure \cite{Lin2024, Chiu2024}.
+    \item Reported allocation behavior is interpreted as consistent with elastic provider participation under external-yield pressure, rather than solely demand-driven participation changes.
 \end{itemize}
 
-\textbf{Implication for Onocoy:} Competitive yield pressure is a first-order risk channel for GNSS networks when compatible hardware can support more than one ecosystem. In this chapter, that pattern is treated as an empirical input for later DTSE competitive-yield scenarios.
+\noindent\textbf{Implication for Onocoy:}
+Competitive yield pressure is treated as a plausible stress channel for Onocoy calibration when compatible hardware can support more than one ecosystem. In this chapter, that pattern is carried forward as an empirical input for later DTSE competitive-yield scenarios.
 
-\subsubsection{Stress Scenario 3: Operational Cost Pressure (Hivemapper 2024)}
-\textbf{Context:} Hivemapper participation requires ongoing active labor, so effective contribution cost includes time and fuel as variable OpEx components \cite{Chiu2024, FrontiersDePIN2025}.
+\noindent\textbf{Stress Scenario 3 -- Operational Cost Pressure (Hivemapper 2024):}
+\noindent\textbf{Context:}
+Hivemapper participation requires ongoing active labor, so effective contribution cost includes time and fuel as variable OpEx components \cite{Chiu2024, FrontiersDePIN2025}.
 
-\textbf{Observed pattern (reported):}
+\noindent\textbf{Observed pattern (reported):}
 \begin{itemize}
-    \item When token-denominated reward value weakens, participation can plateau or decline faster than in passive, low-maintenance sensor setups.
-    \item Reported mitigation efforts combined demand-side enterprise routing with targeted incentive programs, consistent with incentive re-targeting responses.
+    \item When token-denominated reward value weakens, participation can plateau or decline faster than in passive, low-maintenance sensor setups \cite{Chiu2024, FrontiersDePIN2025}.
+    \item Reported mitigation efforts combined demand-side enterprise routing with targeted incentive programs, interpreted here as consistent with incentive re-targeting responses \cite{Chiu2024, FrontiersDePIN2025}.
 \end{itemize}
 
-\textbf{Implication for Onocoy:} This case highlights cost-floor sensitivity as a general stress channel: once real operating effort exceeds expected reward value, participation elasticity increases.
+\noindent\textbf{Implication for Onocoy:}
+This case highlights cost-floor sensitivity as a general stress channel: once real operating effort exceeds expected reward value, participation elasticity increases.
 
-\subsubsection*{Historical Stress Windows at a Glance}
+\noindent\textbf{Historical Stress Windows at a Glance:}
+Table~\ref{tab:empirical_stress_windows_summary} summarizes the historical windows carried forward into DTSE scenario selection.
 \begin{table}[ht]
     \centering
     \small
     \renewcommand{\arraystretch}{1.2}
-    \begin{tabularx}{\textwidth}{@{}p{0.26\linewidth}p{0.34\linewidth}X@{}}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.26\linewidth}>{\raggedright\arraybackslash}p{0.34\linewidth}X@{}}
         \toprule
         \textbf{Window} & \textbf{Primary Observed Signal (Reported)} & \textbf{DTSE Link Used in This Thesis} \\
         \midrule
@@ -254,18 +272,20 @@ This section applies the static framework to documented stress windows. The goal
 \subsection{Tokenomic Mechanism Analysis: Comparative Robustness}
 Using the preceding empirical benchmarks, this section interprets Onocoy's mechanism position relative to comparator designs under stress.
 
-\subsubsection{Burn-and-Mint Equilibrium (BME)}
+\noindent\textbf{Burn-and-Mint Equilibrium (BME):}
 Several comparator DePIN networks use BME-like value-accrual pathways in which user-side demand burns token-linked credits while provider rewards are distributed via issuance channels \cite{RenderBME}.
 \begin{itemize}
     \item In stronger demand regimes, burn can offset reward outflow.
     \item In weak demand regimes, issuance pressure can dominate burn, weakening incentive-solvency proxies \cite{FrontiersDePIN2025, Lin2024}.
 \end{itemize}
 
-\textbf{Onocoy variance:} Onocoy documentation describes capped/pre-minted supply with programmed distribution, plus buyback-and-burn routing from revenue channels \cite{OnocoyToken, OnocoyRewards, OnocoyBonus}.
+\noindent\textbf{Onocoy variance:}
+Onocoy documentation describes capped/pre-minted supply with programmed distribution, plus buyback-and-burn routing from revenue channels \cite{OnocoyToken, OnocoyRewards, OnocoyBonus}.
 
-\textbf{Interpretive tradeoff:} Relative to flexible issuance-heavy designs, capped/pre-minted distribution can reduce inflationary tail risk but may offer less short-run subsidy flexibility if reward value and participation economics diverge materially.
+\noindent\textbf{Interpretive tradeoff (chapter-conditional):}
+Relative to flexible issuance-heavy designs, capped/pre-minted distribution can reduce inflationary tail risk but may offer less short-run subsidy flexibility if reward value and participation economics diverge materially.
 
-\subsubsection{Incentive Solvency: Burn-to-Mint Ratio}
+\noindent\textbf{Incentive-solvency proxy (burn-to-mint ratio):}
 For this chapter, burn-to-mint is the principal solvency proxy:
 \[
 \mathrm{BMR}_t=\frac{B_t}{M_t}.
@@ -278,7 +298,7 @@ Under this reporting convention, ``mint'' denotes reward outflow/distribution as
     \item Persistent sub-unity behavior indicates continuing subsidy dependence under this chapter's metric convention.
 \end{itemize}
 
-\subsection{DePIN Failure Modes: Diagnostic Matrix}
+\subsection{Empirical Stress Signatures (Pre-DTSE)}
 Based on the empirical cases and the stress framework, this chapter uses five operational failure-mode labels as diagnostic categories (not projections) \cite{Braakman2022, Morris2019}.
 
 \begin{enumerate}

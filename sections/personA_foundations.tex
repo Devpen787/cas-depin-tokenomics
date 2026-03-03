@@ -5,37 +5,55 @@
 \label{sec:introduction}
 
 \subsection{Motivation}
-Decentralized Physical Infrastructure Networks (DePIN) represent an emerging class of blockchain-enabled systems that coordinate the deployment and operation of real-world infrastructure through cryptographic incentives \cite{Messari2024}. Unlike purely digital protocols, DePIN networks depend on physical assets, such as sensors, antennas, or positioning stations, that require upfront capital expenditure, ongoing operational costs, and geographic placement. These characteristics fundamentally alter the economic and risk profile of the network \cite{Ballandies2023, Lin2024}.
+Decentralized Physical Infrastructure Networks (DePIN) are blockchain-enabled systems that coordinate real-world infrastructure through token-based incentives \cite{Messari2024}. Unlike purely digital protocols, DePIN networks rely on physical deployment---sensors, antennas, or positioning stations---that require upfront investment, ongoing operating costs, and geographic placement. These constraints make participation and service capacity materially more path-dependent than in software-only ecosystems \cite{Ballandies2023, Lin2024}.
 
-In such systems, tokenomics is not merely a mechanism for value transfer or speculative participation; it is the primary coordination tool through which infrastructure is deployed, maintained, and retained. When incentive structures fail under adverse conditions, providers may exit the network, leading to degraded service quality and potentially permanent loss of coverage. Unlike software-based protocols, where participation can be restored with minimal friction, the reinstallation of physical infrastructure involves logistical delays, sunk costs, and regulatory constraints.
+In DePIN, tokenomics is not a peripheral value-transfer layer; it is the coordination mechanism that determines whether infrastructure is deployed, maintained, and retained. When incentive structures weaken under adverse conditions, provider exit can degrade coverage and service quality, and recovery can be slow because hardware redeployment carries sunk costs, logistical delays, and regulatory friction. This makes robustness under stress a first-order design question rather than an afterthought.
 
-Despite this fragility, most discussions of DePIN tokenomics focus on growth-phase dynamics or long-term valuation narratives. Few researchers examine how these systems behave under stress, precisely the conditions that determine long-term viability.
+Despite this, much of the DePIN tokenomics discourse emphasizes growth-phase dynamics or long-horizon valuation narratives. Comparatively fewer analyses ask a simpler and more operational question: under adverse conditions, which parts of the system move first, and how do deviations propagate from usage and incentive flows into provider participation and service continuity \cite{Ballandies2023, Lin2024}. Addressing that question requires stress-oriented evaluation rather than equilibrium framing.
 
 \subsection{Problem Statement}
-Most rigorous tokenomic evaluations assume average conditions, stable demand and growing participation. This approach ignores the volatility inherent to physical networks. Real-world networks operate in environments characterized by volatility and uncertainty. DePIN networks may face sudden drops in demand, adverse macroeconomic regimes, liquidity shocks caused by token unlocks, or increased competition for infrastructure operators \cite{Ho2022}.
+Many tokenomic evaluations implicitly assume average conditions: stable demand, benign liquidity, and growing participation. That framing is fragile for DePIN. Physical networks operate under volatility and uncertainty, including demand contractions, adverse macro regimes, liquidity dislocations (e.g., unlock-driven sell pressure), and competition for the same infrastructure operators \cite{Ho2022}.
 
-When such stresses occur, the incentive system must continue to perform three essential functions:
+Under stress, a DePIN incentive system must continue to support three coupled functions:
 \begin{enumerate}
-    \item retain providers,
-    \item sustain service capacity, and
-    \item prevent incentive collapse.
+    \item \textbf{Provider retention} (prevent rapid exit and participation erosion),
+    \item \textbf{Service continuity} (maintain effective capacity and utilization-linked performance), and
+    \item \textbf{Incentive--usage alignment} (diagnosed via incentive-solvency proxy families; avoid sustained decoupling between reward outflows and usage-linked value capture).
 \end{enumerate}
-Failure in any of these dimensions can initiate feedback loops, such as provider churn reducing service quality, that accelerate network degradation. Similar dynamics have been observed in complex modeled systems, where poorly calibrated mechanisms can amplify shocks rather than absorb them \cite{Morris2019, Braakman2022}.
+Robustness is therefore not a binary label. It is the pattern by which deviations first appear and propagate across these functions under a given stress channel. Failures in one dimension can amplify the others (e.g., churn reducing coverage, degrading service signals, and further weakening participation), consistent with shock-amplification dynamics in complex modeled systems \cite{Morris2019, Braakman2022}.
 
 \subsection{Research Focus and Scope}
-This thesis focuses on the stress-testing of tokenomic mechanisms in DePIN networks through simulation-based analysis. The objective is to evaluate how different incentive structures behave under adverse scenarios, rather than to generate forecasts of future outcomes or token prices.
+This thesis evaluates DePIN tokenomic mechanisms under adverse conditions using simulation-based stress testing. The focus is comparative: how Burn-and-Mint Equilibrium (BME) and capped-supply incentive structures respond to matched stress channels when read as deviations from neutral baselines under a fixed metric suite.
 
-Several deliberate scope constraints are imposed. The thesis does not attempt to forecast token prices or market capitalization, following critiques of forecasting overreach in crypto-asset valuation literature \cite{CFA2018}. It does not claim causal certainty regarding real-world network behavior. Nor does it propose novel tokenomic designs; instead, existing mechanisms are evaluated through controlled experimentation.
+The scope is constrained to evaluative claims inside the DTSE model contract. DTSE does not treat simulation outputs as empirical measurements; it is used for comparative evaluation under explicit assumptions and frozen scenario controls.
 
-The Onocoy network and its ONO token serve as the primary empirical anchor. ONO is treated as a representative DePIN implementation with clearly defined incentive mechanisms and observable infrastructure constraints. While the analysis is grounded in this case, the modeling framework is designed to be extensible to other DePIN systems.
+The Onocoy network and ONO token serve as the primary empirical anchor for mechanism mapping and stress-test relevance in a hardware-dependent setting. While grounded in this case, the evaluator is structured to extend to other DePIN systems that can be expressed through comparable stress channels and metrics.
+
+\subsection{Research Question}
+\label{subsec:research_question}
+To keep the evaluation auditable, the thesis states one research question and answers it using DTSE outputs tied to a fixed stress and metric contract.
+
+Which tokenomic design features are most associated with robustness under adverse conditions in DePIN mechanism profiles, and how do deployment constraints in hardware-dependent networks shape incentive alignment and long-term sustainability, when evaluated through standardized stress channels in DTSE?
+
+This thesis addresses the research question by:
+\begin{enumerate}
+    \item identifying earliest-trigger metric families and timing under each stress channel,
+    \item tracing propagation into provider participation (provider churn / active provider count) and service continuity (utilization/capacity),
+    \item interpreting incentive--usage alignment through incentive-solvency proxy families and operational failure-mode signatures (Table~\ref{tab:failure_modes}).
+\end{enumerate}
+
+These three elements define how the research question is answered in the remainder of the thesis: Chapters~6--8 provide the evidence layers, and Chapters~9--10 synthesize the implications within the DTSE contract.
 
 \subsection{Contribution}
-This thesis makes three contributions:
+This thesis makes three contributions, organized from evaluator design, to case-grounded mechanism mapping, to a diagnostic vocabulary for interpreting stress behavior.
+
 \begin{itemize}
-    \item \textbf{Structured stress-testing workflow:} a simulation-based approach for DePIN tokenomics under adverse conditions, grounded in established evaluation frameworks for complex systems modeling \cite{Sollaci2004, Morris2019}.
-    \item \textbf{Theory-to-model translation on a real case:} application of the framework to Onocoy, translating conceptual mechanism logic into explicit model parameters.
-    \item \textbf{Comparative robustness focus:} an evaluation lens centered on trade-offs and sensitivity under stress, rather than forecasting.
+    \item \textbf{DTSE evaluator and stress contract:} a reproducible stress-testing workflow for DePIN tokenomics that fixes scenario inputs, metric definitions, and detection thresholds for cross-profile comparison \cite{Sollaci2004, Morris2019}.
+    \item \textbf{Case-grounded mechanism mapping:} a documented translation from Onocoy mechanism facts into an explicit model instantiation, with assumptions and bounds recorded for audit and extension.
+    \item \textbf{Operational diagnostic vocabulary:} a comparative robustness lens based on first-signal detection, propagation sequences, and failure-mode signatures under stress rather than growth-phase narratives or valuation framing.
 \end{itemize}
+
+Together, these contributions support a stress-oriented comparison of DePIN tokenomics that stays inside explicit evidence classes and reproducible artifacts.
 
 
 \section{DePIN Fundamentals}
@@ -48,12 +66,14 @@ The key distinction from DeFi is the presence of physical deployment frictions a
 \cite{Halaburda2021, Arthur1989}.
 
 A minimal DePIN economic structure includes four interacting actors \cite{RochetTirole2003, Chiu2024}:
+The four actors below define the minimum coordination loop that the rest of the thesis stress-tests: incentives flow through protocol rules to providers, and service delivery feeds back through usage and value capture.
 \begin{itemize}
     \item \textbf{Infrastructure providers:} deploy and maintain hardware.
     \item \textbf{End users:} consume services produced by the hardware layer.
     \item \textbf{Protocol rule layer:} verifies work and allocates rewards.
     \item \textbf{Token layer:} links service contribution to compensation and governance.
 \end{itemize}
+This actor loop is used throughout Chapters~6--8 to interpret how stress transmits from demand and price signals into provider economics, participation, and service continuity.
 
 \subsection{The Physical Constraint (Hardware)}
 The hardware layer introduces non-trivial CapEx and OpEx exposure. CapEx includes device purchase, setup, and installation effort. OpEx includes electricity, connectivity, maintenance, and uptime management. Once capital is committed to site-specific equipment, exit and re-entry decisions become asymmetric: supply can contract quickly when profitability deteriorates, but recovery is slower because redeployment requires renewed investment and operational effort.
@@ -62,17 +82,21 @@ The hardware layer introduces non-trivial CapEx and OpEx exposure. CapEx include
 This creates economic ``stickiness'' distinct from token-only participation. A staker can often exit by transferring tokens, but a DePIN operator cannot instantly liquidate a rooftop GNSS setup or a physically installed hotspot without additional costs and delays. Geographic friction therefore acts both as a partial retention buffer during short shocks and as a constraint on rapid recovery after prolonged downturns.
 \cite{Ballandies2023, Lin2024}.
 
+These hardware frictions make DePIN participation path-dependent: incentives can attract rapid expansion, but adverse conditions can trigger slow and uneven recovery even after prices or demand stabilize. This motivates treating stress not only as a market event, but as a set of channels that transmit into provider economics, churn, and ultimately service continuity. The next chapter formalizes these stress channels so they can be operationalized consistently in the empirical and DTSE layers.
+
 \section{Theoretical Definitions of Stress}
 \label{sec:theoretical_definitions}
 
 \subsection{Summary of Stress Factors}
-Table \ref{tab:stress_factors} summarizes the core theoretical definitions of stress used throughout this thesis.
+This chapter formalizes the stress vocabulary used throughout the thesis. The purpose is not to claim an exhaustive taxonomy of DePIN risks, but to define a small set of stress constructs that can be traced forward into (i) the empirical event-window analysis and (ii) the DTSE stress channels. The definitions below function as interpretive anchors: they specify what ``stress'' means in this thesis before any mechanisms are evaluated.
+
+Table~\ref{tab:stress_factors} summarizes the core stress constructs and the primary risk driver each construct implies.
 
 \begin{table}[ht]
     \centering
     \small
     \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{p{0.25\linewidth} p{0.4\linewidth} p{0.25\linewidth}}
+    \begin{tabular}{>{\raggedright\arraybackslash}p{0.25\linewidth} >{\raggedright\arraybackslash}p{0.4\linewidth} >{\raggedright\arraybackslash}p{0.25\linewidth}}
         \toprule
         \textbf{Concept} & \textbf{Definition} & \textbf{Risk Driver} \\
         \midrule
@@ -83,20 +107,21 @@ Table \ref{tab:stress_factors} summarizes the core theoretical definitions of st
         \textbf{Speculative Fragility} & The correlation between network security (provider uptime) and token price volatility. & High fragility implies that price drops trigger immediate hardware churn ($>10\%$ drop $\to >10\%$ churn). \\
         \bottomrule
     \end{tabular}
-    \caption{Theoretical Definitions of Stress Factors}
+    \caption{Theoretical Definitions of Stress Factors.}
     \label{tab:stress_factors}
 \end{table}
 
+These constructs are used consistently as follows: Reward Addiction and the Subsidy Gap motivate why incentive outflows and provider economics must be tracked under adverse conditions, while Speculative Fragility motivates treating liquidity and price dislocations as stress channels that can transmit into participation and service continuity. The next subsection positions these constructs within the broader research flow and prepares their operationalization in Chapters~6--8.
+
 \subsection{Positioning Within the Overall Research}
 \label{sec:positioning}
+This subsection positions the thesis within the broader DePIN sustainability discussion and clarifies the specific analytical responsibility of this work.
 
-\subsubsection{Relationship to the Broader Research}
-This work forms part of a larger collaborative research effort examining the sustainability of DePIN networks. Within that context, this thesis occupies a clearly defined role: the evaluation of tokenomic mechanisms through formal modeling and stress testing.
+This work forms part of a larger collaborative research effort examining the sustainability of DePIN networks. Within that context, this thesis occupies a clearly defined role: evaluating tokenomic mechanisms through formal modeling and stress testing. The thesis is self-contained with respect to the claims it uses: it defines DePIN and hardware constraints, documents the Onocoy mechanism scope, and reports DTSE-based stress evaluation within one submission. Broader collaborative outputs remain complementary context, but the argument in this document is independently evaluable through cited sources, stated assumptions, and reproducible experiment artifacts \cite{Braakman2022}.
 
-This thesis is self-contained with respect to the claims it uses: it defines DePIN and hardware constraints, documents the Onocoy mechanism scope, and reports DTSE-based stress evaluation within one submission. Broader collaborative outputs remain complementary context, but the argument in this document is independently evaluable through its cited sources, stated assumptions, and reproducible experiment artifacts \cite{Braakman2022}.
+The distinctive contribution of this thesis is the operationalization of stress testing. Conceptual definitions of stress are converted into explicit model inputs, and tokenomic mechanisms are evaluated through their modeled effects on provider retention, incentive solvency, and service continuity. By grounding claims in explicit assumptions, transparent metrics, and reproducible experimental design, the thesis aligns with methodological standards for simulation-based research \cite{Morris2019, Collins2024}.
 
-\subsubsection{Unique Analytical Responsibility}
-The unique contribution of this thesis lies in the operationalization of stress-testing. Conceptual definitions of stress are converted into explicit model inputs, and tokenomic mechanisms are evaluated through their simulated effects on provider retention, incentive solvency, and service continuity. By grounding all claims in explicit assumptions, transparent metrics, and reproducible experimental design, the thesis aligns with established methodological standards for simulation-based research \cite{Morris2019, Collins2024}.
+This positioning motivates the structure of the thesis: the next chapters define the tokenomic framework and the Onocoy case, then progress from empirical stress windows to DTSE-based stress testing under matched scenario contracts.
 
 \ifincludeprovenance
 \input{sections/import_personA_foundations_2026-02-22.tex}
