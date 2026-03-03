@@ -1,0 +1,106 @@
+% Clean-room V2 thesis shell
+% This preamble is intentionally leaner than the V1 surface.
+
+% Character encoding and language
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{courier}
+\usepackage[english]{babel}
+
+% Page layout
+\usepackage[a4paper, top=2.7cm, bottom=2.7cm, left=2.7cm, right=2.7cm]{geometry}
+
+% Readability
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{microtype}
+\usepackage{ragged2e}
+\AtBeginDocument{\RaggedRight}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\widowpenalty=3000
+\clubpenalty=3000
+\displaywidowpenalty=2000
+\raggedbottom
+
+% Math
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+% Figures and tables
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{float}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{subcaption}
+\captionsetup{
+    justification=raggedright,
+    singlelinecheck=false,
+    skip=6pt
+}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tabularx}
+\renewcommand{\tabularxcolumn}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+% Lists
+\usepackage{enumitem}
+\setlist[itemize]{
+  topsep=0.35\baselineskip,
+  itemsep=0.2\baselineskip,
+  parsep=0pt,
+  partopsep=0pt,
+  leftmargin=2.4em,
+  labelsep=0.7em
+}
+\setlist[enumerate]{
+  topsep=0.35\baselineskip,
+  itemsep=0.2\baselineskip,
+  parsep=0pt,
+  partopsep=0pt,
+  leftmargin=2.6em,
+  labelsep=0.7em
+}
+
+% Bibliography
+\usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
+\usepackage{csquotes}
+\addbibresource{../bibliography.bib}
+
+% Utilities
+\usepackage[pdfusetitle]{hyperref}
+\usepackage{url}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    filecolor=black,
+    urlcolor=black,
+    pdfborder={0 0 0}
+}
+\urlstyle{same}
+
+% Block-style paragraph headings
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+  {0.85\baselineskip}%
+  {0.3\baselineskip}%
+  {\normalfont\normalsize\bfseries}}
+\makeatother
+
+% Reusable figure widths
+\newcommand{\figsinglewidth}{0.92\textwidth}
+\newcommand{\figpairwidth}{0.485\textwidth}
+\newcommand{\figdensepairwidth}{0.47\textwidth}
+
+% Optional chapter include helper for the clean-room shell
+\newcommand{\maybeinput}[1]{%
+  \IfFileExists{#1.tex}{\input{#1}}{}%
+}

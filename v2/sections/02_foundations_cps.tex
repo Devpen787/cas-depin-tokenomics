@@ -1,0 +1,83 @@
+\section{Foundations: DePIN as a Cyber-Physical System}
+\label{sec:foundations_cps}
+
+The pressure points in DePIN tokenomics do not begin with token design alone. They begin with the fact that the network is built on physical infrastructure that must be purchased, placed, operated, and maintained in the real world. That difference changes how participation forms, how capacity erodes, and how quickly a network can recover once adverse conditions appear. In this chapter, we establish the physical and economic foundations that make DePIN stress analytically distinct from software-only crypto systems.
+
+\subsection{DePIN as a Cyber-Physical Coordination Problem}
+Decentralized Physical Infrastructure Networks (DePIN) coordinate the deployment and operation of real-world infrastructure through token-based incentives. Rather than organizing only capital positions or software-mediated state transitions, they coordinate tangible service delivery through assets such as wireless hotspots, GNSS reference stations, compute nodes, storage nodes, and sensor devices \cite{FrontiersDePIN2025, Ballandies2023, AndrewBallandies2025}. In that setting, tokenomics is not a detachable financial wrapper around an otherwise independent service. It is part of the coordination mechanism that shapes whether infrastructure is deployed, retained, and kept serviceable over time \cite{Messari2024, FrontiersDePIN2025}.
+
+That makes DePIN closer to a cyber-physical coordination problem than to a purely digital token economy. In software-only systems, participation is usually liquid, reversible, and relatively easy to reallocate. In DePIN, participation is tied to physical assets with specific operating requirements and location constraints. A minimal coordination loop therefore links four elements: infrastructure providers who deploy hardware, end users who consume the resulting service, protocol rules that determine what counts as valid work, and a token layer that connects service contribution to compensation and governance \cite{RochetTirole2003, Chiu2024}. The important point is not the taxonomy itself, but the dependence it creates. If one part of this loop weakens, the effects do not remain financial; they propagate into physical capacity and service quality.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.92\textwidth}{!}{%
+    \begin{tikzpicture}[
+        font=\small,
+        >=Latex,
+        box/.style={draw, rounded corners=1pt, align=center, inner sep=6pt, minimum width=42mm, minimum height=15mm},
+        sflow/.style={-Latex, line width=0.8pt},
+        vflow/.style={-Latex, dashed, line width=0.8pt},
+        lab/.style={font=\scriptsize, fill=white, inner sep=1.2pt}
+    ]
+
+        % Nodes (adapted four-actor loop)
+        \node[box, minimum width=39mm] (proto) at (0,0) {\textbf{Protocol Rules}\\[-2pt]\footnotesize validate work / access};
+        \node[box, minimum width=47mm] (prov) at (-6.6,0) {\textbf{Infrastructure Providers}\\[-2pt]\footnotesize deploy / maintain capacity};
+        \node[box, minimum width=39mm] (user) at (6.6,0) {\textbf{End Users}\\[-2pt]\footnotesize consume service};
+        \node[box, minimum width=46mm] (token) at (0,-3.3) {\textbf{Token Layer}\\[-2pt]\footnotesize payments / rewards / governance};
+
+        % Solid: service and data flows
+        \draw[sflow] (prov.east) -- node[lab, above=2pt] {service / data} (proto.west);
+        \draw[sflow] (proto.east) -- node[lab, below=2pt] {validated access} (user.west);
+
+        % Dashed: token, value, and policy flows
+        \draw[vflow] (user.south west) to[out=235, in=20] node[lab, right, pos=0.4] {payments} (token.east);
+        \draw[vflow] (token.west) to[out=160, in=305] node[lab, left, pos=0.38] {rewards} (prov.south east);
+        \draw[vflow] (token.north) -- node[lab, right] {governance} (proto.south);
+    \end{tikzpicture}
+    }
+    \captionsetup{width=0.92\textwidth}
+    \caption[DePIN cyber-physical coordination loop]{Adapted cyber-physical coordination loop in a DePIN, simplified from Chiu et al. (2024) to the four-actor thesis framing. Solid arrows show service and data flows; dashed arrows show token and policy flows.}
+    \label{fig:v2_cps_loop}
+\end{figure}
+
+\subsection{Physical Constraints and Economic Stickiness}
+The hardware layer introduces a cost structure that software-only systems do not face. Providers incur capital expenditure through device purchase, installation, setup, and site preparation, and they continue to face operational expenditure through electricity, connectivity, maintenance, and uptime management \cite{Arthur1989, Lin2024}. In GNSS-style networks, these requirements are not incidental. Equipment quality, placement, calibration, and continuity of operation all affect the usefulness of the service delivered downstream.
+
+Once capital is committed to site-specific infrastructure, participation becomes economically sticky. A token position can often be exited by selling or transferring an asset. A rooftop reference station, hotspot installation, or other deployed hardware asset cannot be unwound with the same speed or ease. This is the practical significance of sunk costs in DePIN: they slow immediate exit, but they also make the network less flexible when conditions deteriorate \cite{Arthur1989, Ballandies2023}. Geographic friction deepens that effect. A well-placed station or node does not merely represent one interchangeable unit of capacity; it occupies a location that may matter for redundancy, coverage, or service quality. As a result, participation is not only less liquid, but also less substitutable.
+
+These frictions can temporarily act as a retention buffer. Providers may tolerate periods of weaker profitability because hardware is already installed and operating costs are lower than full redeployment elsewhere. But that same rigidity has a second edge. When adverse conditions persist, the network does not simply lose abstract token participation. It risks losing physical coverage, operational discipline, and location-specific capacity that is costly to rebuild.
+
+\subsection{Path Dependence and Recovery Asymmetry}
+Because physical assets cannot be reallocated as easily as software-mediated capital, DePIN networks exhibit path dependence. Expansion, contraction, and recovery do not follow the same timeline. A network can lose momentum relatively quickly when token rewards weaken or provider economics deteriorate, but restoring that capacity is slower because re-entry requires renewed capital commitment, logistical effort, and confidence that conditions will remain viable long enough to justify redeployment \cite{Arthur1989, Lin2024}.
+
+This asymmetry matters because visible network deterioration often lags the underlying stress. Providers may remain nominally present while reducing maintenance effort, delaying upgrades, or tolerating declining service quality. In networks where geographic density contributes directly to output quality, the loss of a few strategically important nodes can matter more than raw node counts suggest. The analytical problem is therefore not only whether participation declines, but how physical rigidity changes the sequence by which economic pressure becomes operational degradation.
+
+That is why we treat robustness as a question of stress transmission rather than static equilibrium. A mechanism may appear workable when demand is stable, token prices are supportive, and participation remains nominally intact. Those conditions matter, but they do not show how quickly pressure moves through the network once provider economics weaken, coverage starts to thin, or the link between rewards and service demand begins to loosen. Our central issue is therefore not whether a mechanism looks sustainable under favorable average conditions. It is whether the system can absorb adverse conditions without losing provider retention, service continuity, or incentive--usage alignment faster than it can recover. In DePIN, the decisive question is often one of sequence: where strain appears first, how long physical frictions delay visible failure, and when that delay stops acting as a buffer and starts becoming a liability.
+
+\newpage
+\subsection{Theoretical Stress Constructs}
+Stress, in this thesis, refers to adverse economic or structural conditions that threaten the continued operation of a DePIN network. In practice, those conditions can emerge through lower demand, weaker liquidity, rising provider costs, or broader market dislocation. What makes them analytically important is that they do not remain confined to token price. They propagate through provider economics and can eventually reach service delivery itself.
+
+To organize that problem, we use three theoretical stress constructs. They are not presented as an exhaustive industry taxonomy. They are the interpretive anchors that make the later empirical and DTSE analysis legible.
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.35}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.24\linewidth} X >{\raggedright\arraybackslash}p{0.28\linewidth}@{}}
+        \toprule
+        \textbf{Concept} & \textbf{Meaning in this thesis} & \textbf{Operational pressure} \\
+        \midrule
+        \textbf{Reward Addiction} & A condition in which participation can only be maintained through continued or rising token incentives, even when underlying service demand is not keeping pace. & If incentives flatten before demand-side support strengthens, provider retention can deteriorate quickly. \\
+        \midrule
+        \textbf{Subsidy Gap} & The distance between providers' real-world operating burden and the fiat-equivalent value entering the system through actual service usage. & The wider the gap, the more the network depends on speculative token value to sustain supply. \\
+        \midrule
+        \textbf{Speculative Fragility} & The degree to which participation and security become sensitive to token-price volatility rather than to service demand. & Price dislocations can transmit into provider economics before service metrics visibly move. \\
+        \bottomrule
+    \end{tabularx}
+    \caption[Core stress constructs]{Core stress constructs used in the thesis.}
+    \label{tab:v2_stress_constructs}
+\end{table}
+
+Taken together, these constructs explain why DePIN sustainability cannot be evaluated through growth narratives alone. Reward Addiction highlights the danger of participation supported mainly by emissions. The Subsidy Gap clarifies why real provider economics matter even when token incentives appear attractive in nominal terms. Speculative Fragility explains why price and liquidity shocks may affect infrastructure provision even when end-user demand has not yet visibly collapsed. In the next chapter, we turn these pressures into a comparative tokenomic vocabulary. We ask how different design choices attempt to manage them, where those attempts remain structurally exposed under stress, and why superficially similar DePIN models can still fail through different transmission paths.

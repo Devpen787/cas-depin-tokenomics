@@ -1,0 +1,152 @@
+\section{Empirical Stress Layer}
+\label{sec:empirical_stress_layer}
+
+\subsection{Empirical Analysis Orientation}
+Chapters~2 and~3 established the stress vocabulary used in this thesis. Stress was defined there as pressure on the DePIN system when subsidy support weakens, market volatility compresses operator economics, or provider incentives become misaligned with continued infrastructure participation. Chapter~4 then translated that vocabulary into the Onocoy case. Our next step is not yet to model new scenarios. It is to ask what the historical record can already show about these pressures when they appear in live networks.
+
+This chapter therefore works with \emph{historical stress windows}. A historical stress window is a bounded real-world episode in which a pressure becomes visible in public market, activity, or participation data. The term matters because the chapter is retrospective. We look at episodes that actually happened, not hypothetical episodes created for a model. That makes the empirical layer useful for observing which signals became visible in practice, but it also means the evidence is constrained by whatever the public record happened to capture.
+
+Historical stress windows can show where live DePIN systems first register pressure. They can show price dislocation, participation stickiness, weakening reward--demand coupling, or rising cost sensitivity after the fact. They cannot, by themselves, show where a newer network with thinner history would cross an unobserved failure threshold. That boundary matters for Onocoy, where several economically relevant fields remain only partially observable in the public record.
+
+In this chapter, we add a retrospective empirical layer to the thesis. We use event-study logic to read documented stress windows in Helium, Geodnet, Hivemapper, Render, io.net, and Onocoy without treating those windows as proof of future outcomes \cite{MacKinlay1997, FrontiersDePIN2025}. The task here is narrower: identify what historical data can reveal, make the limits of cross-network comparison explicit, and show why the move to DTSE becomes necessary once empirical observability runs out.
+
+\subsection{Stress Windows and Comparator Scope}
+Retrospective comparison is only useful if scope and evidence roles stay clear. We use a Solana-centered DePIN sample as a practical frame because these networks share enough execution-era context to make mechanism and window comparisons interpretable, even though their hardware profiles and operating costs remain different \cite{FrontiersDePIN2025, Messari2024}. Mechanism facts remain anchored to protocol and project-primary documentation. Ecosystem reports are used more narrowly to situate the observed window and explain why certain comparators matter.
+
+The comparison set in this chapter is broader than the smaller frozen set used later for controlled evaluation. The immediate point is simple: we first look widely across public historical cases, then narrow to the cases and metrics that remain interpretable, and only later move to a fixed evaluation set for controlled comparison under explicit assumptions. Table~\ref{tab:comparator_lineage_funnel} shows that narrowing process from top to bottom.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.21\textwidth}X@{}}
+        \toprule
+        \textbf{Comparison Scope} & \textbf{Projects Included} & \textbf{What This Layer Does} & \textbf{Why the Scope Narrows} \\
+        \midrule
+        Broad empirical universe &
+        Helium, Geodnet, Onocoy, Render, Hivemapper, io.net &
+        Retrospective empirical stress benchmarking under observed windows &
+        Starts with the widest public comparison set, but not every project-window supports the same degree of inference. \\
+        \addlinespace
+        Empirically emphasized windows &
+        Helium, Geodnet, Onocoy, Hivemapper (plus contextual references to Render/io.net where relevant) &
+        Channel-specific interpretation of observed stress signatures &
+        Narrows to the cases that best illustrate observable liquidity, yield, and cost-pressure signatures under the chapter's metric-applicability rules. \\
+        \addlinespace
+        Later frozen evaluation set &
+        Onocoy, Helium, Hivemapper, Grass, Geodnet &
+        Provides the smaller fixed set used later for controlled evaluation &
+        The later evaluator can only use profiles that can be mapped cleanly into a common rule set; the broader empirical universe remains context, not the final controlled test set. \\
+        \bottomrule
+    \end{tabularx}
+    \caption[Comparator lineage funnel]{How the comparison set narrows from a broad empirical universe to a smaller later evaluation set.}
+    \label{tab:comparator_lineage_funnel}
+\end{table}
+
+Read from top to bottom, the table shows why later chapters do not simply reuse the full empirical universe unchanged. This chapter still does empirical work. We look backward across public cases and ask which signals were visible. The funnel matters because only part of that broader universe can later be carried into a controlled evaluator without mixing unlike cases or forcing weak assumptions.
+
+\subsection{Metric Applicability and Observability Limits}
+A shared metric vocabulary helps comparison, but it also creates a risk: not every metric is observable, comparable, or interpretable across projects at different maturity stages. Some inputs exist for mature networks and disappear in early-stage ones. Some ratios look comparable on paper but rely on thin liquidity, unstable revenue denominators, or protocol-specific definitions that do not harmonize cleanly.
+
+For that reason, this chapter does not treat missing comparability as a nuisance to smooth away. A metric is reported only when its inputs are observable at the necessary resolution, can be harmonized across projects without strong additional assumptions, and remain interpretable in the event window at hand. Where those conditions are not met, the metric is marked \emph{N/R} (not reliably observable) and excluded from comparative ranking. The \emph{N/R} rule is a control, not a missing-data problem to be patched through imputation. It applies only to this empirical layer and does not alter the later DTSE metric contract.
+
+\noindent\textbf{N/R reason codes}
+\begin{itemize}
+    \item \textbf{NR1} Required inputs are not publicly observable at the necessary resolution for the event window.
+    \item \textbf{NR2} Native metric definitions differ materially across protocols and cannot be harmonized without strong additional assumptions.
+    \item \textbf{NR3} Market or revenue observability is too thin or distorted in the window for stable liquidity-, valuation-, or revenue-dependent ratios.
+\end{itemize}
+
+The empirical layer uses four gates before any metric is allowed to do inferential work:
+\begin{enumerate}
+    \item \textbf{Mechanism-compatibility gate:} the metric must have a valid interpretation under the underlying mechanism class.
+    \item \textbf{Observability gate:} required inputs must be publicly visible at sufficient resolution without imputation.
+    \item \textbf{Harmonization gate:} definitions must be alignable across protocols without importing strong extra assumptions.
+    \item \textbf{Maturity gate:} market- and revenue-dependent metrics require enough depth to avoid unstable denominators and microstructure-dominated noise.
+\end{enumerate}
+
+Metrics marked \emph{N/R} may still appear as bounded context, but they do not carry cross-project ordering in this chapter. Table~\ref{tab:metric_applicability_matrix} applies that rule across the main comparator set.
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\centering\arraybackslash}p{0.05\textwidth}>{\centering\arraybackslash}p{0.05\textwidth}>{\centering\arraybackslash}p{0.05\textwidth}>{\centering\arraybackslash}p{0.05\textwidth}>{\centering\arraybackslash}p{0.06\textwidth}X@{}}
+        \toprule
+        \textbf{Metric} & \textbf{He} & \textbf{Ge} & \textbf{On} & \textbf{Re} & \textbf{Hi} & \textbf{Primary Constraint} \\
+        \midrule
+        Burn-to-Mint Ratio & A & A & P & A & A & Onocoy uses an adapted capped-supply burn-to-distribution analogue rather than a native BME measure. \\
+        30-Day Node Retention & A & A & P & A & A & Onocoy stress-window history remains short, so inference is directional rather than mature. \\
+        Revenue per Node & A & A & N/R & A & P & Onocoy revenue depth is immature (NR3); Hivemapper carries labor-intensity comparability caveats. \\
+        Token Turnover & A & A & N/R & A & P & Onocoy post-TGE liquidity depth is insufficient for stable inference (NR3). \\
+        FDV / Annualized Revenue & A & A & N/R & A & P & Onocoy denominator instability under early-stage revenue conditions (NR3). \\
+        \bottomrule
+    \end{tabularx}
+    \caption[Metric applicability matrix]{Metric applicability matrix for empirical comparison windows (He = Helium, Ge = Geodnet, On = Onocoy, Re = Render, Hi = Hivemapper; A = applicable; P = partially applicable; N/R = not reliably observable).}
+    \label{tab:metric_applicability_matrix}
+\end{table}
+
+The Onocoy case is where this control matters most. In the current empirical layer:
+\begin{itemize}
+    \item adapted burn-to-mint remains a directional burn-to-distribution proxy rather than a native BME magnitude,
+    \item retention and churn are usable as primary participation signals, but only over a short public history,
+    \item revenue per node, token turnover, and FDV / annualized revenue remain \emph{N/R} under current revenue depth and liquidity conditions.
+\end{itemize}
+
+When these observability limits are read together with the evidence boundary already established in Chapter~\ref{sec:onocoy_anchor_case}, a clear empirical ceiling appears. Historical windows can reveal direction, sensitivity, and comparability limits, but they cannot independently identify the threshold at which a newer capped-supply network would fail under matched stress.
+
+\subsection{Observed Stress Signatures in Historical Windows}
+The historical record is most useful when it is read as a set of realized stress signatures rather than as a scoreboard. The point is not to prove that one network class is robust and another is fragile in the abstract. The point is to see which signals became visible, which ones stayed hidden, and which kinds of comparison remain defensible once the available data are thinned by project-specific measurement conditions.
+
+\subsubsection*{Liquidity Shock and Crypto Winter (2022--2023)}
+Liquidity shock refers here to an abrupt deterioration in market depth and token price support. In DePIN, that matters because provider rewards may be token-denominated while many operator costs behave more like fiat costs. A sharp market dislocation can therefore compress real reward value before the physical network visibly adjusts. The 2022--2023 crypto winter is the broad market downturn used here as a historical reference window for that kind of pressure.
+
+Helium is a wireless DePIN and one of the best-documented public stress cases in the sector. Exchange data for the trading pair HNT/USDT, meaning Helium's token priced against the dollar-linked stablecoin Tether, show severe price compression in this period \cite{BinanceHNTUSDTWeekly2022_2023, Ho2022}. Reported hotspot counts did not collapse one-for-one with the drawdown, which is consistent with physical exit friction and sunk-cost stickiness in deployed hardware systems \cite{Ballandies2023}. The useful empirical lesson is not that Helium was simply ``robust.'' It is that market-side dislocation can arrive well before the installed base visibly unwinds.
+
+For Onocoy, that window matters as a bounded analog rather than as a forecast. GNSS infrastructure may also remain sticky during a drawdown even if growth, maintenance intensity, or quality buffers weaken earlier than the raw installed-base count suggests. Historical observation can reveal that kind of lag between price stress and visible network response. It cannot show where the threshold to broad failure sits for a newer network with thinner public history.
+
+\subsubsection*{Competitive Yield Pressure (2024--2025)}
+Competitive yield pressure refers to the risk that operators compare rewards across adjacent networks and redirect attention, hardware, or deployment effort toward the option that offers better returns. In DePIN, this matters because the relevant comparison is not only token price. It is also whether a provider believes similar work can earn more elsewhere. That makes competitive pressure especially important where hardware profiles, geographies, or participation models overlap.
+
+Geodnet is useful here because it is a neighboring GNSS correction network rather than a distant vertical. Its location-governance logic illustrates how a protocol can shape local supply density and yield conditions when operator competition matters \cite{GeodnetLocationNFT}. Where hardware adjacency or multi-homing is feasible, provider reallocation becomes a plausible empirical stress signature even without a single market-wide crash \cite{Lin2024, Chiu2024}.
+
+That matters for Onocoy because a provider deciding where to place or maintain GNSS infrastructure is not making that decision in isolation. If an adjacent network offers better expected returns for similar geographic coverage, similar hardware effort, or a more favorable local reward environment, the outside option starts to matter even before a large visible exit appears in Onocoy's own public metrics. Competitive pressure can therefore affect growth quality, coverage density, and participation commitment before it shows up as a simple collapse in station counts.
+
+The empirical comparison cannot prove the scale of realized migration inside Onocoy from public data alone, so the relevance here remains directional rather than final. What the historical window does show is why an early-stage GNSS network should not be evaluated as if its providers were insulated from neighboring yield comparisons. It identifies competitive yield as a plausible stress channel that can shape participation behavior even when the public record is still too thin to measure the full magnitude of that response.
+
+\subsubsection*{Operational Cost Pressure (Hivemapper 2024)}
+Operational cost pressure appears when the cost of continued participation rises relative to the value of expected rewards. In DePIN, this matters because infrastructure does not remain online for free. Even when hardware is already deployed, operators still face recurring burdens such as electricity, connectivity, maintenance, calibration effort, or ongoing labor. If those burdens start to dominate expected reward value, participation can weaken before the network looks visibly smaller from the outside.
+
+Hivemapper provides a useful comparator because it is a mapping network in which contribution depends on continuing active labor rather than on a relatively passive fixed installation. Contributors gather data through ongoing driving and device use, which means time and fuel behave like a moving cost floor \cite{Chiu2024, FrontiersDePIN2025}. When token-denominated reward value weakens, contribution can plateau or retreat faster than in more passive sensor networks.
+
+The Onocoy relevance is again analogical and bounded. Onocoy does not share Hivemapper's labor model, and this chapter should not imply that it does. The lesson is narrower: provider economics can deteriorate before broad network discontinuity becomes obvious in top-line counts. For Onocoy, whose operators still bear recurring infrastructure and quality-maintenance obligations, that makes cost pressure an important stress channel even if the exact burden differs from more labor-intensive DePIN models.
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.26\linewidth}>{\raggedright\arraybackslash}p{0.34\linewidth}X@{}}
+        \toprule
+        \textbf{Stress Window} & \textbf{What Became Visible} & \textbf{Why It Matters for Later Evaluation} \\
+        \midrule
+        Liquidity shock and crypto winter (2022--2023) & Price compression appeared quickly, while installed-base persistence weakened more slowly. & Shows why market dislocation and visible participation decline may not occur at the same time. \\
+        Competitive yield pressure (2024--2025) & Provider reallocation pressure became plausible where adjacent networks competed for similar hardware or geography. & Shows why outside opportunity sets matter when later evaluation asks how participation responds to competing yields. \\
+        Operational cost pressure (Hivemapper 2024) & Participation became sensitive to variable effort and operating costs when reward value weakened. & Shows why provider economics can deteriorate before broad top-line network contraction becomes obvious. \\
+        \bottomrule
+    \end{tabularx}
+    \caption[Historical stress windows]{Historical stress windows and why they matter for the later controlled evaluation stage.}
+    \label{tab:empirical_stress_windows_summary}
+\end{table}
+
+Across these windows, the repeated value of historical observation is diagnostic rather than predictive. Price shocks show up first in market and provider-economics fields. Competitive pressure shows up through participation elasticity rather than immediate service collapse. Cost pressure can register in provider economics before broad top-line discontinuity becomes visible. Those recurring signatures are informative, but they remain retrospective and project-specific.
+
+\subsection{Empirical Boundary and Need for DTSE}
+Historical windows are valuable, but they do not answer every question the thesis needs to ask. They show what happened in a specific episode, under the specific market structure, governance response, and maturity stage that happened to exist at that time. They do not let us rerun the same shock across projects on equal terms. That is why they cannot, on their own, test thresholds under matched conditions.
+
+This point is easier to see if the terms are made explicit. A \emph{counterfactual} question asks what would happen under a condition that did not actually occur in the historical record. A \emph{matched condition} means applying the same stress input across different mechanism profiles on an equal basis. Historical windows rarely provide either. Helium's 2022--2023 market shock, for example, is a real episode, but it is not the same thing as asking how a capped-supply GNSS network and a BME-oriented wireless network would respond if both faced the same shock under comparable rules and observability.
+
+That limit becomes especially constraining for early-stage cases such as Onocoy. Several market- and revenue-dependent ratios remain \emph{N/R} in the empirical layer, and the public record is still too thin to support stronger cross-project inference on those fields. In practice, that means the empirical layer can identify recurring stress signatures and clarify where comparison becomes unreliable, but it cannot yet show where Onocoy would cross from tolerable pressure into a failure-relevant threshold under a controlled shared shock.
+
+That is why the next chapter turns to DTSE. The role of DTSE is narrow and methodological, not predictive. It provides a rule-based comparative evaluator that can apply the same stress inputs across a fixed set of profiles under explicit assumptions. In that controlled setting, we can ask threshold-style questions that the historical record cannot answer cleanly on its own, such as where a metric first departs materially from baseline or which subsystem registers stress first. The empirical layer therefore does not get replaced. It determines what should be tested, which metrics deserve caution, and how later controlled outputs should be interpreted.
