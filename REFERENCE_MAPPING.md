@@ -1,9 +1,104 @@
 # Reference Mapping & Page-Level Tracking
 
-This document tracks specific findings, claims, and data from ALL our sources down to the exact page number.
+This document now serves two different purposes:
+
+1. a live citation-control surface for the accepted `v2` manuscript, and
+2. a legacy source-extraction backlog for the wider corpus built during thesis reconstruction.
+
+The first purpose is the one that matters for final-manuscript control. The second remains useful archival work, but it is not a blocker for the current `v2` thesis unless a live citekey is still unresolved.
+
+## V2 Final-Gate Citation Control (2026-03-03)
+
+Scope: `/Users/devinsonpena/Desktop/Files/cas-depin-tokenomics/v2/sections/*.tex`
+
+Current live-manuscript status:
+- `32` citekeys are used in the accepted `v2` manuscript.
+- No live `% TODO-CITE` or `% TODO-LINK` residue remains in `v2`.
+- The current `v2` build completes without undefined citations or undefined references.
+- Remaining citation risk is qualitative rather than technical:
+  - Chapter 3 still uses some contextual industry and project-primary sources for comparator framing.
+  - Chapter 4 still uses bounded project-context sources for community and dashboard visibility context.
+  - Those uses are acceptable only when they remain contextual rather than load-bearing for the thesis's strongest claims.
+
+Interpretive note:
+- `peer-reviewed`, `primary-governance-doc`, and `protocol-doc` sources are the preferred load-bearing classes.
+- `preprint`, `working paper`, `industry report`, `aggregator`, `project-primary (context-bound)`, and `exchange market data` remain admissible only when the prose stays bounded to context, mechanism description, or dated observation.
+
+### Live V2 Citekey Register
+
+| Cite key | Evidence class | Live V2 role | Current risk posture |
+| :--- | :--- | :--- | :--- |
+| `AndrewBallandies2025` | secondary-context (preprint) | DePIN classification context in Chapter 2 | acceptable if not load-bearing alone |
+| `Arthur1989` | peer-reviewed | Path dependence and sunk-cost framing in Chapters 1--2 | low |
+| `Ballandies2023` | secondary-context (working paper) | DePIN taxonomy and physical-infrastructure framing in Chapters 2 and 5 | acceptable if paired with stronger sources |
+| `Ballandies2023ChainSelection` | project-primary (context-bound) | Onocoy chain-selection window in Chapters 3--4 | acceptable if kept time-bounded |
+| `BinanceHNTUSDTWeekly2022_2023` | primary-market-data (exchange) | Helium price-compression context in Chapter 5 | low if used only for dated market observation |
+| `Braakman2022` | peer-reviewed | systems-model evaluation framing in Chapters 1, 6, and 8 | low |
+| `Chiu2024` | secondary-context (preprint) | DePIN mechanism, governance, and sensing context across Chapters 2--5 and 8 | acceptable if not sole support for core claims |
+| `CoinMarketCapDePIN` | aggregator / industry context | comparator scene-setting in Chapter 3 | medium; keep contextual only |
+| `CoinMarketCapHM` | aggregator / market context | Hivemapper comparative context in Chapter 3 | medium; keep contextual only |
+| `Coincub2025` | industry / ecosystem commentary | Solana-centered comparator context in Chapter 3 | medium; keep contextual only |
+| `Collins2024` | peer-reviewed | ABM validation and interpretation-boundary framing in Chapters 6 and 8 | low |
+| `FrontiersDePIN2025` | peer-reviewed | DePIN tokenomics context in Chapters 1, 2, and 5 | low |
+| `GeodnetIP7` | primary-governance-doc | GEODNET accrual and rule context in Chapter 3 | low |
+| `GeodnetLocationNFT` | project-primary | GEODNET location-governance context in Chapter 5 | acceptable if kept project-specific and bounded |
+| `HeliumHIP70` | primary-governance-doc | Helium migration and chain-burden context in Chapters 3--4 | low |
+| `Ho2022` | secondary-context | macro stress framing used in Chapters 1 and 5 | acceptable if paired with DePIN-specific evidence |
+| `IoNet2025` | project-primary / year-in-review | io.net comparative context in Chapter 3 | medium; keep contextual only |
+| `Lin2024` | secondary-context (preprint) | DePIN challenge and demand-regime framing across Chapters 1--5 | acceptable if paired with stronger sources |
+| `MacKinlay1997` | peer-reviewed | event-study framing in Chapter 5 | low |
+| `McCulloch2022` | peer-reviewed | ABM calibration and uncertainty framing in Chapters 6 and 8 | low |
+| `Messari2024` | industry report | comparator scene-setting in Chapters 1, 3, and 5 | medium; keep contextual only |
+| `Morris2019` | peer-reviewed | simulation-study design framing in Chapters 1, 3, 6, and 8 | low |
+| `OnocoyAmbassador` | project-primary (context-bound) | community/ecosystem context in Chapter 4 | medium; bounded context only |
+| `OnocoyDuneDashboard` | project-primary analytics surface | dated visibility context in Chapter 4 | acceptable if kept descriptive and time-bounded |
+| `OnocoyExplorer` | project-primary operational interface | operational transparency and coverage context in Chapter 4 | low for descriptive interface claims |
+| `OnocoyRewards` | protocol-doc | operator obligations and reward logic in Chapter 4 | low |
+| `OnocoyToken` | project-primary token explainer | ONO token context in Chapters 3--4 | medium; prefer pairing with whitepaper/tokenomics doc |
+| `OnocoyTokenomics` | protocol-doc | ONO/Data Credit mechanics in Chapter 4 | low |
+| `OnocoyWhitepaper301` | protocol-doc | Onocoy mechanism facts across Chapters 3--4 | low |
+| `RenderBME` | project-primary / protocol explainer | Render accrual logic in Chapter 3 | medium; acceptable if used comparatively and not as sole theory support |
+| `RochetTirole2003` | peer-reviewed | multi-actor platform framing in Chapter 2 | low |
+| `Tan2020` | peer-reviewed | governance / verification response logic in Chapters 3 and 8 | low |
+
+### V2 Final-Gate Verdict
+
+For the live `v2` manuscript:
+- citation integrity is `PASS`
+- citation-quality defensibility is `PASS with bounded context risk`
+
+The remaining soft spots are:
+1. Chapter 3 comparator framing, where contextual industry and project-primary sources still support market/comparator scene-setting.
+2. Chapter 4 community and analytics context, where project-primary sources remain acceptable only as bounded context rather than strong mechanism evidence.
+
+These do not block the current manuscript, but they should not be strengthened into larger claims without stronger supporting evidence.
+
+## Phase 2 Load-Bearing Citation Updates (2026-02-24)
+
+| Cite key | Evidence class | Primary claims now supported | Main usage locations |
+| :--- | :--- | :--- | :--- |
+| `Arthur1989` | peer-reviewed | Path dependence, lock-in, and sunk-cost hysteresis framing for infrastructure participation | `sections/personA_foundations.tex`, `sections/empirical_analysis.tex` |
+| `RochetTirole2003` | peer-reviewed | Multi-actor platform framing for DePIN actor structure | `sections/personA_foundations.tex` |
+| `Collins2024` | peer-reviewed | ABM validation/verification framing and interpretation boundaries | `sections/personC_methodology.tex`, `sections/personC_discussion_conclusion.tex`, `sections/empirical_analysis.tex` |
+| `McCulloch2022` | peer-reviewed | ABM calibration and uncertainty-quantification support for DTSE future calibration pathways | `sections/personC_methodology.tex`, `sections/personC_discussion_conclusion.tex` |
+| `MacKinlay1997` | peer-reviewed | Event-study methodology framing for retrospective stress-window benchmarking in empirical analysis | `sections/empirical_analysis.tex` |
+| `BinanceHNTUSDTWeekly2022_2023` | primary-market-data (exchange) | HNT market-compression context during the 2022--2023 stress window using exchange-origin OHLC data | `sections/empirical_analysis.tex` |
+| `HeliumHIP70` | primary-governance-doc | Helium migration/subDAO governance response framing in the empirical stress case and blockchain decision-boundary context | `sections/empirical_analysis.tex`, `sections/personA_onocoy.tex` |
+| `OnocoyWhitepaper301` | protocol-doc | Onocoy mechanism facts: RTK/GNSS service model, participant roles, token architecture, emissions framing | `sections/personA_onocoy.tex`, `sections/personB_framework.tex`, `sections/empirical_analysis.tex`, `sections/personC_discussion_conclusion.tex` |
+| `Ballandies2023ChainSelection` | project-primary (context-bound) | Onocoy chain-selection decision window context (screening funnel, cost/throughput constraints, execution tradeoff framing); used as time-bounded architecture context, not universal superiority proof | `sections/personA_onocoy.tex` |
+| `Ballandies2023` | secondary-context (working paper) | DePIN taxonomy/context support (non-peer-reviewed; not sole support for core method claims) | `sections/personA_foundations.tex`, `sections/personB_framework.tex`, `sections/empirical_analysis.tex` |
+| `Chiu2024` | secondary-context (preprint) | DePIN framework context and verification/mechanism design framing (preprint; non-peer-reviewed) | `sections/personA_foundations.tex`, `sections/personB_framework.tex`, `sections/empirical_analysis.tex`, `sections/personC_discussion_conclusion.tex` |
+| `AndrewBallandies2025` | secondary-context (preprint) | DePIN classification criteria context (preprint; non-peer-reviewed) | `sections/personA_foundations.tex` |
+| `Lin2024` | secondary-context (preprint) | DePIN challenge taxonomy and stress-channel context (preprint; non-peer-reviewed) | `sections/personA_foundations.tex`, `sections/personB_framework.tex`, `sections/empirical_analysis.tex` |
+| `Halaburda2021` | secondary-context (working paper) | DeFi/crypto microeconomics contextual contrast (non-peer-reviewed) | `sections/personA_foundations.tex` |
 
 ## Master Tracking Checklist
 Use this checklist to ensure every single source in our catalog has been reviewed for page-level citations.
+
+Legacy-status note:
+- The checklist and detailed tables below are part of the wider corpus-extraction backlog created during thesis reconstruction.
+- They are not a live blocker for the accepted `v2` manuscript unless one of the citekeys listed in the `V2 Final-Gate Citation Control` section above still lacks support.
+- Unchecked items and `[TODO]` rows below therefore indicate archival extraction work still available, not unresolved LaTeX citation failures in `v2`.
 
 ### Academic/foundational references
 - [ ] Decentralized Physical Infrastructure Networks (DePIN): A Blockchain-Based Paradigm for the Physical World Infrastructures

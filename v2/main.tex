@@ -1,0 +1,122 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{preamble}
+
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+\title{
+    \textbf{DePIN Tokenomics Under Stress} \\
+    \large A Comparative Stress Evaluation Using the Onocoy Network as an Anchor Case
+}
+\author{Florian Baumann \\ Cristian Carvalho \\ Devinson Peña}
+\date{March 8, 2026}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+
+    {\Huge \textbf{DePIN Tokenomics Under Stress}\par}
+
+    \vspace{0.5cm}
+    {\Large A Comparative Stress Evaluation Using the Onocoy Network as an Anchor Case\par}
+
+    \vspace{1.5cm}
+
+    \textbf{Florian Baumann} \\
+    \textbf{Cristian Carvalho} \\
+    \textbf{Devinson Peña}
+
+    \vfill
+
+    CAS Blockchain \\
+    Lucerne University of Applied Sciences and Arts (HSLU)
+
+    \vspace{0.8cm}
+    Thesis period: Autumn Semester 2025 / Spring Semester 2026
+
+    \vspace{0.4cm}
+    Program management: Prof. Dr. Georges Grivas and Jan Carlos Janke
+
+    \vspace{0.4cm}
+    Supervisor: Alexander Denzler
+
+    \vspace{0.8cm}
+    Classification: Public
+
+    \vspace{0.8cm}
+    Submission date: March 8, 2026
+\end{titlepage}
+
+\thispagestyle{empty}
+\section*{Declaration of Originality}
+We hereby declare that we have completed this thesis independently and have used only the sources and aids indicated. All passages taken directly or indirectly from other works have been identified as quotations or paraphrases and referenced accordingly. We further confirm that this thesis does not contain unauthorized third-party material, that confidential information has been handled in accordance with the applicable submission requirements, and that applicable copyright and intellectual-property rules have been respected throughout.
+
+\vfill
+
+\noindent Place, date:\hfill Signatures:
+
+\vspace{1.8cm}
+
+\noindent\rule{0.28\textwidth}{0.4pt}\hfill\rule{0.28\textwidth}{0.4pt}\hfill\rule{0.28\textwidth}{0.4pt}
+\clearpage
+
+\pagenumbering{roman}
+
+\section*{Use of Generative AI}
+\phantomsection
+\addcontentsline{toc}{section}{Use of Generative AI}
+Generative AI tools were used during the drafting, editing, and review process of this thesis, including support for structural planning, prose revision, consistency checks, and code- and LaTeX-oriented implementation assistance. These tools were not treated as primary sources or as substitutes for academic judgment. All argument structure, source selection, methodological choices, interpretation, and final verification remain the responsibility of the authors. Every substantive claim included in the thesis was reviewed against the cited literature, protocol documentation, empirical material, or explicit modeling assumptions before inclusion in the final manuscript.
+\clearpage
+
+\section*{Abstract}
+\phantomsection
+\addcontentsline{toc}{section}{Abstract}
+We examine how DePIN tokenomic mechanisms behave under physical and economic stress, and how their robustness can be evaluated before failure becomes operationally visible. The thesis focuses on the contrast between Burn-and-Mint-Equilibrium-oriented and capped-supply designs, while using the Onocoy network as the primary anchor case for a bounded comparative analysis. Our argument begins from a cyber-physical premise: unlike software-only crypto systems, DePINs rely on hardware deployment, maintenance effort, and site-specific operating constraints, so stress propagates not only through token prices but also through provider retention, service continuity, and incentive--usage alignment.
+
+We combine three layers of analysis. First, we develop a comparative tokenomic framework that distinguishes major mechanism classes and the stress channels most relevant to DePIN systems. Second, we examine historical stress windows to identify recurring empirical signatures and to clarify the limits of what can be observed directly for an early-stage network such as Onocoy. Third, we introduce DTSE, the DePIN Tokenomic Stress Evaluator, as a bounded rule-based simulation framework that applies matched stress inputs across fixed mechanism profiles under explicit assumptions.
+
+The results show that DePIN robustness is better understood through stress-transmission paths than through binary stable/unstable labels. In the accepted DTSE experiment set, different stress channels register first in different subsystems: demand contraction weakens usage-linked fields before participation visibly falls, liquidity shock compresses the market-facing layer before provider economics and churn deteriorate, competitive-yield pressure shifts participation before service utilization becomes the first-moving field, and provider-cost inflation compresses margins before visible participation loss follows. Across those cases, top-line participation metrics can lag underlying economic deterioration.
+
+We therefore argue for a narrower but stronger evaluative stance. The thesis does not claim to forecast live-network outcomes. Instead, it contributes a comparative framework, an empirical observability boundary, and a bounded simulation-based evaluator for diagnosing how DePIN tokenomic designs absorb, transmit, and expose stress under explicit assumptions.
+\clearpage
+
+\tableofcontents
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
+
+\phantomsection
+\addcontentsline{toc}{section}{List of Tables}
+\listoftables
+\clearpage
+
+\phantomsection
+\hypersetup{pageanchor=true}
+\pagenumbering{arabic}
+
+% Clean-room V2 chapter order.
+\maybeinput{sections/01_introduction_research_contract}
+\maybeinput{sections/02_foundations_cps}
+\maybeinput{sections/03_comparative_tokenomic_framework}
+\maybeinput{sections/04_onocoy_anchor_case}
+\maybeinput{sections/05_empirical_stress_layer}
+\maybeinput{sections/06_dtse_methodology}
+\maybeinput{sections/07_simulation_results}
+\maybeinput{sections/08_discussion_conclusion}
+
+\clearpage
+\appendix
+\renewcommand{\thetable}{A.\arabic{table}}
+\setcounter{table}{0}
+\maybeinput{sections/99_appendix}
+
+\clearpage
+\printbibliography
+
+\end{document}

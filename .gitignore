@@ -23,6 +23,11 @@ exports/
 # Sandbox experiments
 experiments/
 
+# Thesis rebuild raw intake / normalization scratch
+staging/thesis_rebuild_corpus/incoming/
+staging/thesis_rebuild_corpus/normalized/
+staging/thesis_rebuild_corpus/drafts/
+
 # Editor artifacts
 .DS_Store
 .vscode/
@@ -36,4 +41,3 @@ experiments/
 *.synctex
 *.synctex.gz
 *.synctex(busy)
-

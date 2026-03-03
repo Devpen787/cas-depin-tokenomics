@@ -1,0 +1,228 @@
+\section{DTSE Methodology}
+\label{sec:dtse_methodology}
+
+Historical observation cannot reveal failure thresholds before they occur. Chapter~5 showed that empirical windows remain useful for identifying how stress signatures appear—whether as price compression, cost inflation, or shifts in outside-option pressure. But once the question shifts from what happened in the past to how a different mechanism profile responds under the same adverse condition, the real-world record becomes insufficient for counterfactual comparison.
+
+This chapter addresses that limitation by moving from empirical observation to controlled evaluation. To compare how mechanisms respond under matched pressure, the thesis uses a rule-based comparative framework: the DePIN Tokenomic Stress Evaluator (DTSE). The emphasis remains on transparent, bounded evaluation rather than on exhaustive market replication.
+
+\subsection{DTSE Purpose, Scope, and Interpretation Boundary}
+The purpose of DTSE is diagnostic, not predictive. It asks where stress appears first, how it propagates through incentive and participation fields, and which subsystems remain most sensitive under the stated assumptions. By applying matched inputs across a fixed set of mechanism profiles, it reports baseline-relative deviations rather than absolute performance scores or market forecasts \cite{Morris2019, Braakman2022}.
+
+Several non-goals are equally important. DTSE does not forecast live token prices, predict the future of a given network, or rank live protocols as universally superior or inferior. It does not simulate full market microstructure, governance adaptation inside a run, or rich behavioral psychology. Outputs are therefore interpreted as scenario-conditional patterns inside a bounded experimental design rather than as empirical proof about what a real network will do next \cite{Morris2019, Collins2024}.
+
+This chapter fixes that methodological setup in six steps. It first defines the DTSE architecture and the evidence layers used to interpret it. It then states the frozen scenario grid, the selected metric families, the Stage~1 signal-detection rules, the Stage~2 failure-signature logic, and the reproducibility and limit conditions that bound later claims. Settlement-layer choice remains fixed environmental context for a given profile; DTSE varies stress inputs and modeled response rules, but it does not model chain migration decisions within a run.
+
+\subsection{Architecture, Evidence Layers, and Core Assumptions}
+\label{subsec:dtse_model_overview_assumptions}
+DTSE is implemented as a rule-based agent simulation in which heterogeneous infrastructure providers interact with fixed protocol rules under exogenous stress inputs \cite{Collins2024, McCulloch2022}. The methodology distinguishes between what is anchored in documented mechanism design, what is introduced as an explicit modeling assumption, and what is generated later as a DTSE output.
+
+\begin{table}[!htbp]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \renewcommand{\arraystretch}{1.1}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.31\textwidth}X@{}}
+        \toprule
+        \textbf{Component} & \textbf{What It Contains} & \textbf{Methodological Role} \\
+        \midrule
+        Mechanism facts & Documented rule sets, reward logic, supply path, sink structure, participation conditions & Anchor each profile in public protocol evidence rather than in ad hoc simulation behavior. \\
+        \addlinespace
+        Modeled assumptions & Demand regimes, reduced-form price signal, provider-cost distributions, continuation thresholds, switching sensitivity & Supply the controlled abstractions needed where live-network evidence is incomplete or not directly observable. \\
+        \addlinespace
+        Matched stress inputs & Baseline neutral, demand contraction, liquidity shock, competitive-yield pressure, provider-cost inflation & Expose every profile to the same classes of adverse pressure so later comparison remains interpretable. \\
+        \addlinespace
+        DTSE evaluator & Weekly update loop with fixed profile rules, heterogeneous providers, and repeated runs & Generates the baseline and stress trajectories that later chapters compare. \\
+        \addlinespace
+        Stage~1 readout & Baseline-relative signal detection & Identifies which metric family moves first and when a deviation becomes materially visible. \\
+        \addlinespace
+        Stage~2 readout & Failure-signature classification & Classifies the broader pattern of deterioration across metric families after the first signal appears. \\
+        \bottomrule
+    \end{tabularx}
+    \caption[DTSE architecture overview]{DTSE architecture summarized as a sequence from inputs and assumptions to diagnostic readout.}
+    \label{tab:dtse_architecture_overview}
+\end{table}
+
+Table~\ref{tab:dtse_architecture_overview} makes the separation logic explicit. Mechanism facts come from protocol documentation and anchor what a profile is allowed to do. Modeled assumptions provide the controlled abstractions needed because live DePIN systems are only partially observable. DTSE outputs are then interpreted only within that stated methodological boundary.
+
+\noindent\textbf{Evidence layers and interpretation boundary}
+\begin{itemize}
+    \item \emph{Mechanism facts} are documented protocol rules such as issuance paths, sink structures, reward allocation logic, and participation conditions.
+    \item \emph{Modeled assumptions} are abstractions required for experimental control, including exogenous demand regimes, reduced-form price dynamics, provider-cost distributions, and decision thresholds.
+    \item \emph{DTSE outputs} are descriptive metric patterns produced by the frozen experiment set. They are comparative indicators under stated assumptions, not empirical measurements of live networks.
+\end{itemize}
+
+Within this architecture, \emph{exogenous} inputs are imposed from outside the model so that they remain matched across profiles. \emph{Endogenous} states are generated internally as outcomes of profile rules, stress inputs, and provider decisions. Users are not modeled as individual agents. Service demand is specified as an exogenous input so that differences in outcomes can be attributed to mechanism rules and provider response rather than to different modeled user behavior \cite{Morris2019, Braakman2022}.
+
+Providers are represented as heterogeneous agents with different cost structures, effective capacity contributions, and continuation thresholds. Their behavior is deliberately reduced-form. DTSE allows economically motivated continuation, deterioration, or exit responses, but it does not attempt to reproduce full strategic coordination, social signaling, or off-model governance negotiation \cite{Collins2024, McCulloch2022}. The modeled token-price series plays a similarly bounded role: it is an internal signal used to translate token-denominated rewards into in-model revenue and margin conditions, not an attempt to reproduce market microstructure or forecast real prices \cite{Morris2019, Collins2024}.
+
+The theory-to-model translation follows the thesis stress constructs established in Chapter~2. Reward Addiction is operationalized through burn-to-mint and distribution-pressure parameters. The Subsidy Gap is operationalized through provider-cost assumptions and fiat-demand baselines. Speculative Fragility is operationalized through adverse price conditions and churn sensitivity rules. For capped-supply profiles such as Onocoy, the model retains cross-profile metric names such as ``emissions'' for comparability, but those fields refer to modeled reward distributions from a fixed inventory path rather than to uncapped minting.
+
+Parameterization follows a range-and-regime discipline rather than a point-estimate discipline. Public documentation and the empirical layer help determine which parameters can be anchored directly and which remain modeled assumptions. Practitioner interviews may narrow plausible ranges where documentation is incomplete, but they do not create mechanism facts and they do not substitute for empirical validation. Calibration in this chapter therefore means disciplined bounding of assumptions for comparative experiments, not recovery of true real-world parameter values.
+
+Rather than adapting a more open-ended agent-based modeling environment, we implement DTSE as a purpose-built comparative evaluator. That narrower architecture fits the task of this thesis: holding stress inputs constant across profiles, preserving a clear distinction between documented mechanism rules and modeled assumptions, and reading outputs under the same reporting logic. The aim is not to build a general market simulator, but a disciplined instrument for comparative stress evaluation under explicit bounds.
+
+\paragraph{Weekly update sequence}
+One DTSE time step corresponds to one week, matching the frozen reporting horizon used later in the results chapter. Each week follows the same high-level order:
+\begin{enumerate}
+    \item Exogenous scenario inputs update the background conditions for that week, such as demand path, event-driven liquidity shock status, outside-yield pressure, or provider-cost multipliers.
+    \item Fixed protocol rules translate those conditions into reward distributions, usage-linked sink activity, and accounting-side state updates.
+    \item Provider economics are recalculated from the internal price signal, expected reward value, and modeled operating conditions.
+    \item Continuation decisions are then evaluated. Providers may remain active, continue under worsening economic conditions, or exit the active pool if modeled continuation thresholds are no longer met.
+    \item Aggregate outcomes such as capacity, utilization, demand satisfaction, profitability, retention, and churn are recorded for that week.
+\end{enumerate}
+
+Operationally, deterioration and exit are not the same event. Deterioration means that a provider remains inside the modeled system while its economics or effective contribution weaken. Exit means that the provider no longer satisfies the continuation rule and leaves the active pool, which then becomes visible in churn and active-provider fields. Under competitive-yield pressure, switching sensitivity determines how strongly an outside opportunity changes that continuation decision, so different provider types can respond differently to the same relative-yield shock.
+
+\subsection{Scenario Grid and Experimental Setup}
+\label{sec:stress_scenarios}
+If stress were defined as an outcome—such as price decline, provider exit, or service deterioration—evaluation would become circular. To keep the experiment interpretable, stress in DTSE is defined as an externally imposed adverse condition applied as a model input. The question is not whether a network suffered historically, but how a fixed rule set responds when the same type of pressure is applied under matched conditions.
+
+\label{subsec:dtse_scenario_set}
+The experiment set contains one neutral baseline and four distinct stress channels. Table~\ref{tab:dtse_scenario_contract} summarizes the primary pressure logic without moving the full scalar configuration into the chapter body.
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}X@{}}
+        \toprule
+        \textbf{Scenario} & \textbf{Primary Pressure} & \textbf{Main Modeled Lever} & \textbf{Why It Is Included} \\
+        \midrule
+        Baseline neutral & Neutral reference path & Stress channels disabled under fixed background conditions & Provides the reference trajectory against which all later deviations are measured. \\
+        \addlinespace
+        Demand contraction & Reward--demand decoupling & Exogenous service-usage deterioration with stylized volatility & Tests whether usage-linked value capture weakens before other fields recover or adjust. \\
+        \addlinespace
+        Liquidity shock & Token-liquidity dislocation & Discrete unlock-style sell event under finite market depth & Tests how quickly a modeled market dislocation transmits into provider-economics fields. \\
+        \addlinespace
+        Competitive yield pressure & Outside-option pressure & External-yield scalar applied through switching sensitivity & Tests whether participation reacts to adjacent-network opportunity before service demand is the first-moving field. \\
+        \addlinespace
+        Provider cost inflation & Subsidy-Gap pressure & Exogenous upward shift in provider operating costs & Tests whether margin compression appears before visible contraction in participation or service capacity. \\
+        \bottomrule
+    \end{tabularx}
+    \caption[DTSE scenario setup]{Frozen DTSE scenario setup used for the controlled experiment set. Full scalar values are summarized in the appendix rather than repeated in the chapter body.}
+    \label{tab:dtse_scenario_contract}
+\end{table}
+
+The scenario grid is frozen before results interpretation. Stress channels are therefore not tuned in response to later outputs. Background macro settings and demand regimes remain stylized by design, because the objective is not to reconstruct one historical market path exactly. The objective is to expose different mechanism profiles to the same classes of adverse pressure and read their baseline-relative responses under a shared experimental setup \cite{Morris2019}.
+
+This also clarifies the role of calibration anchors. Historical windows from Chapter~5 motivate which stress channels deserve inclusion, but they do not validate the specific DTSE scenario formulas. Public protocol material anchors mechanism rules where those rules are documented clearly. Interview-derived practitioner context is used only to bound plausible ranges for operating frictions or continuation thresholds when those quantities are not directly specified in public evidence. Full scalar grids, override values, and run identifiers are kept in the appendix rather than repeated in the main narrative.
+
+\subsection{Metric Selection, Metric Families, and Stage 1 Detection Logic}
+\label{sec:evaluation_metrics}
+DTSE uses a deliberately selective metric suite rather than every output the simulator can generate. The main reporting families were chosen because they speak directly to the three robustness dimensions used throughout the thesis: provider retention, service continuity, and incentive--usage alignment. They also remain comparatively legible across different mechanism profiles and can be explained without forcing more precision than the model actually supports.
+
+Not every available output is promoted into the main methodology spine. Some derived indicators are better treated as secondary or appendix-level detail because they depend heavily on case-specific commercial assumptions, unstable denominators, or project-specific business logic. Payback periods are one example. Additional summary fields may still appear in supporting exports, but the thesis centers the harmonized metric families above because they travel more cleanly across profiles and support the actual research question more directly.
+
+Profile-specific rule sets are not forced to be structurally identical. A capped-supply GNSS profile and a BME-oriented wireless profile may use different underlying rule mappings and profile overrides. What remains fixed is the reporting horizon, the scenario grid, the metric vocabulary, and the baseline-relative comparison rule. Outputs are therefore read as deviations from each profile's own neutral baseline under the same stress input, not as magnitude-equivalent live-network rankings.
+
+Chapter~5 introduced an empirical \emph{N/R} policy for historical windows. That control does not carry over into DTSE generation. In the methodology chapter, the selected metric suite is produced under controlled assumptions because the model is generating the required fields directly. The key requirement here is different: the reported metrics must be transparent enough to explain, reproducible enough to audit, and restrained enough to interpret without overclaiming.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \renewcommand{\arraystretch}{1.1}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.23\textwidth}>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}X@{}}
+        \toprule
+        \textbf{Metric Family} & \textbf{Primary Robustness Dimension} & \textbf{What It Captures} & \textbf{Why It Is Kept in the Main Spine} \\
+        \midrule
+        Burn-to-Mint Ratio / Net Emissions & Incentive--usage alignment & Balance between modeled reward outflow and usage-linked value capture & Keeps subsidy pressure visible in a way that remains comparable across mechanism classes. \\
+        \addlinespace
+        Provider Profitability & Provider retention & Whether token-denominated reward value still covers modeled provider economics & Shows margin compression before participation visibly contracts. \\
+        \addlinespace
+        Provider Retention / Churn & Provider retention & Persistence of active supply and intensity of operator exit & Makes participation stress legible without reducing it to price alone. \\
+        \addlinespace
+        Capacity Utilization / Demand Satisfaction & Service continuity & Extent to which deployed capacity continues to serve modeled demand & Shows whether service degradation appears before or after participation stress. \\
+        \addlinespace
+        Volatility Proxy & Incentive translation under market stress & Dispersion in the modeled internal price signal & Keeps market-side transmission visible without claiming to model full market microstructure. \\
+        \addlinespace
+        Incentive Efficiency & Incentive--usage alignment / service continuity & Modeled reward cost per unit of validated capacity & Shows whether maintaining service becomes materially more incentive-intensive under stress. \\
+        \addlinespace
+        Velocity Proxy & Secondary market-side context & Turnover-style activity signal under the reduced-form price layer & Retained only as bounded support because it is less central and more sensitive to abstraction choices. \\
+        \bottomrule
+    \end{tabularx}
+    \caption[DTSE metric selection]{Selected DTSE metric families and the robustness dimensions they are meant to illuminate.}
+    \label{tab:dtse_metric_contract}
+\end{table}
+
+The main computations are introduced descriptively before they are stated symbolically. Here, \(t\) denotes a week and \(\mathcal{T}\) the reporting horizon.
+
+\begin{table}[H]
+    \centering
+    \small
+    \setlength{\tabcolsep}{5pt}
+    \renewcommand{\arraystretch}{1.15}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.23\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}X@{}}
+        \toprule
+        \textbf{Metric / Rule} & \textbf{Metric Description} & \textbf{Compact Definition} \\
+        \midrule
+        Burn-to-Mint Ratio & Tokens burned in week \(t\) divided by tokens distributed in week \(t\); it asks whether usage-linked value capture is keeping pace with reward outflow. & \(Burn\text{-}to\text{-}Mint_t \approx Burns_t / Emissions_t\) \\
+        \addlinespace
+        Net Emissions & Tokens distributed in week \(t\) minus tokens burned in week \(t\); it shows whether the system is adding or absorbing net token pressure in that period. & \(Net\ Emissions_t = Emissions_t - Burns_t\) \\
+        \addlinespace
+        Provider Profitability & Average reward value minus modeled operating cost for active providers in week \(t\); it shows whether continued participation remains economically viable. & weekly provider margin signal \\
+        \addlinespace
+        Retention / Churn & Share of providers still active and the flow of providers exiting relative to baseline; these show how economic stress becomes participation stress. & active-provider share and exit events over time \\
+        \addlinespace
+        Capacity Utilization / Demand Satisfaction & Used capacity relative to available capacity, and served demand relative to modeled demand; these show whether service continuity is weakening. & used capacity / available capacity; served demand / total demand \\
+        \addlinespace
+        First-Signal Timing & First week in which a selected metric departs materially from its baseline path under the fixed threshold for that metric family. & first \(t\) where deviation from baseline exceeds \(\theta_m\) \\
+        \addlinespace
+        Incentive Efficiency & Cumulative reward outlay over \(\mathcal{T}\) divided by cumulative validated capacity over \(\mathcal{T}\); it shows how incentive-intensive service becomes under a scenario. & cumulative reward outlay / cumulative validated capacity \\
+        \bottomrule
+    \end{tabularx}
+    \caption[Descriptive metric definitions]{Descriptive definitions of the main DTSE metric families and the detection rule used in Chapter~7.}
+    \label{tab:dtse_metric_plain_language}
+\end{table}
+
+Stage~1 detection uses these equations to identify the first material departure from baseline for each metric family. The threshold rule is fixed ex ante by metric class and does not change across profiles inside the frozen experiment set. Stage~1 therefore answers a narrow question: \emph{which field moved first, and when did that departure become material under the stated threshold rule?} It does not yet classify the broader pattern of deterioration. That second task belongs to Stage~2.
+
+\subsection{Stage 2 Failure-Signature Logic}
+Stage~2 converts baseline-relative deviations into a diagnostic vocabulary. The point is not to declare a network simply stable or unstable. The point is to classify how stress is propagating across metric families once Stage~1 has identified where material deviation begins. Stage~2 therefore uses patterned deterioration across multiple fields and their time order, rather than a single scalar threshold, to define a failure signature.
+
+\begin{table}[tbp]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.46\textwidth}X@{}}
+        \toprule
+        \textbf{Failure Signature} & \textbf{Operational Rule} & \textbf{What It Diagnoses} \\
+        \midrule
+        Reward--Demand Decoupling & Usage-linked service fields weaken versus baseline while modeled reward distribution remains active and the incentive-solvency proxy deteriorates. & A breakdown in incentive--usage alignment before the mechanism has stopped distributing rewards. \\
+        \addlinespace
+        Profitability-Induced Churn & Provider-profit fields remain negative for a sustained window and are followed by rising churn or active-provider deterioration versus baseline. & Margin compression severe enough to turn economic pressure into participation stress. \\
+        \addlinespace
+        Liquidity-Driven Compression & A discrete price dislocation triggers material price deviation and near-window deterioration in provider-economics or churn fields. & Fast transmission from market-side dislocation into the real incentive environment facing providers. \\
+        \addlinespace
+        Elastic Provider Exit & Under outside-opportunity pressure, churn and active-provider deterioration trigger before utilization becomes the first-moving field. & Supply-side mobility under adjacent-network opportunity rather than immediate demand collapse. \\
+        \addlinespace
+        Latent Capacity Degradation & Participation erodes first while utilization or demand-satisfaction fields deteriorate later as redundancy is consumed. & Hidden resilience loss beneath still-functional top-line service conditions. \\
+        \bottomrule
+    \end{tabularx}
+    \caption[Stage 2 failure-signature logic]{Stage~2 failure-signature vocabulary used to classify patterned DTSE deterioration. Exact scalar cutoffs are listed in the appendix rather than in the chapter body.}
+    \label{tab:dtse_failure_signature_logic}
+\end{table}
+
+These signatures are formal methodological categories, not results in themselves. The results chapter later instantiates them under the frozen scenario grid. Here the chapter fixes only the rules of use: Stage~1 identifies earliest-trigger fields and timing; Stage~2 classifies the larger deterioration pattern that follows. The two stages are related but not interchangeable. A field may trigger early in Stage~1 without by itself determining the full Stage~2 signature, and some trajectories may satisfy more than one diagnostic condition before a dominant pattern is assigned.
+
+The benefit of Stage~2 is interpretive discipline. Instead of forcing every trajectory into a single robustness score, DTSE can describe whether a scenario primarily expresses reward--demand misalignment, margin-driven churn, liquidity-driven compression, elastic exit under outside opportunity, or delayed service loss after participation has already eroded. That vocabulary is what later allows the thesis to compare mechanism response paths without overstating numerical precision or pretending that one scalar captures the whole stress process.
+
+\subsection{Reproducibility, Calibration Boundary, and Method Limits}
+\label{subsec:dtse_reproducibility}
+Reproducibility is treated as a core requirement rather than an afterthought. Each scenario--profile condition is defined by explicit parameterization, a fixed scenario identity, and a deterministic seed schedule. Because DTSE includes stochastic elements—such as demand variation, provider heterogeneity sampling, decision noise, and price-related stochasticity—a single illustrative trajectory would be misleading.
+
+To address this, the methodology relies on repetition. Sixty runs are executed for each scenario--profile condition so that the thesis can report medians and dispersion bands while keeping the experimental setup fixed. The seed policy for these runs is documented in the appendix materials so that the resulting distributions can be independently reproduced.
+
+Verification in this chapter means internal validity under stated assumptions, not empirical validation against live-network history. Baseline runs are checked for boundedness and invariants, isolated perturbations are used to confirm directional response, and sensitivity passes are used on key parameter families such as provider-cost ranges, churn thresholds, and distribution controls \cite{Collins2024, Braakman2022}. Those checks are designed to show that the evaluator behaves coherently under its own rules. They do not prove that the model reproduces a real network.
+
+That calibration boundary is essential. Chapter~5 showed which historical windows motivate the chosen stress channels, and Chapter~4 established which Onocoy mechanism facts are documented well enough to anchor profile rules. Neither step turns DTSE into an empirically validated replica of a live protocol. Public documentation anchors rule mappings. Historical observation motivates which pressures deserve testing. Interview material narrows some plausible assumption bounds. The simulator remains a comparative evaluator built on explicit abstractions.
+
+The main limits follow directly from those abstractions:
+\begin{enumerate}
+    \item \textbf{Demand abstraction:} demand regimes are exogenous stylizations rather than endogenous adoption models.
+    \item \textbf{Price-process abstraction:} the internal price signal transmits stress into provider economics but does not reproduce detailed market microstructure or strategic trading.
+    \item \textbf{Behavioral simplification:} provider decisions are reduced-form and do not model rich coordination or adaptive governance behavior inside runs.
+    \item \textbf{Governance and verification scope:} governance intervention, adversarial behavior, and detailed cyber-physical verification layers remain out of scope unless explicitly modeled.
+\end{enumerate}
+
+Accordingly, DTSE outputs support comparative statements about sensitivity, signal timing, and failure-signature patterning within the frozen experiment set. They do not support causal proof, prevalence claims about live networks, or universal mechanism rankings. The next chapter therefore reports outputs under this fixed methodological setup: baseline-relative, scenario-conditional, and bounded by the assumptions made explicit here.

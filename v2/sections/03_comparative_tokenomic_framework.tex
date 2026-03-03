@@ -1,0 +1,132 @@
+\section{Comparative Tokenomic Framework}
+\label{sec:comparative_tokenomic_framework}
+
+In this chapter, we define the comparative vocabulary used to distinguish DePIN tokenomic designs before the thesis narrows to the Onocoy case and, later, to DTSE. Our goal is not to rank projects by short-horizon token performance. Instead, we identify the design features that determine how infrastructure demand, incentive issuance, work verification, monetization, and value capture interact once a hardware-dependent network comes under stress. In DePIN, these elements do not operate only in digital markets; they also shape whether physical infrastructure is deployed, maintained, and kept usable under changing conditions. We therefore combine a dated market snapshot, used only to situate the comparator set, with a mechanism-level comparison of emission logic, reward architecture, monetization, and value accrual \cite{Ballandies2023, Lin2024, Morris2019, Braakman2022}.
+
+\subsection{Comparator Frame and Time-Stamped Market Snapshot}
+We use a bounded sample of large Solana-native or Solana-bridged DePIN protocols that provide verifiable infrastructure services, such as wireless coverage, GNSS correction, mapping, compute, or data infrastructure. The purpose of the sample is not exhaustive market representation. It is to create a comparable set of mechanism profiles that sit close enough to one another to make structural tokenomic differences visible, while still spanning several infrastructure verticals \cite{Messari2024, CoinMarketCapDePIN, Coincub2025}.
+
+Solana is used here as a pragmatic sampling frame rather than as a claim of universal architectural superiority. For the period in which many of these projects matured, it provided a combination of low transaction costs, throughput suited to high-frequency infrastructure interactions, and a sufficiently dense DePIN ecosystem to make cross-project comparison analytically coherent \cite{Ballandies2023ChainSelection, Coincub2025, HeliumHIP70}. That framing matters because the chapter is comparing tokenomic structures inside a shared execution environment, not arguing that later DePINs could not make different chain-level choices.
+
+The market layer is included here as dated scene-setting context rather than as durable evidence of robustness. A market snapshot can help explain why these projects matter in the DePIN landscape and why certain designs were visible comparators at the time of writing, but it cannot by itself establish which tokenomic structures are more resilient. For that reason, the figures in Table~\ref{tab:v2_comparator_snapshot} are explicitly tied to a single observation window and are used descriptively rather than inferentially.
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.20\linewidth} >{\raggedright\arraybackslash}p{0.21\linewidth} >{\raggedright\arraybackslash}p{0.18\linewidth} X@{}}
+        \toprule
+        \textbf{Project} & \textbf{Infrastructure focus} & \textbf{Snapshot market cap} & \textbf{Reason for inclusion} \\
+        \midrule
+        Helium & Wireless connectivity & \$282.99M & Canonical DePIN reference point for burn-credit demand coupling and infrastructure bootstrapping. \\
+        Grass & Bandwidth / data collection & \$202.91M & Useful contrast case for weakly specified value accrual and strong participation narrative. \\
+        GEODNET & GNSS correction & \$57.35M & Close vertical comparator for location-based sensing and correction services. \\
+        io.net & Distributed compute & \$39.03M & Important example of revenue-linked tokenomics in compute-oriented infrastructure. \\
+        Hivemapper & Mapping & \$21.64M & Strong reference case for burn-and-mint credit logic tied to service consumption. \\
+        XNET & Wireless offload & \$15.10M & Illustrates revenue-funded buyback logic in connectivity infrastructure. \\
+        Nosana & Compute marketplace & \$8.43M & Useful example of pay-in-token utility with weaker explicit sink logic. \\
+        Aleph.im & Compute / storage / cloud & \$5.41M & Helps capture utility-token infrastructure with partially opaque accrual mechanics. \\
+        Onocoy & GNSS correction & \$1.53M & Included as the primary empirical anchor because mechanism access and case-specific evidence are available. \\
+        \bottomrule
+    \end{tabularx}
+    \caption[Comparator snapshot (18 February 2026)]{Comparator snapshot on 18 February 2026. Market-cap figures are included as dated scene-setting context, not as evidence of tokenomic robustness.}
+    \label{tab:v2_comparator_snapshot}
+\end{table}
+
+Two points matter immediately. First, the sample is heterogeneous by infrastructure category: wireless, mapping, GNSS, compute, bandwidth, and hybrid cloud layers do not face identical adjustment dynamics. Second, superficially similar scarcity narratives can still conceal very different tokenomic regimes. A capped supply, a burn mechanism, or a tokenized payment rail says little on its own unless the chapter also asks how tokens enter circulation, how work is verified, how usage is monetized, and whether demand creates a measurable path back into token value.
+
+\subsection{Emission Logic and Supply Regimes}
+Emission design is the first comparative fault line. In this chapter, emission logic refers to the rule set that governs how tokens enter circulation over time, how distribution adjusts or fails to adjust under changing conditions, and whether issuance remains linked to service demand, activity, or a fixed release path. Across the sampled projects, nominally capped supply is common, but the path by which supply reaches circulation differs sharply. That difference matters because long-run scarcity and short-run dilution are not the same thing. A token can have a hard upper bound and still place considerable pressure on provider economics if distribution remains aggressive, weakly demand-coupled, or slow to adjust once market conditions deteriorate.
+
+Table~\ref{tab:v2_emission_regimes} groups the comparator set into regime families rather than treating each project as a fully unique case. The point is not to erase project-specific details. It is to make visible which supply logics are likely to behave differently once stress begins to propagate through demand, price, and provider retention.
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.20\linewidth} >{\raggedright\arraybackslash}p{0.23\linewidth} X >{\raggedright\arraybackslash}p{0.20\linewidth}@{}}
+        \toprule
+        \textbf{Regime family} & \textbf{Representative projects} & \textbf{Mechanism logic} & \textbf{Stress relevance} \\
+        \midrule
+        Step-down issuance & Helium, GEODNET, Onocoy & Distribution falls according to a scheduled reduction path, usually independent of short-run demand conditions. & Mitigates long-run dilution pressure, but can still leave acute mismatch windows between reward decline and realized usage. \\
+        \midrule
+        Fixed-rate or long-run scheduled issuance & XNET, io.net, Grass & Issuance follows a predefined release path or fixed distribution logic rather than a hard halving cycle. & Predictable distribution can simplify planning, but may sustain subsidy pressure under weak demand if the path is slow to adjust. \\
+        \midrule
+        Activity-mediated net issuance & Hivemapper & Net supply pressure depends partly on service consumption, burn intensity, or remint constraints. & Can strengthen demand coupling, but also introduces sensitivity to measurement, governance parameters, and procyclical feedback. \\
+        \midrule
+        Effectively fixed circulating supply & Nosana, Aleph.im & Ongoing protocol issuance is limited or no longer central relative to the already circulating stock. & Reduces dilution pressure, but shifts the robustness question toward utility strength, sell pressure, and accrual clarity. \\
+        \bottomrule
+    \end{tabularx}
+    \caption[Emission-regime families]{Emission-regime families used for comparative analysis.}
+    \label{tab:v2_emission_regimes}
+\end{table}
+
+The comparative implication is straightforward but important: a capped token is not automatically a low-pressure token. What matters under stress is whether issuance remains rigid when demand weakens, whether supply reduction is delayed or state-sensitive, and whether the design leaves room for prolonged subsidy dependence even while preserving a scarcity narrative. For this thesis, we therefore treat emission logic less as a branding distinction and more as a first indicator of how quickly token-side pressure can build when real usage no longer keeps pace \cite{RenderBME, GeodnetIP7, IoNet2025, CoinMarketCapHM, OnocoyToken}.
+
+\subsection{Reward Logic, Work Verification, and Quality Adjustment}
+Emission rules alone do not explain how a DePIN tokenomics design behaves. The second fault line concerns what is actually being rewarded and how the protocol determines whether a contribution is valid. A network that rewards raw participation, one that rewards validated coverage, and one that rewards outcome-quality data are all distributing tokens, but they are not funding the same thing. The reward architecture therefore has to be read together with the verification primitive.
+
+This matters because DePINs do not just need supply; they need usable supply. Wireless networks must verify that coverage is real. Compute networks must verify that jobs were completed correctly. Sensing and mapping networks must verify that data is not merely submitted, but reliable enough to matter operationally.
+
+Across the sample, this produces a small but important family of reward logics: proof-of-coverage style verification for connectivity networks, outcome-quality or threshold-gated rewards for sensing and GNSS systems, and job-completion or validator-backed checks for compute services. In practice, the difference is not only technical. It determines whether the protocol is paying for nominal participation, for service availability, or for output that clears a quality threshold. Where those verification layers are stronger, rewards are more defensibly tied to infrastructure value creation rather than to nominal participation alone \cite{Ballandies2023, Chiu2024, Tan2020}.
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.18\linewidth} >{\raggedright\arraybackslash}p{0.24\linewidth} X >{\raggedright\arraybackslash}p{0.20\linewidth}@{}}
+        \toprule
+        \textbf{Project family} & \textbf{Primary verification logic} & \textbf{What the reward architecture is trying to align} & \textbf{Stress relevance} \\
+        \midrule
+        Wireless coverage & Helium, XNET & Coverage attestations, authenticated offload, or measurable traffic events stand in for usable network service. & Weak demand can expose whether coverage rewards remain tied to actual traffic or persist mainly as subsidy. \\
+        \midrule
+        Sensing / mapping / GNSS & GEODNET, Hivemapper, Onocoy & Availability, data quality, and location relevance are used to distinguish usable output from low-value supply. & Quality-adjusted rewards can defend scarce high-value nodes, but they also reveal where maintenance erosion becomes operationally costly. \\
+        \midrule
+        Compute / cloud & io.net, Nosana, Aleph.im & Job completion, validator checks, node scoring, or stake-backed reliability mechanisms proxy usable compute service. & Under stress, reward credibility depends on whether verification remains tied to reliable service rather than residual token incentives. \\
+        \bottomrule
+    \end{tabularx}
+    \caption[Reward and verification families]{Reward and verification families across the comparator set.}
+    \label{tab:v2_reward_verification}
+\end{table}
+
+The main comparative point is that verification and quality adjustment are not secondary implementation details. They are part of the tokenomic design. A project with stronger verification can target rewards more selectively, reduce leakage to low-value supply, and make provider incentives more legible under stress. Conversely, where quality weighting is weak, underdocumented, or difficult to audit, the network is more exposed to the classic subsidy problem: rewards may continue to flow even when the protocol has only limited assurance that it is purchasing resilient infrastructure.
+
+\subsection{Monetization, Sinks, and Value Accrual}
+The third fault line concerns how real usage enters the system and whether that usage creates a credible path back to token value. This is where superficially similar narratives often diverge most sharply. A burn mechanism, a buyback rule, a token payment rail, and a fiat-priced credit system can all be described as ``value accrual,'' but they do not produce the same type of linkage between demand and token-side support.
+
+For comparative purposes, the sampled projects can be grouped into three main accrual classes.
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.20\linewidth} >{\raggedright\arraybackslash}p{0.20\linewidth} X@{}}
+        \toprule
+        \textbf{Accrual class} & \textbf{Representative projects} & \textbf{Comparative meaning} \\
+        \midrule
+        Mechanistic usage-burn loops & Helium, Hivemapper, Onocoy & Service usage is converted into credits or equivalent units through a token-linked burn step, creating the clearest direct pathway from demand to token removal. \\
+        \midrule
+        Revenue-mediated buyback regimes & GEODNET, XNET, io.net & Demand produces revenue that may later support buybacks or burns, but the link between usage and token support depends on revenue attribution, rule enforcement, and governance credibility. \\
+        \midrule
+        Utility/payment models without systematic burn & Nosana, Grass, Aleph.im & Demand may still require the token or support token utility, but the pathway back to token value is weaker, more indirect, or less publicly specified. \\
+        \bottomrule
+    \end{tabularx}
+    \caption[Value-accrual classes]{Value-accrual classes across the comparator set.}
+    \label{tab:v2_value_accrual}
+\end{table}
+
+This distinction is central for the rest of the thesis. Mechanistic usage-burn loops are easiest to interpret because the demand path is visible and comparatively close to protocol logic. Revenue-mediated regimes can be powerful, but they are institutionally more fragile because the token’s support depends on accounting transparency, revenue routing, and credible commitment to buyback execution. Utility/payment models without systematic burn may still matter economically, yet they make it harder to infer whether rising usage should translate into persistent token support or only into short-lived transactional demand \cite{RenderBME, GeodnetIP7, IoNet2025, OnocoyWhitepaper301, OnocoyToken}.
+
+\subsection{Demand Regimes and Utility--Speculation Profiles}
+Comparative tokenomics cannot stop at supply and sinks. The same mechanism can behave very differently depending on who the demand-side user is and how directly token demand is tied to service consumption. For that reason, two additional bounded lenses are useful here: demand regime and utility--speculation profile. Both are best treated as comparative heuristics rather than as hard empirical rankings.
+
+The first lens distinguishes whether a project primarily targets enterprise buyers, consumer participation, or developer and API-facing infrastructure use. This matters because enterprise and developer demand often arrives through integration workflows, contracts, or pricing expectations that are very different from consumer or narrative-driven demand \cite{Lin2024, Ho2022}. The second lens asks whether token demand appears to be driven mainly by service utility, by speculative holding and trading, or by a mixed combination of the two.
+
+These lenses should remain bounded. They do not measure realized adoption, and they do not directly prove robustness. What they do provide is a way to read later case material more carefully. A GNSS network oriented toward professional demand and fiat-stable usage credits is exposed differently from a network whose token utility is weaker, more optional, or more entangled with narrative demand. Likewise, a project with strong on-chain usage signals and explicit sink mechanics can be interpreted differently from one whose accrual story remains opaque or underdocumented.
+
+For Chapter 3, the value of these lenses is therefore comparative and diagnostic. They help us explain why projects that all fall under the DePIN label may nonetheless differ materially in monetization structure, sensitivity to speculative pressure, and the plausibility of demand-linked value support. In that sense, they do not replace the harder tokenomic comparison above. They sharpen it.
+
+\subsection{Framework Synthesis}
+Taken together, the comparative picture is more structured than the category label ``DePIN'' suggests. Projects differ not only in infrastructure vertical, but also in how tokens reach circulation, what counts as rewardable work, how usage enters the protocol, and whether value accrual is mechanistic, revenue-mediated, or only weakly specified. Those differences matter because they determine where stress is likely to register first: in dilution pressure, in verification leakage, in usage-to-token linkage, or in the gap between speculative demand and operational demand.
+
+This chapter therefore establishes four comparative questions that remain active for the rest of the thesis. First, how rigid is the supply path once adverse conditions appear? Second, how selectively does the protocol target rewards toward usable work? Third, how strong is the path from real service demand to token-side support? Fourth, how much of the token's observed demand appears to be utility-linked rather than narrative-driven? These questions do not yet answer which design is more robust. They do, however, give us the mechanism vocabulary needed to interpret the Onocoy case in the next chapter and to understand why later DTSE comparisons are meaningfully more than token-price simulations.
