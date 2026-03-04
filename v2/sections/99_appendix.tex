@@ -137,3 +137,43 @@ Table~\ref{tab:app_dtse_manifest_excerpt} records the key features of the frozen
 
 \paragraph{Empirical applicability note}
 The empirical metric-applicability boundary remains in Section~\ref{sec:empirical_stress_layer}, where the thesis defines the \emph{N/R} rule, applies the comparator-level matrix, and states the Onocoy-specific observability limits directly in the main body rather than repeating them in appendix form.
+
+\subsection{Semi-Structured Interview Context Summary}
+\label{app:onocoy_interview_context}
+
+The thesis also draws on a semi-structured interview with a representative of the Onocoy project. The purpose of the interview was not to establish mechanism facts in place of public documentation, but to clarify underspecified operational issues and identify stress-relevant sensitivities where public materials remain thinner than the token and payment architecture itself. Accordingly, the interview is treated here as bounded practitioner context. It informs interpretation and evidence-gap identification, but it does not override protocol documentation, public tokenomics materials, or directly auditable public data.
+
+\paragraph{Emission structure}
+\emph{Question focus:} Is issuance time-based, demand-based, governance-adjustable, or hybrid? Is there a formal taper plan? \\
+\emph{Interview clarification:} Issuance was described as time-based rather than demand-adjusted in the short run. Public tokenomics documentation also specifies a 16\% annual reduction in newly distributed ONO. \\
+\emph{Use in this thesis:} This supports the reading that demand shocks primarily weaken buyback strength rather than automatically reducing issuance pressure; in the thesis, this remains bounded practitioner context consistent with public tokenomics documentation.
+
+\paragraph{Demand measurement}
+\emph{Question focus:} How is demand measured internally? \\
+\emph{Interview clarification:} Data Credits were described as the main internal demand proxy, with service usage observed through credit purchase and burn activity. Public documentation also makes clear that Data Credits are the non-transferable service unit priced against fiat-denominated value. \\
+\emph{Use in this thesis:} This reinforces the thesis treatment of Data Credits as the clearest available demand-linked field in the Onocoy design; it is used as bounded practitioner context broadly aligned with public documentation.
+
+\paragraph{Buyback logic}
+\emph{Question focus:} What is the current burn-to-emission relationship? How does demand affect net supply in the short run? \\
+\emph{Interview clarification:} Buybacks were described as revenue-mediated rather than as a strict mechanical burn-and-mint equilibrium. Public tokenomics documentation likewise ties Data Credit usage to burn and conditional ONO buyback routing rather than to a native BME rule. \\
+\emph{Use in this thesis:} This supports the thesis distinction between ONO and native BME systems and clarifies why demand depth matters for token-side support; it is treated as bounded practitioner context consistent with public tokenomics routing language.
+
+\paragraph{Provider economics}
+\emph{Question focus:} What kinds of provider-cost differences and economic horizons matter in practice? \\
+\emph{Interview clarification:} Provider economics were described as heterogeneous rather than uniform, with hardware choice, reward levels, and token price all affecting economic viability. Public retail listings likewise suggest that Onocoy-compatible hardware can span a few-hundred-dollar entry level, while more complete setups are materially higher in cost. \\
+\emph{Use in this thesis:} This is used only to justify why provider-cost sensitivity should remain explicit in interpretation and DTSE assumption design; it combines bounded interview clarification with dated public market-price context rather than a fixed mechanism fact.
+
+\paragraph{Retention sensitivity}
+\emph{Question focus:} Which mechanism most strongly influences provider retention today? \\
+\emph{Interview clarification:} Retention was described as more sensitive to profitability, macro conditions, and local saturation than to governance participation. \\
+\emph{Use in this thesis:} This supports the thesis view that participation elasticity may emerge through provider economics before broader service deterioration becomes obvious; it remains bounded practitioner context, not a documented mechanism rule.
+
+\paragraph{Governance response}
+\emph{Question focus:} What happens operationally if token price drops sharply, and who can change emissions or related rules? \\
+\emph{Interview clarification:} Stress adaptation was described as discretionary rather than automatic, with rule changes depending on explicit governance action rather than built-in feedback loops. \\
+\emph{Use in this thesis:} This supports the thesis distinction between algorithmic stabilization and governance-mediated intervention; it is treated as bounded practitioner context consistent with the current public evidence boundary.
+
+\paragraph{Utility versus speculation}
+\emph{Question focus:} Do participants appear mainly utility-driven, speculative, or mixed in their token behavior? \\
+\emph{Interview clarification:} Participant behavior was described as mixed: some operators appear long-horizon, while others sell rewards to offset operating costs. \\
+\emph{Use in this thesis:} This supports the thesis reading that price volatility can amplify margin stress without reducing the network to a purely speculative system; it remains bounded practitioner context only.
